@@ -27,7 +27,6 @@ export { ConfigurationTestService, type SystemConfiguration } from './configurat
 export { WebSearchService } from './web-search.service';
 export { PodcastGenerationService } from './podcast-generation.service';
 export { VideoGenerationService } from './video-generation.service';
-
 // ============================================================================
 // SERVICE REGISTRY
 // ============================================================================

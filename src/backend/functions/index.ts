@@ -26,7 +26,6 @@ export { testConfiguration } from './testConfiguration';
 export { monitorStuckJobs, triggerJobMonitoring, getJobDetails, getJobStats } from './monitorJobs';
 export { cleanupTempFiles } from './cleanupTempFiles';
 export { testCors, testCorsCall } from './corsTestFunction';
-
 // ============================================================================
 // FUNCTION METADATA
 // ============================================================================
