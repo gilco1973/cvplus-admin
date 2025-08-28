@@ -46,7 +46,7 @@ export default [
   },
   // React components build
   {
-    input: 'src/react.ts',
+    input: 'src/react-exports.ts',
     output: [
       {
         file: 'dist/react.js',
@@ -84,7 +84,7 @@ export default [
   },
   // React type definitions
   {
-    input: 'src/react.ts',
+    input: 'src/react-exports.ts',
     output: {
       file: 'dist/react.d.ts',
       format: 'esm'

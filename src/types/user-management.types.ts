@@ -5,7 +5,16 @@
  */
 
 import type { User } from '@cvplus/auth';
-import type { Subscription } from '@cvplus/premium';
+
+// Temporary local type definition to avoid circular dependency
+interface Subscription {
+  id: string;
+  userId: string;
+  status: 'active' | 'inactive' | 'cancelled' | 'past_due';
+  plan: string;
+  currentPeriodStart: number;
+  currentPeriodEnd: number;
+}
 
 // ============================================================================
 // User Management Overview

@@ -20,6 +20,30 @@ export interface SecurityAuditOverview {
   lastAssessment: Date;
 }
 
+export interface IncidentOverview {
+  total: number;
+  open: number;
+  resolved: number;
+  critical: number;
+  high: number;
+  medium: number;
+  low: number;
+  recent: SecurityIncident[];
+}
+
+export interface SecurityIncident {
+  id: string;
+  title: string;
+  description: string;
+  severity: 'critical' | 'high' | 'medium' | 'low';
+  status: 'open' | 'investigating' | 'resolved' | 'closed';
+  createdAt: Date;
+  updatedAt: Date;
+  resolvedAt?: Date;
+  assignedTo?: string;
+  tags: string[];
+}
+
 export interface SecurityScore {
   overall: number; // 0-100
   breakdown: SecurityScoreBreakdown;

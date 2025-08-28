@@ -4,10 +4,12 @@
  * Core constants and configuration values for the admin module.
  */
 
-import type { 
+import { 
   AdminRole, 
   AdminLevel, 
-  AdminSpecialization,
+  AdminSpecialization
+} from '../types/admin.types';
+import type {
   AdminConfig,
   AdminFeature 
 } from '../types/admin.types';
