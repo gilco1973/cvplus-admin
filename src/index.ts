@@ -20,6 +20,16 @@ export * from './types';
 export { AdminDashboardService } from './services/admin-dashboard.service';
 
 // ============================================================================
+// BACKEND EXPORTS
+// ============================================================================
+export * from './backend';
+
+// ============================================================================
+// FRONTEND EXPORTS
+// ============================================================================
+export * from './frontend';
+
+// ============================================================================
 // CONSTANTS EXPORTS
 // ============================================================================
 export * from './constants';
@@ -42,7 +52,6 @@ export const MODULE_DEPENDENCIES = {
   required: [
     '@cvplus/core',
     '@cvplus/auth',
-    '@cvplus/premium',
     '@cvplus/analytics',
     '@cvplus/public-profiles'
   ],

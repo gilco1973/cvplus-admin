@@ -12,7 +12,7 @@ export interface SystemHealthStatus {
   overall: SystemHealthScore;
   services: ServiceHealthStatus[];
   resources: ResourceUtilization;
-  database: DatabaseHealth;
+  database: any; // TODO: Define DatabaseHealth interface
   dependencies: ExternalDependencyHealth[];
   lastChecked: Date;
   trends: HealthTrends;
@@ -94,7 +94,7 @@ export interface ServiceHealthStatus {
   endpoints: EndpointHealth[];
   dependencies: ServiceDependency[];
   metrics: ServiceMetrics;
-  alerts: ServiceAlert[];
+  alerts: any[];
 }
 
 export interface EndpointHealth {

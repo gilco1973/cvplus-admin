@@ -10,7 +10,7 @@ import type { AdminUser, AdminPermissions, AdminAlert } from './admin.types';
 // Dashboard Configuration
 // ============================================================================
 
-export interface AdminDashboard {
+export interface AdminDashboardState {
   id: string;
   adminUser: string;
   permissions: AdminPermissions;
@@ -42,7 +42,7 @@ export interface WidgetConfiguration {
   id: string;
   type: WidgetType;
   position: WidgetPosition;
-  size: WidgetSize;
+  size: WidgetDimensions;
   config: WidgetConfig;
   permissions: string[];
   refreshInterval?: number;
@@ -55,7 +55,7 @@ export interface WidgetPosition {
   h: number;
 }
 
-export interface WidgetSize {
+export interface WidgetDimensions {
   minWidth: number;
   minHeight: number;
   maxWidth?: number;

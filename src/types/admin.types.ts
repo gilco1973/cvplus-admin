@@ -48,26 +48,36 @@ export interface AdminSession {
 // ============================================================================
 
 export interface AdminPermissions {
-  canAccessDashboard: boolean;
+  // Core permissions used by AdminAccessService
   canManageUsers: boolean;
-  canModerateContent: boolean;
   canMonitorSystem: boolean;
   canViewAnalytics: boolean;
-  canAuditSecurity: boolean;
-  canManageSupport: boolean;
-  canManageBilling: boolean;
-  canConfigureSystem: boolean;
   canManageAdmins: boolean;
-  canExportData: boolean;
-  canManageFeatureFlags: boolean;
+  canModerateContent: boolean;
+  canAuditSecurity: boolean;
+  canManageBilling: boolean;
+  canAccessSupport: boolean;
+  canViewReports: boolean;
+  canManageContent: boolean;
   
-  // Granular permissions
-  userManagement: UserManagementPermissions;
-  contentModeration: ContentModerationPermissions;
-  systemAdministration: SystemAdministrationPermissions;
-  billing: BillingPermissions;
-  analytics: AnalyticsPermissions;
-  security: SecurityPermissions;
+  // Admin metadata
+  adminLevel: AdminLevel;
+  roles: AdminRole[];
+  
+  // Extended permissions (optional - for detailed admin interfaces)
+  canAccessDashboard?: boolean;
+  canManageSupport?: boolean;
+  canConfigureSystem?: boolean;
+  canExportData?: boolean;
+  canManageFeatureFlags?: boolean;
+  
+  // Granular permissions (optional - for detailed permission management)
+  userManagement?: UserManagementPermissions;
+  contentModeration?: ContentModerationPermissions;
+  systemAdministration?: SystemAdministrationPermissions;
+  billing?: BillingPermissions;
+  analytics?: AnalyticsPermissions;
+  security?: SecurityPermissions;
 }
 
 export interface UserManagementPermissions {

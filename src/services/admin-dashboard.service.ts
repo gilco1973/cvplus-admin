@@ -6,13 +6,14 @@
  */
 
 import type {
-  AdminDashboard,
+  AdminDashboardState,
   AdminDashboardConfig,
   AdminDashboardData,
   QuickAction,
   RealtimeConfig,
   SystemOverviewData
 } from '../types/dashboard.types';
+import { AdminQuickActionType, QuickActionCategory, RealtimeConnectionStatus } from '../types/dashboard.types';
 import type { AdminPermissions, AdminAlert } from '../types/admin.types';
 import { ADMIN_API_ENDPOINTS, REQUEST_TIMEOUTS } from '../constants/admin.constants';
 
@@ -26,7 +27,7 @@ export class AdminDashboardService {
   async initializeDashboard(
     adminUserId: string,
     dashboardConfig: AdminDashboardConfig
-  ): Promise<AdminDashboard> {
+  ): Promise<AdminDashboardState> {
     try {
       // Verify admin permissions
       const permissions = await this.getAdminPermissions(adminUserId);
@@ -55,7 +56,7 @@ export class AdminDashboardService {
         dashboardData
       );
 
-      const dashboard: AdminDashboard = {
+      const dashboard: AdminDashboardState = {
         id: this.generateDashboardId(adminUserId),
         adminUser: adminUserId,
         permissions,
@@ -83,7 +84,7 @@ export class AdminDashboardService {
   async refreshDashboard(
     dashboardId: string,
     adminUserId: string
-  ): Promise<AdminDashboard> {
+  ): Promise<AdminDashboardState> {
     try {
       const existingDashboard = await this.getDashboard(dashboardId);
       if (!existingDashboard) {
@@ -105,7 +106,7 @@ export class AdminDashboardService {
         updatedData
       );
 
-      const refreshedDashboard: AdminDashboard = {
+      const refreshedDashboard: AdminDashboardState = {
         ...existingDashboard,
         data: updatedData,
         alerts: updatedAlerts,
@@ -271,18 +272,18 @@ export class AdminDashboardService {
           id: 'create_user',
           label: 'Create User',
           icon: 'user-plus',
-          action: 'CREATE_USER',
+          action: AdminQuickActionType.CREATE_USER,
           permissions: ['users:create'],
-          category: 'USER_MANAGEMENT',
+          category: QuickActionCategory.USER_MANAGEMENT,
           priority: 1
         },
         {
           id: 'bulk_user_operation',
           label: 'Bulk Operation',
           icon: 'users-cog',
-          action: 'BULK_USER_OPERATION',
+          action: AdminQuickActionType.SUSPEND_USER,
           permissions: ['users:bulk_edit'],
-          category: 'USER_MANAGEMENT',
+          category: QuickActionCategory.USER_MANAGEMENT,
           priority: 2
         }
       );
@@ -295,9 +296,9 @@ export class AdminDashboardService {
           id: 'review_content',
           label: 'Review Queue',
           icon: 'clipboard-list',
-          action: 'REVIEW_CONTENT',
+          action: AdminQuickActionType.APPROVE_CONTENT,
           permissions: ['content:moderate'],
-          category: 'CONTENT_MODERATION',
+          category: QuickActionCategory.CONTENT_MODERATION,
           priority: 1
         }
       );
@@ -310,18 +311,18 @@ export class AdminDashboardService {
           id: 'system_health',
           label: 'System Health',
           icon: 'heart-pulse',
-          action: 'VIEW_SYSTEM_HEALTH',
+          action: AdminQuickActionType.RESTART_SERVICE,
           permissions: ['system:monitor'],
-          category: 'SYSTEM_ADMINISTRATION',
+          category: QuickActionCategory.SYSTEM_ADMINISTRATION,
           priority: 1
         },
         {
           id: 'clear_cache',
           label: 'Clear Cache',
           icon: 'trash',
-          action: 'CLEAR_CACHE',
+          action: AdminQuickActionType.CLEAR_CACHE,
           permissions: ['system:manage'],
-          category: 'SYSTEM_ADMINISTRATION',
+          category: QuickActionCategory.SYSTEM_ADMINISTRATION,
           priority: 3
         }
       );
@@ -334,9 +335,9 @@ export class AdminDashboardService {
           id: 'generate_report',
           label: 'Generate Report',
           icon: 'chart-bar',
-          action: 'GENERATE_REPORT',
+          action: AdminQuickActionType.GENERATE_REPORT,
           permissions: ['analytics:export'],
-          category: 'ANALYTICS',
+          category: QuickActionCategory.ANALYTICS,
           priority: 2
         }
       );
@@ -349,9 +350,9 @@ export class AdminDashboardService {
           id: 'security_audit',
           label: 'Security Audit',
           icon: 'shield-check',
-          action: 'RUN_SECURITY_AUDIT',
+          action: AdminQuickActionType.EXPORT_DATA,
           permissions: ['security:audit'],
-          category: 'SECURITY',
+          category: QuickActionCategory.SECURITY,
           priority: 1
         }
       );
@@ -373,7 +374,7 @@ export class AdminDashboardService {
       modules,
       updateInterval: 30000, // 30 seconds
       maxRetries: 3,
-      connectionStatus: 'CONNECTING',
+      connectionStatus: RealtimeConnectionStatus.CONNECTING,
       lastUpdate: new Date()
     };
   }
@@ -526,10 +527,30 @@ export class AdminDashboardService {
     // This would implement trend analysis and insight generation
     // For now, returning a basic structure
     return {
-      userGrowthTrend: { direction: 'up', changePercent: 12.5, dataPoints: [] },
-      performanceTrend: { direction: 'stable', changePercent: 0.5, dataPoints: [] },
-      errorRateTrend: { direction: 'down', changePercent: -5.2, dataPoints: [] },
-      revenueGrowthTrend: { direction: 'up', changePercent: 8.7, dataPoints: [] },
+      userGrowthTrend: { 
+        period: 'last30days', 
+        data: [], 
+        trend: 'up' as const, 
+        changePercentage: 12.5 
+      },
+      performanceTrend: { 
+        period: 'last30days', 
+        data: [], 
+        trend: 'stable' as const, 
+        changePercentage: 0.5 
+      },
+      errorRateTrend: { 
+        period: 'last30days', 
+        data: [], 
+        trend: 'down' as const, 
+        changePercentage: -5.2 
+      },
+      revenueGrowthTrend: { 
+        period: 'last30days', 
+        data: [], 
+        trend: 'up' as const, 
+        changePercentage: 8.7 
+      },
       insights: []
     };
   }
@@ -537,7 +558,7 @@ export class AdminDashboardService {
   /**
    * Event emission methods
    */
-  private emitDashboardUpdate(dashboardId: string, dashboard: AdminDashboard): void {
+  private emitDashboardUpdate(dashboardId: string, dashboard: AdminDashboardState): void {
     const listeners = this.eventListeners.get(`dashboard:${dashboardId}`);
     if (listeners) {
       listeners.forEach(callback => callback(dashboard));
@@ -578,7 +599,7 @@ export class AdminDashboardService {
     return `dashboard_${adminUserId}_${Date.now()}`;
   }
 
-  private async getDashboard(dashboardId: string): Promise<AdminDashboard | null> {
+  private async getDashboard(dashboardId: string): Promise<AdminDashboardState | null> {
     // Implementation would fetch from cache or storage
     // For now, return null to indicate not found
     return null;

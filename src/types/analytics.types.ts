@@ -4,6 +4,8 @@
  * Types for business analytics, reporting, and insights in the admin dashboard.
  */
 
+import type { TrendData } from './dashboard.types';
+
 // ============================================================================
 // Business Analytics Overview
 // ============================================================================
@@ -14,10 +16,10 @@ export interface BusinessAnalytics {
   revenue: RevenueAnalytics;
   users: UserAnalytics;
   content: ContentAnalytics;
-  performance: PerformanceAnalytics;
-  conversion: ConversionAnalytics;
-  retention: RetentionAnalytics;
-  segmentation: SegmentationAnalytics;
+  performance: BehaviorAnalytics;
+  conversion: EngagementAnalytics;
+  retention: UserAnalytics;
+  segmentation: BehaviorAnalytics;
   predictions: PredictiveAnalytics;
   insights: BusinessInsight[];
   kpis: KPIMetrics;
@@ -362,9 +364,9 @@ export interface UserAnalytics {
   acquisition: AcquisitionAnalytics;
   engagement: EngagementAnalytics;
   behavior: BehaviorAnalytics;
-  segmentation: UserSegmentationAnalytics;
-  journey: UserJourneyAnalytics;
-  churn: ChurnAnalytics;
+  segmentation: BehaviorAnalytics;
+  journey: EngagementAnalytics;
+  churn: BehaviorAnalytics;
 }
 
 export interface UserOverview {
