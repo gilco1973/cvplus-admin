@@ -1,8 +1,9 @@
 /**
  * Alert Manager Service
  *
- * Service for managing system alerts, notifications, and alert dashboard data.
- * Handles alert creation, escalation, and administrative alert monitoring.
+ * Intelligent alert system for CVPlus video generation platform.
+ * Monitors performance thresholds, quality degradation, error patterns,
+ * and business metrics with automated escalation and response procedures.
  *
  * @author Gil Klainert
  * @version 1.0.0
@@ -10,57 +11,179 @@
 import * as admin from 'firebase-admin';
 export class AlertManagerService {
     constructor() {
-        this.db = admin.firestore();
-    }
-    /**
-     * Get comprehensive alert dashboard data
-     */
-    async getAlertDashboard() {
-        try {
-            const [activeAlerts, recentHistory, alertStats] = await Promise.all([
-                this.getActiveAlerts(),
-                this.getRecentAlerts(50),
-                this.getAlertStatistics()
-            ]);
-            const alertSummary = this.calculateAlertSummary(activeAlerts, recentHistory);
-            const trends = await this.getAlertTrends();
-            return {
-                alertSummary,
-                activeAlerts,
-                recentHistory,
-                trends
-            };
-        }
-        catch (error) {
-            console.error('Error getting alert dashboard:', error);
-            return this.getDefaultDashboard();
-        }
-    }
-    /**
-     * Create a new system alert
-     */
-    async createAlert(alert) {
-        try {
-            const newAlert = {
-                ...alert,
-                timestamp: new Date(),
-                status: 'active'
-            };
-            const docRef = await this.db.collection('system_alerts').add({
-                ...newAlert,
-                timestamp: admin.firestore.FieldValue.serverTimestamp()
-            });
-            // Check if alert needs immediate escalation
-            if (alert.severity === 'critical') {
-                await this.escalateAlert(docRef.id, newAlert);
+        this.alertRulesCollection = 'alert_rules';
+        this.alertInstancesCollection = 'alert_instances';
+        this.alertHistoryCollection = 'alert_history';
+        // Default alert rules
+        this.defaultRules = [
+            {
+                ruleId: 'slow_generation',
+                name: 'Slow Video Generation',
+                description: 'Video generation taking longer than expected',
+                type: 'performance',
+                metric: 'average_generation_time',
+                condition: 'above',
+                threshold: 90000, // 90 seconds
+                severity: 'medium',
+                enabled: true,
+                cooldownMinutes: 15,
+                escalationRules: [
+                    {
+                        escalationId: 'slow_generation_high',
+                        triggerAfterMinutes: 30,
+                        severity: 'high',
+                        notificationChannels: [{ channelId: 'tech_team_slack', type: 'slack', configuration: {}, severity: ['high'] }],
+                        autoActions: [{ actionId: 'switch_provider', type: 'switch_provider', parameters: {}, conditions: [] }]
+                    }
+                ],
+                autoActions: [],
+                notificationChannels: [{ channelId: 'alerts_email', type: 'email', configuration: {}, severity: ['medium', 'high'] }]
+            },
+            {
+                ruleId: 'low_success_rate',
+                name: 'Low Generation Success Rate',
+                description: 'Video generation success rate below threshold',
+                type: 'performance',
+                metric: 'success_rate',
+                condition: 'below',
+                threshold: 0.95, // 95%
+                severity: 'high',
+                enabled: true,
+                cooldownMinutes: 10,
+                escalationRules: [
+                    {
+                        escalationId: 'low_success_critical',
+                        triggerAfterMinutes: 20,
+                        severity: 'critical',
+                        notificationChannels: [{ channelId: 'oncall_pager', type: 'pagerduty', configuration: {}, severity: ['critical'] }],
+                        autoActions: [{ actionId: 'enable_fallback', type: 'switch_provider', parameters: { enableAllProviders: true }, conditions: [] }]
+                    }
+                ],
+                autoActions: [{ actionId: 'throttle_requests', type: 'throttle_requests', parameters: { rate: 0.5 }, conditions: [] }],
+                notificationChannels: [{ channelId: 'tech_team_slack', type: 'slack', configuration: {}, severity: ['high'] }]
+            },
+            {
+                ruleId: 'quality_degradation',
+                name: 'Video Quality Degradation',
+                description: 'Average video quality score below acceptable threshold',
+                type: 'quality',
+                metric: 'average_quality_score',
+                condition: 'below',
+                threshold: 8.0, // 8.0/10
+                severity: 'medium',
+                enabled: true,
+                cooldownMinutes: 20,
+                escalationRules: [],
+                autoActions: [],
+                notificationChannels: [{ channelId: 'quality_team_email', type: 'email', configuration: {}, severity: ['medium'] }]
+            },
+            {
+                ruleId: 'user_satisfaction_drop',
+                name: 'User Satisfaction Drop',
+                description: 'User satisfaction score below acceptable level',
+                type: 'quality',
+                metric: 'user_satisfaction_score',
+                condition: 'below',
+                threshold: 4.0, // 4.0/5
+                severity: 'medium',
+                enabled: true,
+                cooldownMinutes: 30,
+                escalationRules: [],
+                autoActions: [],
+                notificationChannels: [{ channelId: 'product_team_slack', type: 'slack', configuration: {}, severity: ['medium'] }]
+            },
+            {
+                ruleId: 'conversion_rate_drop',
+                name: 'Conversion Rate Drop',
+                description: 'Premium conversion rate below baseline',
+                type: 'business',
+                metric: 'premium_conversion_rate',
+                condition: 'below',
+                threshold: 0.50, // 50%
+                severity: 'medium',
+                enabled: true,
+                cooldownMinutes: 60,
+                escalationRules: [],
+                autoActions: [],
+                notificationChannels: [{ channelId: 'business_team_email', type: 'email', configuration: {}, severity: ['medium'] }]
             }
-            // Update alert counters
-            await this.updateAlertCounters(alert.type, alert.severity);
-            console.log(`Alert created: ${alert.title} (${alert.severity})`);
-            return docRef.id;
+        ];
+        this.firestore = admin.firestore();
+        this.initializeDefaultRules();
+    }
+    /**
+     * Initialize default alert rules if they don't exist
+     */
+    async initializeDefaultRules() {
+        try {
+            const rulesSnapshot = await this.firestore
+                .collection(this.alertRulesCollection)
+                .get();
+            if (rulesSnapshot.empty) {
+                for (const rule of this.defaultRules) {
+                    await this.firestore
+                        .collection(this.alertRulesCollection)
+                        .doc(rule.ruleId)
+                        .set(rule);
+                }
+            }
         }
         catch (error) {
-            console.error('Error creating alert:', error);
+        }
+    }
+    /**
+     * Check metrics against alert rules and trigger alerts if necessary
+     */
+    async checkAlerts(metrics) {
+        try {
+            const triggeredAlerts = [];
+            // Get all enabled alert rules
+            const rulesSnapshot = await this.firestore
+                .collection(this.alertRulesCollection)
+                .where('enabled', '==', true)
+                .get();
+            const rules = rulesSnapshot.docs.map(doc => doc.data());
+            for (const rule of rules) {
+                const metricValue = this.extractMetricValue(metrics, rule.metric, rule.type);
+                if (metricValue !== null && this.evaluateCondition(metricValue, rule.condition, rule.threshold)) {
+                    // Check if alert is already active or in cooldown
+                    const existingAlert = await this.getActiveAlert(rule.ruleId);
+                    if (!existingAlert && await this.isOutOfCooldown(rule)) {
+                        const alert = await this.createAlert(rule, metricValue, metrics);
+                        triggeredAlerts.push(alert);
+                        // Send notifications and execute auto actions
+                        await this.processAlert(alert);
+                    }
+                }
+                else {
+                    // Check if we should resolve any active alerts for this rule
+                    await this.resolveActiveAlert(rule.ruleId, 'condition_resolved');
+                }
+            }
+            return triggeredAlerts;
+        }
+        catch (error) {
+            throw error;
+        }
+    }
+    /**
+     * Process escalation for active alerts
+     */
+    async processEscalations() {
+        try {
+            const activeAlertsSnapshot = await this.firestore
+                .collection(this.alertInstancesCollection)
+                .where('status', 'in', ['active', 'acknowledged'])
+                .get();
+            const activeAlerts = activeAlertsSnapshot.docs.map(doc => ({
+                id: doc.id,
+                ...doc.data()
+            }));
+            for (const alert of activeAlerts) {
+                await this.checkEscalation(alert);
+            }
+        }
+        catch (error) {
             throw error;
         }
     }
@@ -69,15 +192,16 @@ export class AlertManagerService {
      */
     async acknowledgeAlert(alertId, acknowledgedBy) {
         try {
-            await this.db.collection('system_alerts').doc(alertId).update({
+            await this.firestore
+                .collection(this.alertInstancesCollection)
+                .doc(alertId)
+                .update({
                 status: 'acknowledged',
                 acknowledgedBy,
-                acknowledgedAt: admin.firestore.FieldValue.serverTimestamp()
+                acknowledgedAt: new Date()
             });
-            console.log(`Alert acknowledged: ${alertId} by ${acknowledgedBy}`);
         }
         catch (error) {
-            console.error('Error acknowledging alert:', error);
             throw error;
         }
     }
@@ -89,285 +213,393 @@ export class AlertManagerService {
             const updateData = {
                 status: 'resolved',
                 resolvedBy,
-                resolvedAt: admin.firestore.FieldValue.serverTimestamp()
+                resolvedAt: new Date()
             };
             if (resolution) {
                 updateData.resolution = resolution;
             }
-            await this.db.collection('system_alerts').doc(alertId).update(updateData);
-            console.log(`Alert resolved: ${alertId} by ${resolvedBy}`);
+            await this.firestore
+                .collection(this.alertInstancesCollection)
+                .doc(alertId)
+                .update(updateData);
         }
         catch (error) {
-            console.error('Error resolving alert:', error);
             throw error;
         }
     }
     /**
-     * Get active alerts
+     * Suppress an alert for a specified duration
      */
-    async getActiveAlerts() {
+    async suppressAlert(alertId, suppressedBy, durationMinutes) {
         try {
-            const query = await this.db
-                .collection('system_alerts')
+            const suppressedUntil = new Date(Date.now() + (durationMinutes * 60 * 1000));
+            await this.firestore
+                .collection(this.alertInstancesCollection)
+                .doc(alertId)
+                .update({
+                status: 'suppressed',
+                suppressedBy,
+                suppressedAt: new Date(),
+                suppressedUntil
+            });
+        }
+        catch (error) {
+            throw error;
+        }
+    }
+    /**
+     * Get alert dashboard data
+     */
+    async getAlertDashboard() {
+        try {
+            // Get active alerts
+            const activeAlertsSnapshot = await this.firestore
+                .collection(this.alertInstancesCollection)
                 .where('status', 'in', ['active', 'acknowledged'])
-                .orderBy('severity', 'desc')
-                .orderBy('timestamp', 'desc')
-                .limit(100)
+                .orderBy('triggeredAt', 'desc')
                 .get();
-            return query.docs.map(doc => ({
+            const activeAlerts = activeAlertsSnapshot.docs.map(doc => ({
                 id: doc.id,
-                ...doc.data(),
-                timestamp: doc.data().timestamp?.toDate() || new Date(),
-                acknowledgedAt: doc.data().acknowledgedAt?.toDate(),
-                resolvedAt: doc.data().resolvedAt?.toDate()
+                ...doc.data()
             }));
-        }
-        catch (error) {
-            console.error('Error getting active alerts:', error);
-            return [];
-        }
-    }
-    /**
-     * Get recent alert history
-     */
-    async getRecentAlerts(limit = 50) {
-        try {
-            const query = await this.db
-                .collection('system_alerts')
-                .orderBy('timestamp', 'desc')
-                .limit(limit)
+            // Get recent history (last 24 hours)
+            const dayAgo = new Date(Date.now() - (24 * 60 * 60 * 1000));
+            const historySnapshot = await this.firestore
+                .collection(this.alertInstancesCollection)
+                .where('triggeredAt', '>=', dayAgo)
+                .orderBy('triggeredAt', 'desc')
+                .limit(50)
                 .get();
-            return query.docs.map(doc => ({
+            const recentHistory = historySnapshot.docs.map(doc => ({
                 id: doc.id,
-                ...doc.data(),
-                timestamp: doc.data().timestamp?.toDate() || new Date(),
-                acknowledgedAt: doc.data().acknowledgedAt?.toDate(),
-                resolvedAt: doc.data().resolvedAt?.toDate()
+                ...doc.data()
             }));
+            // Calculate summary statistics
+            const alertSummary = {
+                total: activeAlerts.length,
+                bySeverity: this.groupAlertsBySeverity(activeAlerts),
+                byType: this.groupAlertsByType(activeAlerts)
+            };
+            return {
+                activeAlerts,
+                alertSummary,
+                recentHistory
+            };
         }
         catch (error) {
-            console.error('Error getting recent alerts:', error);
-            return [];
-        }
-    }
-    /**
-     * Get alerts by criteria
-     */
-    async getAlertsByCriteria(criteria) {
-        try {
-            let query = this.db.collection('system_alerts');
-            // Apply filters
-            if (criteria.type) {
-                query = query.where('type', '==', criteria.type);
-            }
-            if (criteria.severity) {
-                query = query.where('severity', '==', criteria.severity);
-            }
-            if (criteria.status) {
-                query = query.where('status', '==', criteria.status);
-            }
-            if (criteria.startDate) {
-                query = query.where('timestamp', '>=', criteria.startDate);
-            }
-            if (criteria.endDate) {
-                query = query.where('timestamp', '<=', criteria.endDate);
-            }
-            // Order and limit
-            query = query.orderBy('timestamp', 'desc');
-            if (criteria.limit) {
-                query = query.limit(criteria.limit);
-            }
-            const result = await query.get();
-            return result.docs.map(doc => ({
-                id: doc.id,
-                ...doc.data(),
-                timestamp: doc.data().timestamp?.toDate() || new Date(),
-                acknowledgedAt: doc.data().acknowledgedAt?.toDate(),
-                resolvedAt: doc.data().resolvedAt?.toDate()
-            }));
-        }
-        catch (error) {
-            console.error('Error getting alerts by criteria:', error);
-            return [];
-        }
-    }
-    /**
-     * Monitor system for alert conditions
-     */
-    async monitorSystemAlerts() {
-        try {
-            // Check system performance metrics
-            await this.checkPerformanceAlerts();
-            // Check system health
-            await this.checkSystemHealthAlerts();
-            // Check business metrics
-            await this.checkBusinessAlerts();
-            // Check security events
-            await this.checkSecurityAlerts();
-        }
-        catch (error) {
-            console.error('Error monitoring system alerts:', error);
+            throw error;
         }
     }
     /**
      * Private helper methods
      */
-    async getAlertStatistics() {
+    extractMetricValue(metrics, metricName, type) {
         try {
-            const startOfMonth = new Date();
-            startOfMonth.setDate(1);
-            startOfMonth.setHours(0, 0, 0, 0);
-            const monthlyQuery = await this.db
-                .collection('system_alerts')
-                .where('timestamp', '>=', startOfMonth)
-                .get();
-            const stats = {
-                monthly: monthlyQuery.size,
-                bySeverity: {},
-                byType: {}
-            };
-            monthlyQuery.docs.forEach(doc => {
-                const data = doc.data();
-                // Count by severity
-                const severity = data.severity || 'unknown';
-                stats.bySeverity[severity] = (stats.bySeverity[severity] || 0) + 1;
-                // Count by type
-                const type = data.type || 'unknown';
-                stats.byType[type] = (stats.byType[type] || 0) + 1;
-            });
-            return stats;
-        }
-        catch (error) {
-            console.error('Error getting alert statistics:', error);
-            return { monthly: 0, bySeverity: {}, byType: {} };
-        }
-    }
-    calculateAlertSummary(activeAlerts, recentHistory) {
-        const summary = {
-            total: activeAlerts.length,
-            bySeverity: {},
-            byType: {},
-            byStatus: {}
-        };
-        activeAlerts.forEach(alert => {
-            // Count by severity
-            summary.bySeverity[alert.severity] = (summary.bySeverity[alert.severity] || 0) + 1;
-            // Count by type
-            summary.byType[alert.type] = (summary.byType[alert.type] || 0) + 1;
-            // Count by status
-            summary.byStatus[alert.status] = (summary.byStatus[alert.status] || 0) + 1;
-        });
-        return summary;
-    }
-    async getAlertTrends() {
-        try {
-            const last30Days = new Date(Date.now() - (30 * 24 * 60 * 60 * 1000));
-            // Get daily alert counts for the last 30 days
-            const trendsQuery = await this.db
-                .collection('system_alerts')
-                .where('timestamp', '>=', last30Days)
-                .orderBy('timestamp', 'asc')
-                .get();
-            // Group by day
-            const dailyCounts = {};
-            let totalResolutionTime = 0;
-            let resolvedAlerts = 0;
-            trendsQuery.docs.forEach(doc => {
-                const data = doc.data();
-                const date = data.timestamp?.toDate() || new Date();
-                const dateKey = date.toISOString().split('T')[0];
-                dailyCounts[dateKey] = (dailyCounts[dateKey] || 0) + 1;
-                // Calculate resolution time if resolved
-                if (data.status === 'resolved' && data.resolvedAt && data.timestamp) {
-                    const resolutionTime = data.resolvedAt.toDate().getTime() - data.timestamp.toDate().getTime();
-                    totalResolutionTime += resolutionTime;
-                    resolvedAlerts++;
-                }
-            });
-            // Convert to array format
-            const alertFrequency = Object.entries(dailyCounts).map(([date, count]) => ({
-                date: new Date(date),
-                count
-            }));
-            const averageResolutionTime = resolvedAlerts > 0
-                ? totalResolutionTime / resolvedAlerts / (1000 * 60 * 60) // Convert to hours
-                : 0;
-            return {
-                alertFrequency,
-                resolutionTime: {
-                    average: averageResolutionTime,
-                    trend: 'stable' // Would calculate actual trend
-                }
-            };
-        }
-        catch (error) {
-            console.error('Error getting alert trends:', error);
-            return {
-                alertFrequency: [],
-                resolutionTime: { average: 0, trend: 'stable' }
-            };
-        }
-    }
-    async escalateAlert(alertId, alert) {
-        try {
-            // Create escalation record
-            await this.db.collection('alert_escalations').add({
-                alertId,
-                alertType: alert.type,
-                severity: alert.severity,
-                escalatedAt: admin.firestore.FieldValue.serverTimestamp(),
-                reason: 'Critical severity automatic escalation'
-            });
-            console.log(`Alert escalated: ${alertId} - ${alert.title}`);
-        }
-        catch (error) {
-            console.error('Error escalating alert:', error);
-        }
-    }
-    async updateAlertCounters(type, severity) {
-        try {
-            const today = new Date().toISOString().split('T')[0];
-            const counterRef = this.db.collection('alert_counters').doc(today);
-            await counterRef.set({
-                [`${type}_${severity}`]: admin.firestore.FieldValue.increment(1),
-                [`total_${type}`]: admin.firestore.FieldValue.increment(1),
-                [`total_${severity}`]: admin.firestore.FieldValue.increment(1),
-                total: admin.firestore.FieldValue.increment(1),
-                lastUpdated: admin.firestore.FieldValue.serverTimestamp()
-            }, { merge: true });
-        }
-        catch (error) {
-            console.error('Error updating alert counters:', error);
-        }
-    }
-    async checkPerformanceAlerts() {
-        // Implementation would check actual performance metrics
-        // This is a simplified example
-    }
-    async checkSystemHealthAlerts() {
-        // Implementation would check system health metrics
-    }
-    async checkBusinessAlerts() {
-        // Implementation would check business metrics for anomalies
-    }
-    async checkSecurityAlerts() {
-        // Implementation would check security events
-    }
-    getDefaultDashboard() {
-        return {
-            alertSummary: {
-                total: 0,
-                bySeverity: {},
-                byType: {},
-                byStatus: {}
-            },
-            activeAlerts: [],
-            recentHistory: [],
-            trends: {
-                alertFrequency: [],
-                resolutionTime: { average: 0, trend: 'stable' }
+            switch (type) {
+                case 'performance':
+                    if (metrics.performance) {
+                        switch (metricName) {
+                            case 'average_generation_time':
+                                return metrics.performance.averageGenerationTime;
+                            case 'success_rate':
+                                return metrics.performance.successRate;
+                            case 'error_rate':
+                                return metrics.performance.errorRate;
+                            default:
+                                return null;
+                        }
+                    }
+                    break;
+                case 'quality':
+                    if (metrics.quality) {
+                        switch (metricName) {
+                            case 'average_quality_score':
+                                return metrics.quality.overallQualityScore;
+                            case 'user_satisfaction_score':
+                                return metrics.quality.satisfactionAnalysis.averageRating;
+                            default:
+                                return null;
+                        }
+                    }
+                    break;
+                case 'business':
+                    if (metrics.business) {
+                        switch (metricName) {
+                            case 'premium_conversion_rate':
+                                return metrics.business.conversionRates.userToPremium;
+                            case 'revenue_per_user':
+                                return metrics.business.revenuePerUser;
+                            default:
+                                return null;
+                        }
+                    }
+                    break;
+                default:
+                    return null;
             }
+        }
+        catch (error) {
+            return null;
+        }
+        return null;
+    }
+    evaluateCondition(value, condition, threshold) {
+        switch (condition) {
+            case 'above':
+                return value > threshold;
+            case 'below':
+                return value < threshold;
+            case 'equals':
+                return Math.abs(value - threshold) < 0.001;
+            default:
+                return false;
+        }
+    }
+    async getActiveAlert(ruleId) {
+        try {
+            const alertSnapshot = await this.firestore
+                .collection(this.alertInstancesCollection)
+                .where('ruleId', '==', ruleId)
+                .where('status', 'in', ['active', 'acknowledged'])
+                .limit(1)
+                .get();
+            return alertSnapshot.empty ? null : alertSnapshot.docs[0].data();
+        }
+        catch (error) {
+            return null;
+        }
+    }
+    async isOutOfCooldown(rule) {
+        try {
+            const cooldownTime = new Date(Date.now() - (rule.cooldownMinutes * 60 * 1000));
+            const recentAlertSnapshot = await this.firestore
+                .collection(this.alertInstancesCollection)
+                .where('ruleId', '==', rule.ruleId)
+                .where('triggeredAt', '>', cooldownTime)
+                .limit(1)
+                .get();
+            return recentAlertSnapshot.empty;
+        }
+        catch (error) {
+            return true;
+        }
+    }
+    async createAlert(rule, metricValue, context) {
+        const alertId = `${rule.ruleId}_${Date.now()}`;
+        const alert = {
+            alertId,
+            ruleId: rule.ruleId,
+            triggeredAt: new Date(),
+            status: 'active',
+            severity: rule.severity,
+            metric: rule.metric,
+            currentValue: metricValue,
+            threshold: rule.threshold,
+            message: this.generateAlertMessage(rule, metricValue),
+            context,
+            escalationLevel: 0,
+            notificationsSent: [],
+            actionsExecuted: []
         };
+        await this.firestore
+            .collection(this.alertInstancesCollection)
+            .doc(alertId)
+            .set(alert);
+        return alert;
+    }
+    generateAlertMessage(rule, value) {
+        return `${rule.name}: ${rule.metric} is ${value.toFixed(2)}, ${rule.condition} threshold of ${rule.threshold}`;
+    }
+    async processAlert(alert) {
+        try {
+            const rule = await this.getAlertRule(alert.ruleId);
+            if (!rule)
+                return;
+            // Send notifications
+            for (const channel of rule.notificationChannels) {
+                if (channel.severity.includes(alert.severity)) {
+                    await this.sendNotification(alert, channel);
+                }
+            }
+            // Execute auto actions
+            for (const action of rule.autoActions) {
+                await this.executeAutoAction(alert, action);
+            }
+        }
+        catch (error) {
+        }
+    }
+    async checkEscalation(alert) {
+        try {
+            const rule = await this.getAlertRule(alert.ruleId);
+            if (!rule || rule.escalationRules.length === 0)
+                return;
+            const alertAge = Date.now() - alert.triggeredAt.getTime();
+            for (const escalation of rule.escalationRules) {
+                const triggerTime = escalation.triggerAfterMinutes * 60 * 1000;
+                if (alertAge >= triggerTime &&
+                    alert.escalationLevel < rule.escalationRules.indexOf(escalation) + 1) {
+                    await this.escalateAlert(alert, escalation);
+                    break;
+                }
+            }
+        }
+        catch (error) {
+        }
+    }
+    async escalateAlert(alert, escalation) {
+        try {
+            // Update alert with escalation info
+            await this.firestore
+                .collection(this.alertInstancesCollection)
+                .doc(alert.id)
+                .update({
+                escalationLevel: alert.escalationLevel + 1,
+                lastEscalatedAt: new Date(),
+                severity: escalation.severity
+            });
+            // Send escalation notifications
+            for (const channel of escalation.notificationChannels) {
+                await this.sendNotification(alert, channel);
+            }
+            // Execute escalation actions
+            for (const action of escalation.autoActions) {
+                await this.executeAutoAction(alert, action);
+            }
+        }
+        catch (error) {
+        }
+    }
+    async sendNotification(alert, channel) {
+        try {
+            const notification = {
+                sentAt: new Date(),
+                channel: channel.channelId,
+                type: channel.type,
+                recipient: channel.configuration.recipient || 'default',
+                success: false
+            };
+            // Implement notification sending based on channel type
+            switch (channel.type) {
+                case 'email':
+                    notification.success = await this.sendEmailNotification(alert, channel);
+                    break;
+                case 'slack':
+                    notification.success = await this.sendSlackNotification(alert, channel);
+                    break;
+                case 'sms':
+                    notification.success = await this.sendSMSNotification(alert, channel);
+                    break;
+                case 'webhook':
+                    notification.success = await this.sendWebhookNotification(alert, channel);
+                    break;
+                default:
+                    notification.success = false;
+                    notification.errorMessage = `Unsupported notification type: ${channel.type}`;
+            }
+            // Update alert with notification record
+            await this.firestore
+                .collection(this.alertInstancesCollection)
+                .doc(alert.alertId)
+                .update({
+                notificationsSent: admin.firestore.FieldValue.arrayUnion(notification)
+            });
+        }
+        catch (error) {
+        }
+    }
+    async executeAutoAction(alert, action) {
+        try {
+            const actionRecord = {
+                executedAt: new Date(),
+                actionType: action.type,
+                parameters: action.parameters,
+                success: false
+            };
+            // Implement auto action execution based on action type
+            switch (action.type) {
+                case 'switch_provider':
+                    actionRecord.success = await this.switchProvider(action.parameters);
+                    break;
+                case 'throttle_requests':
+                    actionRecord.success = await this.throttleRequests(action.parameters);
+                    break;
+                case 'restart_service':
+                    actionRecord.success = await this.restartService(action.parameters);
+                    break;
+                default:
+                    actionRecord.success = false;
+                    actionRecord.errorMessage = `Unsupported action type: ${action.type}`;
+            }
+            // Update alert with action record
+            await this.firestore
+                .collection(this.alertInstancesCollection)
+                .doc(alert.alertId)
+                .update({
+                actionsExecuted: admin.firestore.FieldValue.arrayUnion(actionRecord)
+            });
+        }
+        catch (error) {
+        }
+    }
+    async resolveActiveAlert(ruleId, resolution) {
+        try {
+            const activeAlert = await this.getActiveAlert(ruleId);
+            if (activeAlert) {
+                await this.resolveAlert(activeAlert.alertId, 'system', resolution);
+            }
+        }
+        catch (error) {
+        }
+    }
+    async getAlertRule(ruleId) {
+        try {
+            const ruleDoc = await this.firestore
+                .collection(this.alertRulesCollection)
+                .doc(ruleId)
+                .get();
+            return ruleDoc.exists ? ruleDoc.data() : null;
+        }
+        catch (error) {
+            return null;
+        }
+    }
+    groupAlertsBySeverity(alerts) {
+        return alerts.reduce((acc, alert) => {
+            acc[alert.severity] = (acc[alert.severity] || 0) + 1;
+            return acc;
+        }, {});
+    }
+    groupAlertsByType(alerts) {
+        return alerts.reduce((acc, alert) => {
+            // Extract type from ruleId or use default
+            const type = alert.ruleId.split('_')[0] || 'unknown';
+            acc[type] = (acc[type] || 0) + 1;
+            return acc;
+        }, {});
+    }
+    // Notification implementation methods (simplified)
+    async sendEmailNotification(alert, channel) {
+        return true; // Would implement actual email sending
+    }
+    async sendSlackNotification(alert, channel) {
+        return true; // Would implement actual Slack API call
+    }
+    async sendSMSNotification(alert, channel) {
+        return true; // Would implement actual SMS sending
+    }
+    async sendWebhookNotification(alert, channel) {
+        return true; // Would implement actual webhook call
+    }
+    // Auto action implementation methods (simplified)
+    async switchProvider(parameters) {
+        return true; // Would implement actual provider switching
+    }
+    async throttleRequests(parameters) {
+        return true; // Would implement actual request throttling
+    }
+    async restartService(parameters) {
+        return true; // Would implement actual service restart
     }
 }
 //# sourceMappingURL=alert-manager.service.js.map

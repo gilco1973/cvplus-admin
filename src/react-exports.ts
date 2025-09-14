@@ -16,6 +16,11 @@ export { SystemHealthCard } from './frontend/components/SystemHealthCard';
 export { UserStatsCard } from './frontend/components/UserStatsCard';
 export { BusinessMetricsCard } from './frontend/components/BusinessMetricsCard';
 
+// Migrated admin components
+export { AnalyticsDashboard } from './frontend/components/AnalyticsDashboard';
+// Note: PerformanceDashboard temporarily disabled pending integration work
+// export { default as PerformanceDashboard } from './frontend/components/performance/PerformanceDashboard';
+
 // ============================================================================
 // REACT HOOKS EXPORTS
 // ============================================================================

@@ -26,6 +26,11 @@ export { testConfiguration } from './testConfiguration';
 export { monitorStuckJobs, triggerJobMonitoring, getJobDetails, getJobStats } from './monitorJobs';
 export { cleanupTempFiles } from './cleanupTempFiles';
 export { testCors, testCorsCall } from './corsTestFunction';
+
+// Policy management functions
+export { getUserPolicyViolations } from './getUserPolicyViolations';
+export { getUserUsageStats } from './getUserUsageStats';
+
 // ============================================================================
 // FUNCTION METADATA
 // ============================================================================
@@ -139,6 +144,22 @@ export const ADMIN_FUNCTIONS = {
     requiredPermissions: ['canMonitorSystem'],
     category: 'SYSTEM_MONITORING',
     region: 'us-central1'
+  },
+
+  // Policy management functions
+  getUserPolicyViolations: {
+    name: 'getUserPolicyViolations',
+    description: 'Get user policy violations and warnings for review',
+    requiredPermissions: ['canManageUsers'],
+    category: 'POLICY_MANAGEMENT',
+    region: 'us-central1'
+  },
+  getUserUsageStats: {
+    name: 'getUserUsageStats',
+    description: 'Get user usage statistics and subscription limits',
+    requiredPermissions: ['canManageUsers'],
+    category: 'POLICY_MANAGEMENT',
+    region: 'us-central1'
   }
 } as const;
 
@@ -152,7 +173,8 @@ export const FUNCTION_CATEGORIES = {
   ADMIN_MANAGEMENT: 'Admin Management',
   CONTENT_MODERATION: 'Content Moderation',
   SECURITY_AUDIT: 'Security Audit',
-  SYSTEM_MAINTENANCE: 'System Maintenance'
+  SYSTEM_MAINTENANCE: 'System Maintenance',
+  POLICY_MANAGEMENT: 'Policy Management'
 } as const;
 
 /**

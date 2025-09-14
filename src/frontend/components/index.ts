@@ -16,6 +16,11 @@ export { BusinessMetricsCard } from './BusinessMetricsCard';
 export { UserStatsCard } from './UserStatsCard';
 export { SystemHealthCard } from './SystemHealthCard';
 
+// Migrated admin components
+export { AnalyticsDashboard } from './AnalyticsDashboard';
+// Note: PerformanceDashboard temporarily disabled pending integration work
+// export { default as PerformanceDashboard } from './performance/PerformanceDashboard';
+
 // ============================================================================
 // COMPONENT METADATA
 // ============================================================================

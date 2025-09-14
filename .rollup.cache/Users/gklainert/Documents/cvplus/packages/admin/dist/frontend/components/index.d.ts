@@ -10,6 +10,7 @@ export { AdminLayout } from './AdminLayout';
 export { BusinessMetricsCard } from './BusinessMetricsCard';
 export { UserStatsCard } from './UserStatsCard';
 export { SystemHealthCard } from './SystemHealthCard';
+export { AnalyticsDashboard } from './AnalyticsDashboard';
 /**
  * Available admin components
  */

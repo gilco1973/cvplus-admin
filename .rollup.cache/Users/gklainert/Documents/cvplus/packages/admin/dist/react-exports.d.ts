@@ -11,6 +11,7 @@ export { AdminLayout } from './frontend/components/AdminLayout';
 export { SystemHealthCard } from './frontend/components/SystemHealthCard';
 export { UserStatsCard } from './frontend/components/UserStatsCard';
 export { BusinessMetricsCard } from './frontend/components/BusinessMetricsCard';
+export { AnalyticsDashboard } from './frontend/components/AnalyticsDashboard';
 export { useAdminAuth } from './frontend/hooks/useAdminAuth';
 export { AdminDashboard } from './frontend/pages/AdminDashboard';
 export { default as RevenueAnalyticsDashboard } from './frontend/pages/RevenueAnalyticsDashboard';

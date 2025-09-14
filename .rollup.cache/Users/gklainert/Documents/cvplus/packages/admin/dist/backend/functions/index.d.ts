@@ -18,6 +18,8 @@ export { testConfiguration } from './testConfiguration';
 export { monitorStuckJobs, triggerJobMonitoring, getJobDetails, getJobStats } from './monitorJobs';
 export { cleanupTempFiles } from './cleanupTempFiles';
 export { testCors, testCorsCall } from './corsTestFunction';
+export { getUserPolicyViolations } from './getUserPolicyViolations';
+export { getUserUsageStats } from './getUserUsageStats';
 /**
  * Available admin functions and their permissions
  */
@@ -127,6 +129,20 @@ export declare const ADMIN_FUNCTIONS: {
         readonly category: "SYSTEM_MONITORING";
         readonly region: "us-central1";
     };
+    readonly getUserPolicyViolations: {
+        readonly name: "getUserPolicyViolations";
+        readonly description: "Get user policy violations and warnings for review";
+        readonly requiredPermissions: readonly ["canManageUsers"];
+        readonly category: "POLICY_MANAGEMENT";
+        readonly region: "us-central1";
+    };
+    readonly getUserUsageStats: {
+        readonly name: "getUserUsageStats";
+        readonly description: "Get user usage statistics and subscription limits";
+        readonly requiredPermissions: readonly ["canManageUsers"];
+        readonly category: "POLICY_MANAGEMENT";
+        readonly region: "us-central1";
+    };
 };
 /**
  * Function categories
@@ -139,6 +155,7 @@ export declare const FUNCTION_CATEGORIES: {
     readonly CONTENT_MODERATION: "Content Moderation";
     readonly SECURITY_AUDIT: "Security Audit";
     readonly SYSTEM_MAINTENANCE: "System Maintenance";
+    readonly POLICY_MANAGEMENT: "Policy Management";
 };
 /**
  * Required permissions for admin functions

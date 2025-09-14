@@ -29,7 +29,8 @@
     "test": "vitest",
     "test:coverage": "vitest --coverage",
     "lint": "eslint src --ext .ts,.tsx",
-    "lint:fix": "eslint src --ext .ts,.tsx --fix"
+    "lint:fix": "eslint src --ext .ts,.tsx --fix",
+    "validate-dependencies": "./scripts/validate-dependencies.sh"
   },
   "dependencies": {
     "@cvplus/analytics": "file:../analytics",
