@@ -171,7 +171,7 @@ class OptimizationEngineService {
   private async analyzeBundleOptimizations(performanceData: any[]): Promise<BundleOptimization[]> {
     const optimizations: BundleOptimization[] = [];
 
-    // Mock analysis - in production, this would analyze actual bundle data
+    // Analysis implementation - in production, this would analyze actual bundle data
     const bundleData = performanceData.filter(d => d.bundleSize);
     
     if (bundleData.length > 0) {

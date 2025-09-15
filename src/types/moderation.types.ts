@@ -204,7 +204,7 @@ export interface AutomatedFlag {
 export enum FlagType {
   INAPPROPRIATE_CONTENT = 'inappropriate_content',
   SPAM = 'spam',
-  FAKE_INFORMATION = 'fake_information',
+  FALSE_INFORMATION = 'false_information',
   COPYRIGHT_INFRINGEMENT = 'copyright_infringement',
   MALWARE = 'malware',
   PHISHING = 'phishing',

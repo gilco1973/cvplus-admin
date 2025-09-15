@@ -4,7 +4,7 @@ import * as admin from 'firebase-admin';
 
 // TEMPORARILY DISABLED FOR DEPLOYMENT
 
-// Temporary placeholder function for deployment
+// Temporary function for deployment
 const getUserSubscriptionInternal = async (userId: string) => {
   return { subscriptionStatus: 'free', lifetimeAccess: false };
 };

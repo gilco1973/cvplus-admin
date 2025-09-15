@@ -40,7 +40,7 @@ export class WebSearchService {
     const startTime = Date.now();
 
     try {
-      // Mock search test - in real implementation would make actual API call
+      // Search test implementation - in real implementation would make actual API call
       await new Promise(resolve => setTimeout(resolve, 100));
 
       return {

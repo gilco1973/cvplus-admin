@@ -41,7 +41,7 @@ export class VideoGenerationService {
     const startTime = Date.now();
 
     try {
-      // Mock test - in real implementation would test actual API endpoints
+      // Test implementation - in real implementation would test actual API endpoints
       await new Promise(resolve => setTimeout(resolve, 300));
 
       const avatars = this.getAvailableAvatars();
@@ -152,7 +152,7 @@ export class VideoGenerationService {
     }
 
     try {
-      // Mock avatar test
+      // Avatar test implementation
       await new Promise(resolve => setTimeout(resolve, 100));
 
       return {

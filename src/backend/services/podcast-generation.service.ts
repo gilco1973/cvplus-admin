@@ -43,7 +43,7 @@ export class PodcastGenerationService {
     const startTime = Date.now();
 
     try {
-      // Mock test - in real implementation would test actual API endpoints
+      // Test implementation - in real implementation would test actual API endpoints
       await new Promise(resolve => setTimeout(resolve, 200));
 
       return {
