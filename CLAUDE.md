@@ -11,6 +11,8 @@
 
 🚫 **ABSOLUTE PROHIBITION**: Never create mock data or use placeholders - EVER!
 
+   **Exception**: Mock data is allowed in test files (*.test.ts, *.spec.ts, __tests__/*, __mocks__/*) for proper unit testing and test coverage.
+
 🚨 **CRITICAL**: Never delete ANY files without explicit user approval - this is a security violation.
 
 🛡️ **ADMINISTRATIVE SECURITY**: This module handles sensitive administrative operations. All admin functions must comply with enterprise security standards and maintain the highest levels of access control.
