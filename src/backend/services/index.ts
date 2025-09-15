@@ -16,7 +16,7 @@ export { AdminDashboardService } from '../../services/admin-dashboard.service';
 
 // Performance and monitoring services
 export { PerformanceMonitorService, type SystemPerformanceMetrics, type ProviderMetrics } from './performance-monitor.service';
-export { AnalyticsEngineService, type BusinessMetrics, type QualityInsights, type UserBehaviorInsights } from './analytics-engine.service';
+export { AnalyticsEngineService, type BusinessMetrics, type QualityInsights, type UserBehaviorInsights } from '@cvplus/analytics/admin/services/analytics-engine.service';
 export { AlertManagerService } from './alert-manager.service';
 export { type SystemAlert, type AlertDashboard, type PerformanceAlert } from './performance-monitor.service';
 
@@ -25,9 +25,11 @@ export { JobMonitoringService, type JobProcessingStats, type JobDetails } from '
 
 // Configuration and testing services
 export { ConfigurationTestService, type SystemConfiguration } from './configuration-test.service';
-export { WebSearchService } from './web-search.service';
-export { PodcastGenerationService } from './podcast-generation.service';
-export { VideoGenerationService } from './video-generation.service';
+export { WebSearchService } from '@cvplus/core/services/search/web-search.service';
+
+// Multimedia admin testing services (now imported from multimedia submodule)
+export { PodcastGenerationService } from '@cvplus/multimedia/admin/testing/podcast-generation.service';
+export { VideoGenerationService } from '@cvplus/multimedia/admin/testing/video-generation.service';
 // ============================================================================
 // SERVICE REGISTRY
 // ============================================================================
