@@ -12,7 +12,7 @@
 import * as admin from 'firebase-admin';
 import { config } from '../config/environment';
 import { PerformanceAlert, SystemAlert, AlertDashboard } from './performance-monitor.service';
-import { BusinessMetrics, QualityInsights } from '@cvplus/analytics/admin/services/analytics-engine.service';
+import { BusinessMetrics, QualityInsights } from '../../types/analytics.types';
 
 // Alert configuration interfaces
 export interface AlertRule {

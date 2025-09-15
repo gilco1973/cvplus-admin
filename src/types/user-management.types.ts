@@ -16,6 +16,29 @@ interface Subscription {
   currentPeriodEnd: number;
 }
 
+// Additional type definitions for missing types
+export interface UserActivity {
+  id: string;
+  userId: string;
+  action: string;
+  timestamp: Date;
+  metadata?: Record<string, any>;
+}
+
+export interface SupportTicketSummary {
+  totalTickets: number;
+  openTickets: number;
+  resolvedTickets: number;
+  averageResponseTime: number;
+}
+
+export interface SubscriptionAnalytics {
+  totalSubscriptions: number;
+  activeSubscriptions: number;
+  churnRate: number;
+  averageRevenue: number;
+}
+
 // ============================================================================
 // User Management Overview
 // ============================================================================
