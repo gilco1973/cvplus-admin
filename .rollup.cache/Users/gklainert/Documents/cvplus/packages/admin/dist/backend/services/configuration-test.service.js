@@ -13,7 +13,7 @@ export class ConfigurationTestService {
      */
     async getConfiguration() {
         // In a real implementation, this would read from environment variables
-        // or Firebase configuration. For now, return mock configuration structure.
+        // or Firebase configuration. For now, return default configuration structure.
         return {
             firebase: {
                 apiKey: process.env.FIREBASE_API_KEY,

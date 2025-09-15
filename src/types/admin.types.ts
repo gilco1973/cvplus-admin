@@ -5,7 +5,7 @@
  * Defines interfaces for admin users, permissions, and general admin functionality.
  */
 
-import type { User } from '@cvplus/auth';
+import type { AuthenticatedUser as User } from '@cvplus/core';
 
 // ============================================================================
 // Admin User Types

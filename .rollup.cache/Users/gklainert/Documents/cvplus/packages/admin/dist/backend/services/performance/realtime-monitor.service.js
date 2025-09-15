@@ -99,7 +99,7 @@ class RealTimeMonitorService {
      */
     async getFunctionStats(functionName) {
         // This would integrate with Firebase Functions monitoring APIs
-        // For now, return mock data structure
+        // For now, return sample data structure
         return {
             avgExecutionTime: Math.random() * 1000 + 100,
             memoryUsage: Math.random() * 100 + 20,

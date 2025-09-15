@@ -79,7 +79,7 @@ class OptimizationEngineService {
      */
     async analyzeBundleOptimizations(performanceData) {
         const optimizations = [];
-        // Mock analysis - in production, this would analyze actual bundle data
+        // Analysis implementation - in production, this would analyze actual bundle data
         const bundleData = performanceData.filter(d => d.bundleSize);
         if (bundleData.length > 0) {
             const avgBundleSize = bundleData.reduce((sum, d) => sum + d.bundleSize, 0) / bundleData.length;

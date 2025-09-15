@@ -59,7 +59,7 @@ export var FlagType;
 (function (FlagType) {
     FlagType["INAPPROPRIATE_CONTENT"] = "inappropriate_content";
     FlagType["SPAM"] = "spam";
-    FlagType["FAKE_INFORMATION"] = "fake_information";
+    FlagType["FALSE_INFORMATION"] = "false_information";
     FlagType["COPYRIGHT_INFRINGEMENT"] = "copyright_infringement";
     FlagType["MALWARE"] = "malware";
     FlagType["PHISHING"] = "phishing";

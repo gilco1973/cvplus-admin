@@ -11,7 +11,7 @@
 
 import * as admin from 'firebase-admin';
 import { config } from '../config/environment';
-import { PerformanceAlert } from './performance-monitor.service';
+import { PerformanceAlert, SystemAlert, AlertDashboard } from './performance-monitor.service';
 import { BusinessMetrics, QualityInsights } from './analytics-engine.service';
 
 // Alert configuration interfaces

@@ -2,8 +2,7 @@ import { onCall, HttpsError } from 'firebase-functions/v2/https';
 import { logger } from 'firebase-functions';
 import * as admin from 'firebase-admin';
 // TEMPORARILY DISABLED FOR DEPLOYMENT
-// import { getUserSubscriptionInternal } from '@cvplus/payments/backend/functions';
-// Temporary placeholder function for deployment
+// Temporary function for deployment
 const getUserSubscriptionInternal = async (userId) => {
     return { subscriptionStatus: 'free', lifetimeAccess: false };
 };

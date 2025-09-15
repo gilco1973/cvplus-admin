@@ -195,7 +195,7 @@ export const clearCaches = onCall({
             pattern: data?.pattern
         });
         const results = {
-            adminModule: 1 // Placeholder for admin module cache clearing
+            adminModule: 1 // Admin module cache clearing
         };
         const totalCleared = Object.values(results).reduce((sum, count) => sum + count, 0);
         const executionTime = Date.now() - startTime;

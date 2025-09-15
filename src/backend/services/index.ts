@@ -17,7 +17,8 @@ export { AdminDashboardService } from '../../services/admin-dashboard.service';
 // Performance and monitoring services
 export { PerformanceMonitorService, type SystemPerformanceMetrics, type ProviderMetrics } from './performance-monitor.service';
 export { AnalyticsEngineService, type BusinessMetrics, type QualityInsights, type UserBehaviorInsights } from './analytics-engine.service';
-export { AlertManagerService, type SystemAlert, type AlertDashboard } from './alert-manager.service';
+export { AlertManagerService } from './alert-manager.service';
+export { type SystemAlert, type AlertDashboard, type PerformanceAlert } from './performance-monitor.service';
 
 // Job and system management services
 export { JobMonitoringService, type JobProcessingStats, type JobDetails } from './job-monitoring.service';

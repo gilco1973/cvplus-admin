@@ -1,5 +1,5 @@
 import { onRequest } from 'firebase-functions/v2/https';
-import { corsOptions } from '../config/cors';
+import { adminCorsOptions } from '../config/cors';
 import { llmMonitoringService } from '../services/llm-monitoring.service';
 import { llmVerificationService } from '../services/llm-verification.service';
 // import { verifiedClaudeService } from '../services/verified-claude.service';
@@ -25,7 +25,7 @@ interface StatusRequest {
 
 export const llmVerificationStatus = onRequest(
   { 
-    ...corsOptions,
+    ...adminCorsOptions,
     maxInstances: 10,
     timeoutSeconds: 60
   },
