@@ -8,13 +8,19 @@
  */
 export { AdminDashboardService } from '../../services/admin-dashboard.service';
 export { PerformanceMonitorService, type SystemPerformanceMetrics, type ProviderMetrics } from './performance-monitor.service';
-export { AnalyticsEngineService, type BusinessMetrics, type QualityInsights, type UserBehaviorInsights } from './analytics-engine.service';
-export { AlertManagerService, type SystemAlert, type AlertDashboard } from './alert-manager.service';
+export { AlertManagerService } from './alert-manager.service';
+export { type SystemAlert, type AlertDashboard, type PerformanceAlert } from './performance-monitor.service';
 export { JobMonitoringService, type JobProcessingStats, type JobDetails } from './job-monitoring.service';
 export { ConfigurationTestService, type SystemConfiguration } from './configuration-test.service';
 export { WebSearchService } from './web-search.service';
+export { ComprehensivePolicyEnforcementService } from './comprehensive-policy-enforcement.service';
+export type { PolicyCheckRequest, PolicyCheckResult, PolicyViolation, PolicyWarning, PolicyAction, UsageStats } from './comprehensive-policy-enforcement.service';
 export { PodcastGenerationService } from './podcast-generation.service';
 export { VideoGenerationService } from './video-generation.service';
+export * from './security';
+export * from './validation';
+export { PIIDetector } from './piiDetector';
+export type { PIIDetectionResult, PIIMaskingOptions } from './piiDetector';
 /**
  * Available admin services
  */

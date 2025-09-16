@@ -17,19 +17,19 @@ export declare class CacheMonitorService {
     /**
      * Generate comprehensive cache health report
      */
-    generateHealthReport(): CacheHealthReport;
+    generateHealthReport(): Promise<CacheHealthReport>;
     /**
      * Log cache performance metrics
      */
-    logPerformanceMetrics(): void;
+    logPerformanceMetrics(): Promise<void>;
     /**
      * Check if cache performance is healthy
      */
-    isCacheHealthy(): boolean;
+    isCacheHealthy(): Promise<boolean>;
     /**
      * Perform cache maintenance operations
      */
-    performMaintenance(): void;
+    performMaintenance(): Promise<void>;
     private generateRecommendations;
 }
 export declare const cacheMonitor: CacheMonitorService;

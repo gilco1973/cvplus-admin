@@ -1,11 +1,8 @@
 /**
- * Web Search Service
+ * Web Search Service - Admin Placeholder
  *
- * Service for testing web search functionality and API availability.
- * Used by admin configuration testing to verify search capabilities.
- *
- * @author Gil Klainert
- * @version 1.0.0
+ * Placeholder service for web search functionality that has been moved to @cvplus/core.
+ * This placeholder maintains compatibility while the core submodule is being integrated.
  */
 export declare class WebSearchService {
     private apiKey;

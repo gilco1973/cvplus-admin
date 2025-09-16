@@ -75,24 +75,23 @@ export class LLMIntegrationWrapperService {
       model: this.config.defaultModel,
       messages: [{
         role: 'user',
-        content: request.prompt
+        content: request.system ? `${request.system}\n\n${request.prompt}` : request.prompt
       }],
-      max_tokens: request.maxTokens || this.config.defaultMaxTokens,
-      temperature: request.temperature ?? this.config.defaultTemperature,
-      system: request.system
+      maxTokens: request.maxTokens || this.config.defaultMaxTokens,
+      temperature: request.temperature ?? this.config.defaultTemperature
     };
 
     try {
       const response = await this.verifiedClaudeService.createVerifiedMessage(verifiedRequest);
 
       return {
-        content: Array.isArray(response.content) ? response.content.map(c => c.text).join('') : String(response.content),
-        verified: response.verification?.isValid || false,
+        content: Array.isArray(response.content) ? response.content.map(c => c.content || '').join('') : String(response.content || response.response || ''),
+        verified: response.verification?.verified || false,
         verificationScore: response.verification?.confidence || 0,
         auditId: `audit-${Date.now()}`,
         usage: response.usage ? {
-          inputTokens: response.usage.input_tokens,
-          outputTokens: response.usage.output_tokens
+          inputTokens: response.usage.inputTokens || 0,
+          outputTokens: response.usage.outputTokens || 0
         } : undefined
       };
 
@@ -114,12 +113,21 @@ export class LLMIntegrationWrapperService {
       customValidation?: ValidationCriteria;
     }
   ): Promise<any> {
+    const filteredMessages = messages.filter(msg => msg.role !== 'system') as Array<{ role: 'user' | 'assistant'; content: string; }>;
+
+    // Prepend system message to first user message if provided
+    if (options?.system && filteredMessages.length > 0 && filteredMessages[0].role === 'user') {
+      filteredMessages[0] = {
+        ...filteredMessages[0],
+        content: `${options.system}\n\n${filteredMessages[0].content}`
+      };
+    }
+
     const request: VerifiedMessageOptions = {
       model: this.config.defaultModel,
-      messages: messages.filter(msg => msg.role !== 'system') as Array<{ role: 'user' | 'assistant'; content: string; }>,
-      max_tokens: options?.maxTokens || this.config.defaultMaxTokens,
-      temperature: options?.temperature ?? this.config.defaultTemperature,
-      system: options?.system
+      messages: filteredMessages,
+      maxTokens: options?.maxTokens || this.config.defaultMaxTokens,
+      temperature: options?.temperature ?? this.config.defaultTemperature
     };
 
     return await this.verifiedClaudeService.createVerifiedMessage(request);

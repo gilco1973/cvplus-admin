@@ -1,11 +1,8 @@
 /**
- * Video Generation Service
+ * Video Generation Service - Admin Placeholder
  *
- * Service for testing video generation functionality and API availability.
- * Used by admin configuration testing to verify video generation capabilities.
- *
- * @author Gil Klainert
- * @version 1.0.0
+ * Placeholder service for video generation functionality that has been moved to @cvplus/multimedia.
+ * This placeholder maintains compatibility while the multimedia submodule is being integrated.
  */
 export declare class VideoGenerationService {
     private didApiKey;
@@ -42,14 +39,6 @@ export declare class VideoGenerationService {
         configured: boolean;
         avatarId?: string;
         voiceId?: string;
-    }>;
-    /**
-     * Test specific avatar configuration
-     */
-    testAvatarConfiguration(type: string): Promise<{
-        success: boolean;
-        configured: boolean;
-        error?: string;
     }>;
 }
 //# sourceMappingURL=video-generation.service.d.ts.map

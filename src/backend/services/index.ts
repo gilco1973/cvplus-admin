@@ -27,9 +27,29 @@ export { JobMonitoringService, type JobProcessingStats, type JobDetails } from '
 export { ConfigurationTestService, type SystemConfiguration } from './configuration-test.service';
 export { WebSearchService } from './web-search.service'; // PLACEHOLDER - MIGRATED TO @cvplus/core
 
+// Policy enforcement services (migrated from cv-processing)
+export { ComprehensivePolicyEnforcementService } from './comprehensive-policy-enforcement.service';
+export type {
+  PolicyCheckRequest,
+  PolicyCheckResult,
+  PolicyViolation,
+  PolicyWarning,
+  PolicyAction,
+  UsageStats
+} from './comprehensive-policy-enforcement.service';
+
 // Multimedia admin testing services (placeholders - migrated to multimedia submodule)
 export { PodcastGenerationService } from './podcast-generation.service'; // PLACEHOLDER - MIGRATED TO @cvplus/multimedia
 export { VideoGenerationService } from './video-generation.service'; // PLACEHOLDER - MIGRATED TO @cvplus/multimedia
+
+// Security and Validation Services (migrated from core)
+export * from './security';
+export * from './validation';
+export { PIIDetector } from './piiDetector';
+export type {
+  PIIDetectionResult,
+  PIIMaskingOptions
+} from './piiDetector';
 // ============================================================================
 // SERVICE REGISTRY
 // ============================================================================

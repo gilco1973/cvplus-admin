@@ -8,7 +8,7 @@
  * @author Gil Klainert
  * @version 1.0.0
  */
-import { BusinessMetrics, QualityInsights } from './analytics-engine.service';
+import { BusinessMetrics, QualityInsights } from '../../types/analytics.types';
 export interface AlertRule {
     ruleId: string;
     name: string;

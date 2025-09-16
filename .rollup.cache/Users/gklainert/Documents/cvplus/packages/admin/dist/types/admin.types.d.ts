@@ -4,7 +4,13 @@
  * Core administrative types for the CVPlus admin module.
  * Defines interfaces for admin users, permissions, and general admin functionality.
  */
-import type { User } from '@cvplus/auth';
+interface User {
+    uid: string;
+    email: string;
+    displayName?: string;
+    photoURL?: string;
+    emailVerified: boolean;
+}
 export interface AdminUser extends User {
     adminProfile: AdminProfile;
     permissions: AdminPermissions;
@@ -409,4 +415,5 @@ export interface AdminFeature {
     requiredLevel: AdminLevel;
     requiredSpecializations: AdminSpecialization[];
 }
+export {};
 //# sourceMappingURL=admin.types.d.ts.map

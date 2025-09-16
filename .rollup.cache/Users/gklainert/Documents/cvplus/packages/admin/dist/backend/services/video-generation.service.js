@@ -1,11 +1,8 @@
 /**
- * Video Generation Service
+ * Video Generation Service - Admin Placeholder
  *
- * Service for testing video generation functionality and API availability.
- * Used by admin configuration testing to verify video generation capabilities.
- *
- * @author Gil Klainert
- * @version 1.0.0
+ * Placeholder service for video generation functionality that has been moved to @cvplus/multimedia.
+ * This placeholder maintains compatibility while the multimedia submodule is being integrated.
  */
 export class VideoGenerationService {
     constructor() {
@@ -29,7 +26,7 @@ export class VideoGenerationService {
         }
         const startTime = Date.now();
         try {
-            // Test implementation - in real implementation would test actual API endpoints
+            // Placeholder implementation
             await new Promise(resolve => setTimeout(resolve, 300));
             const avatars = this.getAvailableAvatars();
             const configuredAvatars = avatars.filter(a => a.configured);
@@ -95,41 +92,6 @@ export class VideoGenerationService {
             }
         ];
     }
-    /**
-     * Test specific avatar configuration
-     */
-    async testAvatarConfiguration(type) {
-        const avatars = this.getAvailableAvatars();
-        const avatar = avatars.find(a => a.type === type);
-        if (!avatar) {
-            return {
-                success: false,
-                configured: false,
-                error: `Avatar type '${type}' not found`
-            };
-        }
-        if (!avatar.configured) {
-            return {
-                success: false,
-                configured: false,
-                error: `Avatar '${type}' is not properly configured`
-            };
-        }
-        try {
-            // Avatar test implementation
-            await new Promise(resolve => setTimeout(resolve, 100));
-            return {
-                success: true,
-                configured: true
-            };
-        }
-        catch (error) {
-            return {
-                success: false,
-                configured: true,
-                error: error instanceof Error ? error.message : 'Unknown error'
-            };
-        }
-    }
 }
+// Note: Full video generation service has been moved to @cvplus/multimedia/admin/testing/video-generation.service.ts
 //# sourceMappingURL=video-generation.service.js.map

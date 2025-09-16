@@ -3,6 +3,9 @@
  *
  * SECURITY POLICY: This service fails closed (deny access) by default
  * when rate limiting checks cannot be completed successfully.
+ *
+ * This is the CONSOLIDATED and SECURE implementation from the CVPlus Core Module.
+ * All modules should use this implementation to ensure consistent security policies.
  */
 export interface RateLimitResult {
     allowed: boolean;
@@ -67,4 +70,5 @@ export declare class SecureRateLimitGuard {
         details: Record<string, any>;
     }>;
 }
+export declare const secureRateLimitGuard: SecureRateLimitGuard;
 //# sourceMappingURL=rate-limit-guard.service.d.ts.map

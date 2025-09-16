@@ -3,9 +3,12 @@ import { getFirestore } from 'firebase-admin/firestore';
 
 /**
  * Secure Rate Limiting Service with Fail-Closed Policy
- * 
+ *
  * SECURITY POLICY: This service fails closed (deny access) by default
  * when rate limiting checks cannot be completed successfully.
+ *
+ * This is the CONSOLIDATED and SECURE implementation from the CVPlus Core Module.
+ * All modules should use this implementation to ensure consistent security policies.
  */
 export interface RateLimitResult {
   allowed: boolean;
@@ -40,19 +43,19 @@ export class SecureRateLimitGuard {
 
   /**
    * Check rate limits with fail-closed security policy
-   * 
+   *
    * @param userId - User identifier
    * @param featureId - Feature being accessed
    * @param config - Rate limiting configuration
    * @returns Rate limit result with secure defaults
    */
   async checkRateLimit(
-    userId: string, 
-    featureId: string, 
+    userId: string,
+    featureId: string,
     config: RateLimitConfig
   ): Promise<RateLimitResult> {
     const startTime = Date.now();
-    
+
     try {
       // Check service health first - fail closed if service is unhealthy
       if (!this.serviceHealth.get('rate-limiting')) {
@@ -69,7 +72,7 @@ export class SecureRateLimitGuard {
       }
 
       const result = await this.executeRateLimitCheck(userId, featureId, config);
-      
+
       // Log successful check
       this.logSecurityEvent('RATE_LIMIT_CHECK_SUCCESS', userId, featureId, {
         allowed: result.allowed,
@@ -124,7 +127,7 @@ export class SecureRateLimitGuard {
 
     // Check against limits
     const isWithinLimits = currentCount < config.limitPerMinute;
-    
+
     if (!isWithinLimits) {
       // Log rate limit exceeded
       this.logSecurityEvent('RATE_LIMIT_EXCEEDED', userId, featureId, {
@@ -158,7 +161,7 @@ export class SecureRateLimitGuard {
       };
 
       await this.db.collection('usage_tracking').add(usageRecord);
-      
+
       this.logSecurityEvent('USAGE_TRACKED', userId, featureId, {
         metadata,
         timestamp: new Date().toISOString()
@@ -191,7 +194,7 @@ export class SecureRateLimitGuard {
         .orderBy('timestamp', 'asc');
 
       const usageSnapshot = await usageQuery.get();
-      
+
       if (usageSnapshot.empty) {
         return { count: 0 };
       }
@@ -199,8 +202,8 @@ export class SecureRateLimitGuard {
       const docs = usageSnapshot.docs;
       return {
         count: docs.length,
-        firstUsage: docs[0].data().timestamp?.toDate(),
-        lastUsage: docs[docs.length - 1].data().timestamp?.toDate()
+        firstUsage: docs[0]?.data().timestamp?.toDate(),
+        lastUsage: docs[docs.length - 1]?.data().timestamp?.toDate()
       };
 
     } catch (error) {
@@ -262,7 +265,7 @@ export class SecureRateLimitGuard {
   private sendToSecurityMonitoring(event: Record<string, any>): void {
     // Implementation would depend on your security monitoring system
     // Examples: DataDog, Splunk, Custom SIEM, etc.
-    
+
     // For now, ensure it's logged for external collection
     console.log('SECURITY_MONITOR:', JSON.stringify(event));
   }
@@ -276,17 +279,17 @@ export class SecureRateLimitGuard {
   }> {
     try {
       const testStart = Date.now();
-      
+
       // Test database connectivity
       await this.db.collection('health_check').limit(1).get();
-      
+
       const dbLatency = Date.now() - testStart;
-      
+
       // Check service health state
       const serviceHealthy = this.serviceHealth.get('rate-limiting') || false;
-      
+
       const healthy = dbLatency < 1000 && serviceHealthy;
-      
+
       return {
         healthy,
         details: {
@@ -307,3 +310,6 @@ export class SecureRateLimitGuard {
     }
   }
 }
+
+// Export singleton instance for easy consumption
+export const secureRateLimitGuard = SecureRateLimitGuard.getInstance();

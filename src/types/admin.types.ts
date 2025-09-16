@@ -5,7 +5,14 @@
  * Defines interfaces for admin users, permissions, and general admin functionality.
  */
 
-import type { AuthenticatedUser as User } from '@cvplus/core';
+// Use local user interface for admin module
+interface User {
+  uid: string;
+  email: string;
+  displayName?: string;
+  photoURL?: string;
+  emailVerified: boolean;
+}
 
 // ============================================================================
 // Admin User Types

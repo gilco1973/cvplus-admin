@@ -484,7 +484,7 @@ export class ProviderPerformanceTracker {
         cost: await this.estimateCost(providerId, options),
         errorType: error,
         metadata: {
-          duration: this.getDurationInSeconds(options.duration),
+          duration: this.getDurationInSeconds(options.duration?.toString()),
           resolution: result.metadata?.resolution || '1920x1080',
           format: result.metadata?.format || 'mp4',
           features: this.extractFeatures(options)

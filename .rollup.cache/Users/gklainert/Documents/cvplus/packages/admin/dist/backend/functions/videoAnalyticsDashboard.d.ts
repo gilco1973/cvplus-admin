@@ -1,15 +1,30 @@
 /**
  * Video Analytics Dashboard Function
  *
- * Comprehensive analytics dashboard API for CVPlus video generation platform.
- * Provides real-time performance metrics, quality analysis, business insights,
- * and user feedback analytics through RESTful endpoints.
- *
- * @author Gil Klainert
- * @version 1.0.0
+ * Placeholder Firebase Function for video analytics dashboard.
+ * Maintains API compatibility while analytics functionality is migrated.
  */
-/**
- * Main dashboard analytics function
- */
-export declare const videoAnalyticsDashboard: import("firebase-functions/v2/https").HttpsFunction;
+interface VideoAnalyticsRequest {
+    timeRange?: string;
+    userId?: string;
+    videoType?: string;
+}
+interface VideoAnalyticsResponse {
+    success: boolean;
+    data?: {
+        totalVideos: number;
+        viewCount: number;
+        engagementRate: number;
+        topPerformingVideos: Array<{
+            id: string;
+            title: string;
+            views: number;
+            engagement: number;
+        }>;
+    };
+    error?: string;
+    timestamp: string;
+}
+export declare const videoAnalyticsDashboard: import("firebase-functions/v2/https").CallableFunction<VideoAnalyticsRequest, Promise<VideoAnalyticsResponse>>;
+export {};
 //# sourceMappingURL=videoAnalyticsDashboard.d.ts.map

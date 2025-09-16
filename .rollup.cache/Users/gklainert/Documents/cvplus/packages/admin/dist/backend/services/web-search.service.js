@@ -1,11 +1,8 @@
 /**
- * Web Search Service
+ * Web Search Service - Admin Placeholder
  *
- * Service for testing web search functionality and API availability.
- * Used by admin configuration testing to verify search capabilities.
- *
- * @author Gil Klainert
- * @version 1.0.0
+ * Placeholder service for web search functionality that has been moved to @cvplus/core.
+ * This placeholder maintains compatibility while the core submodule is being integrated.
  */
 export class WebSearchService {
     constructor() {
@@ -29,7 +26,7 @@ export class WebSearchService {
         }
         const startTime = Date.now();
         try {
-            // Search test implementation - in real implementation would make actual API call
+            // Placeholder implementation
             await new Promise(resolve => setTimeout(resolve, 100));
             return {
                 success: true,
@@ -56,4 +53,5 @@ export class WebSearchService {
         };
     }
 }
+// Note: Full web search service has been moved to @cvplus/core/services/search/web-search.service.ts
 //# sourceMappingURL=web-search.service.js.map

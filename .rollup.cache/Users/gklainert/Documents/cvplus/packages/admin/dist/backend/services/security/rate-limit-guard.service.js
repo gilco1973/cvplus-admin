@@ -140,8 +140,8 @@ export class SecureRateLimitGuard {
             const docs = usageSnapshot.docs;
             return {
                 count: docs.length,
-                firstUsage: docs[0].data().timestamp?.toDate(),
-                lastUsage: docs[docs.length - 1].data().timestamp?.toDate()
+                firstUsage: docs[0]?.data().timestamp?.toDate(),
+                lastUsage: docs[docs.length - 1]?.data().timestamp?.toDate()
             };
         }
         catch (error) {
@@ -228,4 +228,6 @@ export class SecureRateLimitGuard {
         }
     }
 }
+// Export singleton instance for easy consumption
+export const secureRateLimitGuard = SecureRateLimitGuard.getInstance();
 //# sourceMappingURL=rate-limit-guard.service.js.map

@@ -1,7 +1,24 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { useAuth } from '@cvplus/auth';
+// Placeholder useAuth hook for admin module independence
+const useAuth = () => {
+    return {
+        user: null,
+        loading: false,
+        error: null,
+        logout: async () => {
+            // Placeholder logout implementation
+            console.log('User logged out');
+        },
+        signIn: async (email, password) => {
+            console.log('Sign in attempt');
+        },
+        signUp: async (email, password) => {
+            console.log('Sign up attempt');
+        }
+    };
+};
 import { useAdminAuth } from '../hooks/useAdminAuth';
 export const AdminLayout = ({ children }) => {
     const [sidebarOpen, setSidebarOpen] = useState(true);

@@ -1,11 +1,8 @@
 /**
- * Podcast Generation Service
+ * Podcast Generation Service - Admin Placeholder
  *
- * Service for testing podcast generation functionality and API availability.
- * Used by admin configuration testing to verify podcast generation capabilities.
- *
- * @author Gil Klainert
- * @version 1.0.0
+ * Placeholder service for podcast generation functionality that has been moved to @cvplus/multimedia.
+ * This placeholder maintains compatibility while the multimedia submodule is being integrated.
  */
 export declare class PodcastGenerationService {
     private elevenLabsApiKey;
@@ -37,13 +34,5 @@ export declare class PodcastGenerationService {
         }>;
         lastTested?: Date;
     };
-    /**
-     * Get available voices for testing
-     */
-    getAvailableVoices(): Array<{
-        id: string;
-        name: string;
-        configured: boolean;
-    }>;
 }
 //# sourceMappingURL=podcast-generation.service.d.ts.map

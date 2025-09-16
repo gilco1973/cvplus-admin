@@ -13,15 +13,22 @@
 export { AdminDashboardService } from '../../services/admin-dashboard.service';
 // Performance and monitoring services
 export { PerformanceMonitorService } from './performance-monitor.service';
-export { AnalyticsEngineService } from './analytics-engine.service';
+// export { AnalyticsEngineService, type BusinessMetrics, type QualityInsights, type UserBehaviorInsights } from '@cvplus/analytics/admin/services/analytics-engine.service'; // MIGRATED
 export { AlertManagerService } from './alert-manager.service';
 // Job and system management services
 export { JobMonitoringService } from './job-monitoring.service';
 // Configuration and testing services
 export { ConfigurationTestService } from './configuration-test.service';
-export { WebSearchService } from './web-search.service';
-export { PodcastGenerationService } from './podcast-generation.service';
-export { VideoGenerationService } from './video-generation.service';
+export { WebSearchService } from './web-search.service'; // PLACEHOLDER - MIGRATED TO @cvplus/core
+// Policy enforcement services (migrated from cv-processing)
+export { ComprehensivePolicyEnforcementService } from './comprehensive-policy-enforcement.service';
+// Multimedia admin testing services (placeholders - migrated to multimedia submodule)
+export { PodcastGenerationService } from './podcast-generation.service'; // PLACEHOLDER - MIGRATED TO @cvplus/multimedia
+export { VideoGenerationService } from './video-generation.service'; // PLACEHOLDER - MIGRATED TO @cvplus/multimedia
+// Security and Validation Services (migrated from core)
+export * from './security';
+export * from './validation';
+export { PIIDetector } from './piiDetector';
 // ============================================================================
 // SERVICE REGISTRY
 // ============================================================================

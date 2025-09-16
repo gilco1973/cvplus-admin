@@ -20,8 +20,9 @@ export { getBusinessMetrics } from './getBusinessMetrics';
 export { getCacheStats, warmCaches, clearCaches } from './getCacheStats';
 export { initializeAdmin } from './initializeAdmin';
 
-// Migrated admin functions (placeholder implementations for compatibility)
-export { videoAnalyticsDashboard } from './videoAnalyticsDashboard'; // Placeholder implementation
+// Comprehensive dashboard functions
+export { videoAnalyticsDashboard } from './dashboards/videoAnalyticsDashboard';
+export { videoAnalyticsDashboard as videoAnalyticsDashboardAlt } from './dashboards/video-analytics-dashboard';
 export { testConfiguration } from './testConfiguration';
 export { monitorStuckJobs, triggerJobMonitoring, getJobDetails, getJobStats } from './monitorJobs';
 export { cleanupTempFiles } from './cleanupTempFiles';

@@ -16,6 +16,7 @@
  */
 import * as admin from 'firebase-admin';
 import * as functions from 'firebase-functions';
+import { AdminRole, AdminLevel } from '../types';
 export class AdminAccessService {
     /**
      * Check if user has basic admin access
@@ -163,8 +164,8 @@ export class AdminAccessService {
             // Determine admin level based on email
             const adminLevel = this.SUPER_ADMIN_EMAILS.includes(email) ? 5 : 3;
             const adminRoles = this.SUPER_ADMIN_EMAILS.includes(email)
-                ? ['system_admin', 'super_admin', 'admin', 'moderator', 'support']
-                : ['admin', 'moderator', 'support'];
+                ? [AdminRole.SYSTEM_ADMIN, AdminRole.SUPER_ADMIN, AdminRole.ADMIN, AdminRole.MODERATOR, AdminRole.SUPPORT]
+                : [AdminRole.ADMIN, AdminRole.MODERATOR, AdminRole.SUPPORT];
             // Set custom claims
             await admin.auth().setCustomUserClaims(userId, {
                 isAdmin: true,
@@ -198,7 +199,7 @@ export class AdminAccessService {
             canAccessSupport: false,
             canViewReports: false,
             canManageContent: false,
-            adminLevel: 0,
+            adminLevel: AdminLevel.L1_SUPPORT,
             roles: []
         };
     }
@@ -221,7 +222,7 @@ export class AdminAccessService {
             canViewReports: true,
             canManageContent: true,
             adminLevel: 5,
-            roles: ['system_admin', 'super_admin', 'admin', 'moderator', 'support']
+            roles: [AdminRole.SYSTEM_ADMIN, AdminRole.SUPER_ADMIN, AdminRole.ADMIN, AdminRole.MODERATOR, AdminRole.SUPPORT]
         };
     }
     /**
@@ -235,16 +236,16 @@ export class AdminAccessService {
      */
     static calculatePermissions(adminLevel, roles, userId) {
         const permissions = {
-            canManageUsers: adminLevel >= 2 || roles.includes('admin'),
-            canMonitorSystem: adminLevel >= 1 || roles.includes('support'),
-            canViewAnalytics: adminLevel >= 2 || roles.includes('admin'),
-            canManageAdmins: adminLevel >= 4 || roles.includes('super_admin'),
-            canModerateContent: adminLevel >= 2 || roles.includes('moderator'),
-            canAuditSecurity: adminLevel >= 3 || roles.includes('admin'),
-            canManageBilling: adminLevel >= 3 || roles.includes('admin'),
-            canAccessSupport: adminLevel >= 1 || roles.includes('support'),
-            canViewReports: adminLevel >= 2 || roles.includes('admin'),
-            canManageContent: adminLevel >= 2 || roles.includes('moderator'),
+            canManageUsers: adminLevel >= 2 || roles.includes(AdminRole.ADMIN),
+            canMonitorSystem: adminLevel >= 1 || roles.includes(AdminRole.SUPPORT),
+            canViewAnalytics: adminLevel >= 2 || roles.includes(AdminRole.ADMIN),
+            canManageAdmins: adminLevel >= 4 || roles.includes(AdminRole.SUPER_ADMIN),
+            canModerateContent: adminLevel >= 2 || roles.includes(AdminRole.MODERATOR),
+            canAuditSecurity: adminLevel >= 3 || roles.includes(AdminRole.ADMIN),
+            canManageBilling: adminLevel >= 3 || roles.includes(AdminRole.ADMIN),
+            canAccessSupport: adminLevel >= 1 || roles.includes(AdminRole.SUPPORT),
+            canViewReports: adminLevel >= 2 || roles.includes(AdminRole.ADMIN),
+            canManageContent: adminLevel >= 2 || roles.includes(AdminRole.MODERATOR),
             adminLevel,
             roles
         };

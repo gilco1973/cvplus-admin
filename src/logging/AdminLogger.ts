@@ -4,7 +4,13 @@
  * Specialized logger for admin operations, system monitoring, and configuration events
  */
 
-import { AdminLogger as BaseAdminLogger, adminLogger } from '@cvplus/core';
+import { logger, LoggerFactory, LogLevel } from '@cvplus/core';
+
+// Create admin-specific logger instance
+const adminLogger = LoggerFactory.createLogger('admin', {
+  level: LogLevel.INFO,
+  context: 'admin-module'
+});
 
 // Re-export the admin logger
 export { adminLogger };

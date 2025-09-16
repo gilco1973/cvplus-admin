@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '@cvplus/auth';
 import { getFunctions, httpsCallable } from 'firebase/functions';
+import { getAuth } from 'firebase/auth';
 export const useAdminAuth = () => {
     const { user } = useAuth();
     const [state, setState] = useState({
@@ -26,7 +27,12 @@ export const useAdminAuth = () => {
             try {
                 setState(prev => ({ ...prev, loading: true, error: null }));
                 // Check if user has admin custom claims
-                const token = await user.getIdTokenResult();
+                const auth = getAuth();
+                const currentUser = auth.currentUser;
+                if (!currentUser) {
+                    throw new Error('No authenticated user');
+                }
+                const token = await currentUser.getIdTokenResult();
                 const adminClaims = token.claims.admin;
                 if (!adminClaims) {
                     // Not an admin user
@@ -118,7 +124,11 @@ export const useAdminAuth = () => {
             const initData = result.data?.data;
             if (initData) {
                 // Refresh admin status after initialization
-                const token = await user.getIdTokenResult(true); // Force refresh
+                const auth = getAuth();
+                const currentUser = auth.currentUser;
+                if (!currentUser)
+                    throw new Error('No authenticated user for refresh');
+                const token = await currentUser.getIdTokenResult(true); // Force refresh
                 const adminClaims = token.claims.admin;
                 setState({
                     isAdmin: true,

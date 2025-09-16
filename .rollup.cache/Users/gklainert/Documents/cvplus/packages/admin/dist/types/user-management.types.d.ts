@@ -12,6 +12,25 @@ interface Subscription {
     currentPeriodStart: number;
     currentPeriodEnd: number;
 }
+export interface UserActivity {
+    id: string;
+    userId: string;
+    action: string;
+    timestamp: Date;
+    metadata?: Record<string, any>;
+}
+export interface SupportTicketSummary {
+    totalTickets: number;
+    openTickets: number;
+    resolvedTickets: number;
+    averageResponseTime: number;
+}
+export interface SubscriptionAnalytics {
+    totalSubscriptions: number;
+    activeSubscriptions: number;
+    churnRate: number;
+    averageRevenue: number;
+}
 export interface UserManagementOverview {
     statistics: UserManagementStatistics;
     segments: UserSegmentAnalysis[];

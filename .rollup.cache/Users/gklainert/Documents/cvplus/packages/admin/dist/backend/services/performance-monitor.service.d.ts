@@ -32,6 +32,43 @@ export interface PerformanceTrend {
         value: number;
     }>;
 }
+export interface PerformanceAlert {
+    id: string;
+    type: 'performance' | 'availability' | 'quality' | 'error_rate';
+    severity: 'low' | 'medium' | 'high' | 'critical';
+    title: string;
+    message: string;
+    metrics: Record<string, number>;
+    threshold: number;
+    currentValue: number;
+    timestamp: Date;
+    provider?: string;
+    service?: string;
+    resolvedAt?: Date;
+}
+export interface SystemAlert {
+    id: string;
+    type: 'system' | 'security' | 'performance' | 'error';
+    severity: 'info' | 'warning' | 'error' | 'critical';
+    title: string;
+    message: string;
+    source: string;
+    timestamp: Date;
+    isResolved: boolean;
+    resolvedAt?: Date;
+    resolvedBy?: string;
+    metadata?: Record<string, any>;
+}
+export interface AlertDashboard {
+    activeAlerts: SystemAlert[];
+    recentAlerts: SystemAlert[];
+    alertsByType: Record<string, number>;
+    alertsBySeverity: Record<string, number>;
+    totalAlerts: number;
+    resolvedToday: number;
+    averageResolutionTime: number;
+    lastUpdated: Date;
+}
 export declare class PerformanceMonitorService {
     private db;
     constructor();

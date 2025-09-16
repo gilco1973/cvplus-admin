@@ -9,9 +9,9 @@
  */
 import { onRequest } from 'firebase-functions/v2/https';
 import { WebSearchService } from '../services/web-search.service';
+import { ConfigurationTestService } from '../services/configuration-test.service';
 import { PodcastGenerationService } from '../services/podcast-generation.service';
 import { VideoGenerationService } from '../services/video-generation.service';
-import { ConfigurationTestService } from '../services/configuration-test.service';
 // CORS configuration for admin functions
 const corsOptions = {
     cors: true

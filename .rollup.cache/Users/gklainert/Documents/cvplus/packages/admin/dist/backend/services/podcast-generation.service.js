@@ -1,11 +1,8 @@
 /**
- * Podcast Generation Service
+ * Podcast Generation Service - Admin Placeholder
  *
- * Service for testing podcast generation functionality and API availability.
- * Used by admin configuration testing to verify podcast generation capabilities.
- *
- * @author Gil Klainert
- * @version 1.0.0
+ * Placeholder service for podcast generation functionality that has been moved to @cvplus/multimedia.
+ * This placeholder maintains compatibility while the multimedia submodule is being integrated.
  */
 export class PodcastGenerationService {
     constructor() {
@@ -30,7 +27,7 @@ export class PodcastGenerationService {
         }
         const startTime = Date.now();
         try {
-            // Test implementation - in real implementation would test actual API endpoints
+            // Placeholder implementation
             await new Promise(resolve => setTimeout(resolve, 200));
             return {
                 success: true,
@@ -66,22 +63,6 @@ export class PodcastGenerationService {
             lastTested: new Date()
         };
     }
-    /**
-     * Get available voices for testing
-     */
-    getAvailableVoices() {
-        return [
-            {
-                id: 'host1',
-                name: 'Host 1 Voice',
-                configured: !!process.env.ELEVEN_LABS_HOST1_VOICE_ID
-            },
-            {
-                id: 'host2',
-                name: 'Host 2 Voice',
-                configured: !!process.env.ELEVEN_LABS_HOST2_VOICE_ID
-            }
-        ];
-    }
 }
+// Note: Full podcast generation service has been moved to @cvplus/multimedia/admin/testing/podcast-generation.service.ts
 //# sourceMappingURL=podcast-generation.service.js.map

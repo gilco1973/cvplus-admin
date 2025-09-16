@@ -1,6 +1,25 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { useAuth } from '@cvplus/auth';
+import { UseAuthReturn } from '../../backend/core-placeholder';
+
+// Placeholder useAuth hook for admin module independence
+const useAuth = (): UseAuthReturn => {
+  return {
+    user: null,
+    loading: false,
+    error: null,
+    logout: async () => {
+      // Placeholder logout implementation
+      console.log('User logged out');
+    },
+    signIn: async (email: string, password: string) => {
+      console.log('Sign in attempt');
+    },
+    signUp: async (email: string, password: string) => {
+      console.log('Sign up attempt');
+    }
+  };
+};
 import { useAdminAuth } from '../hooks/useAdminAuth';
 
 /**
