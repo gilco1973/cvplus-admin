@@ -6,15 +6,15 @@
  *
  * @author Gil Klainert
  * @version 1.0.0
- */
+  */
 /**
  * Scheduled function to monitor and recover stuck CV generation jobs
  * Runs every 10 minutes to check for stuck jobs
- */
+  */
 export declare const monitorStuckJobs: import("firebase-functions/v2/scheduler").ScheduleFunction;
 /**
  * Manual job monitoring trigger for admin use
- */
+  */
 export declare const triggerJobMonitoring: import("firebase-functions/v2/https").CallableFunction<any, Promise<{
     success: boolean;
     message: string;
@@ -30,7 +30,7 @@ export declare const triggerJobMonitoring: import("firebase-functions/v2/https")
 }>>;
 /**
  * Get detailed information about a specific job for debugging
- */
+  */
 export declare const getJobDetails: import("firebase-functions/v2/https").CallableFunction<any, Promise<{
     success: boolean;
     message: string;
@@ -46,7 +46,7 @@ export declare const getJobDetails: import("firebase-functions/v2/https").Callab
 }>>;
 /**
  * Get job processing statistics
- */
+  */
 export declare const getJobStats: import("firebase-functions/v2/https").CallableFunction<any, Promise<{
     success: boolean;
     stats: import("..").JobProcessingStats;

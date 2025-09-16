@@ -6,6 +6,6 @@
  *
  * @author Gil Klainert
  * @version 1.0.0
- */
+  */
 export declare const testConfiguration: import("firebase-functions/v2/https").HttpsFunction;
 //# sourceMappingURL=testConfiguration.d.ts.map

@@ -9,7 +9,7 @@ import { getFirestore } from 'firebase-admin/firestore';
  *
  * This is the CONSOLIDATED and SECURE implementation from the CVPlus Core Module.
  * All modules should use this implementation to ensure consistent security policies.
- */
+  */
 export interface RateLimitResult {
   allowed: boolean;
   retryAfter?: number;
@@ -48,7 +48,7 @@ export class SecureRateLimitGuard {
    * @param featureId - Feature being accessed
    * @param config - Rate limiting configuration
    * @returns Rate limit result with secure defaults
-   */
+    */
   async checkRateLimit(
     userId: string,
     featureId: string,
@@ -105,7 +105,7 @@ export class SecureRateLimitGuard {
 
   /**
    * Execute the actual rate limit check
-   */
+    */
   private async executeRateLimitCheck(
     userId: string,
     featureId: string,
@@ -150,7 +150,7 @@ export class SecureRateLimitGuard {
 
   /**
    * Track usage event with security logging
-   */
+    */
   async trackUsage(userId: string, featureId: string, metadata?: Record<string, any>): Promise<void> {
     try {
       const usageRecord = {
@@ -177,7 +177,7 @@ export class SecureRateLimitGuard {
 
   /**
    * Get current usage statistics
-   */
+    */
   async getUsageStats(userId: string, featureId: string, windowMinutes: number = 60): Promise<{
     count: number;
     firstUsage?: Date;
@@ -215,7 +215,7 @@ export class SecureRateLimitGuard {
 
   /**
    * Security event logging with structured format
-   */
+    */
   private logSecurityEvent(
     eventType: string,
     userId: string,
@@ -243,7 +243,7 @@ export class SecureRateLimitGuard {
 
   /**
    * Determine event severity for proper alerting
-   */
+    */
   private getEventSeverity(eventType: string): 'LOW' | 'MEDIUM' | 'HIGH' | 'CRITICAL' {
     switch (eventType) {
       case 'RATE_LIMIT_CHECK_FAILED':
@@ -261,7 +261,7 @@ export class SecureRateLimitGuard {
 
   /**
    * Send security events to external monitoring system
-   */
+    */
   private sendToSecurityMonitoring(event: Record<string, any>): void {
     // Implementation would depend on your security monitoring system
     // Examples: DataDog, Splunk, Custom SIEM, etc.
@@ -272,7 +272,7 @@ export class SecureRateLimitGuard {
 
   /**
    * Health check for the rate limiting service
-   */
+    */
   async healthCheck(): Promise<{
     healthy: boolean;
     details: Record<string, any>;

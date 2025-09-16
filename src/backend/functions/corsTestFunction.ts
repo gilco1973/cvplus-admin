@@ -6,7 +6,7 @@
  * 
  * @author Gil Klainert
  * @version 1.0.0
- */
+  */
 
 import { onRequest, onCall } from 'firebase-functions/v2/https';
 

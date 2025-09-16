@@ -1,7 +1,7 @@
 import * as admin from 'firebase-admin';
 /**
  * Admin function for comprehensive user management operations
- */
+  */
 export declare const manageUsers: import("firebase-functions/v2/https").CallableFunction<any, Promise<{
     success: boolean;
     data: {

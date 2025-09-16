@@ -3,7 +3,7 @@
  *
  * Placeholder types for analytics functionality that has been moved to @cvplus/analytics.
  * These types maintain compatibility while the analytics submodule is being integrated.
- */
+  */
 
 // Temporary placeholder types for migrated analytics functionality
 export interface BusinessMetrics {

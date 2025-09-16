@@ -2,7 +2,7 @@
  * Dashboard Types
  * 
  * Types for the admin dashboard interface, widgets, and data visualization.
- */
+  */
 
 import type { AdminUser, AdminPermissions, AdminAlert } from './admin.types';
 

@@ -11,7 +11,7 @@ import { ValidationCriteria } from './llm-verification.service';
  * to adopt the LLM verification system without major code changes.
  * 
  * It maintains backward compatibility while adding verification capabilities.
- */
+  */
 
 export interface LLMIntegrationConfig {
   enableVerification?: boolean;
@@ -44,7 +44,7 @@ export interface LegacyClaudeResponse {
 /**
  * Integration wrapper that provides backward-compatible methods
  * while adding verification capabilities
- */
+  */
 export class LLMIntegrationWrapperService {
   private verifiedClaudeService: VerifiedClaudeService;
   private config: Required<LLMIntegrationConfig>;
@@ -69,7 +69,7 @@ export class LLMIntegrationWrapperService {
    * 
    * This method maintains the same interface as the original Claude calls
    * but adds verification behind the scenes.
-   */
+    */
   async callClaude(request: LegacyClaudeCall): Promise<LegacyClaudeResponse> {
     const verifiedRequest: VerifiedMessageOptions = {
       model: this.config.defaultModel,
@@ -102,7 +102,7 @@ export class LLMIntegrationWrapperService {
 
   /**
    * Advanced method for services that need more control
-   */
+    */
   async callClaudeWithMessages(
     messages: Array<{ role: 'user' | 'assistant' | 'system'; content: string }>,
     options?: {
@@ -135,7 +135,7 @@ export class LLMIntegrationWrapperService {
 
   /**
    * Get service-specific statistics
-   */
+    */
   getServiceStats() {
     return {
       serviceName: this.config.serviceName,
@@ -146,7 +146,7 @@ export class LLMIntegrationWrapperService {
 
 /**
  * Factory function to create service-specific wrappers
- */
+  */
 export function createLLMWrapper(serviceName: string, options?: {
   enableVerification?: boolean;
   customValidation?: ValidationCriteria;
@@ -160,7 +160,7 @@ export function createLLMWrapper(serviceName: string, options?: {
 
 /**
  * Pre-configured service wrappers for common CVPlus services
- */
+  */
 export class CVParsingLLMWrapper extends LLMIntegrationWrapperService {
   constructor() {
     super({
@@ -171,7 +171,7 @@ export class CVParsingLLMWrapper extends LLMIntegrationWrapperService {
 
   /**
    * CV-specific parsing method with enhanced validation
-   */
+    */
   async parseCV(
     cvText: string, 
     userInstructions?: string,

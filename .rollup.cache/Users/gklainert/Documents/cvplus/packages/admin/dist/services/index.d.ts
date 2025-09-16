@@ -6,12 +6,12 @@
  *
  * @author Gil Klainert
  * @version 1.0.0
- */
+  */
 export { AdminAccessService } from './admin-access.service';
 export { AdminDashboardService } from './admin-dashboard.service';
 /**
  * Available admin services and their capabilities
- */
+  */
 export declare const ADMIN_SERVICES: {
     readonly AdminAccessService: {
         readonly name: "AdminAccessService";
@@ -28,7 +28,7 @@ export declare const ADMIN_SERVICES: {
 };
 /**
  * Service categories
- */
+  */
 export declare const SERVICE_CATEGORIES: {
     readonly AUTHENTICATION: "Authentication & Authorization";
     readonly DASHBOARD: "Dashboard Services";

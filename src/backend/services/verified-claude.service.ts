@@ -3,7 +3,7 @@
  *
  * Service for managing Claude API integration and verification.
  * Handles LLM interaction verification and monitoring.
- */
+  */
 
 export interface ClaudeVerificationResult {
   verified: boolean;
@@ -33,7 +33,7 @@ export class VerifiedClaudeService {
 
   /**
    * Verify Claude API connectivity
-   */
+    */
   async verifyConnection(): Promise<ClaudeVerificationResult> {
     if (!this.apiKey) {
       return {
@@ -69,7 +69,7 @@ export class VerifiedClaudeService {
 
   /**
    * Get service status
-   */
+    */
   getServiceStatus(): {
     available: boolean;
     configured: boolean;
@@ -84,7 +84,7 @@ export class VerifiedClaudeService {
 
   /**
    * Test Claude response
-   */
+    */
   async testResponse(prompt: string): Promise<{
     success: boolean;
     response?: string;
@@ -114,7 +114,7 @@ export class VerifiedClaudeService {
 
   /**
    * Create verified message with Claude API
-   */
+    */
   async createVerifiedMessage(options: VerifiedMessageOptions): Promise<{
     success: boolean;
     response?: string;

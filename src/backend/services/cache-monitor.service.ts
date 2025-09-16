@@ -20,7 +20,7 @@ export interface CacheHealthReport {
 export class CacheMonitorService {
   /**
    * Generate comprehensive cache health report
-   */
+    */
   async generateHealthReport(): Promise<CacheHealthReport> {
     const stats = await subscriptionCache.getStats();
     // Since the actual service returns different structure, create placeholder stats
@@ -67,7 +67,7 @@ export class CacheMonitorService {
 
   /**
    * Log cache performance metrics
-   */
+    */
   async logPerformanceMetrics(): Promise<void> {
     const report = await this.generateHealthReport();
 
@@ -85,7 +85,7 @@ export class CacheMonitorService {
 
   /**
    * Check if cache performance is healthy
-   */
+    */
   async isCacheHealthy(): Promise<boolean> {
     const stats = await subscriptionCache.getStats();
     // Since the actual service returns different structure, create placeholder stats
@@ -103,7 +103,7 @@ export class CacheMonitorService {
 
   /**
    * Perform cache maintenance operations
-   */
+    */
   async performMaintenance(): Promise<void> {
     try {
       logger.info('Starting cache maintenance');

@@ -2,7 +2,7 @@
  * Content Moderation Types
  *
  * Types for content moderation functionality in the admin dashboard.
- */
+  */
 export interface ModerationQueue {
     id: string;
     name: string;

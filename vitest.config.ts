@@ -14,13 +14,15 @@ export default defineConfig({
         'node_modules/',
         'dist/',
         'src/__tests__/',
-        '**/*.d.ts',
+        '**/* .d.ts',
+  */
         '**/*.config.*',
         '**/coverage/**'
       ]
     },
     include: [
-      'src/**/*.{test,spec}.{js,ts,tsx}'
+      'src*/* .{test,spec}.{js,ts,tsx}'
+  */
     ],
     exclude: [
       'node_modules/',

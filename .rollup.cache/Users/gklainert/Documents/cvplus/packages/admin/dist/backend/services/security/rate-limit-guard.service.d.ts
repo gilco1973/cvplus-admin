@@ -6,7 +6,7 @@
  *
  * This is the CONSOLIDATED and SECURE implementation from the CVPlus Core Module.
  * All modules should use this implementation to ensure consistent security policies.
- */
+  */
 export interface RateLimitResult {
     allowed: boolean;
     retryAfter?: number;
@@ -32,19 +32,19 @@ export declare class SecureRateLimitGuard {
      * @param featureId - Feature being accessed
      * @param config - Rate limiting configuration
      * @returns Rate limit result with secure defaults
-     */
+      */
     checkRateLimit(userId: string, featureId: string, config: RateLimitConfig): Promise<RateLimitResult>;
     /**
      * Execute the actual rate limit check
-     */
+      */
     private executeRateLimitCheck;
     /**
      * Track usage event with security logging
-     */
+      */
     trackUsage(userId: string, featureId: string, metadata?: Record<string, any>): Promise<void>;
     /**
      * Get current usage statistics
-     */
+      */
     getUsageStats(userId: string, featureId: string, windowMinutes?: number): Promise<{
         count: number;
         firstUsage?: Date;
@@ -52,19 +52,19 @@ export declare class SecureRateLimitGuard {
     }>;
     /**
      * Security event logging with structured format
-     */
+      */
     private logSecurityEvent;
     /**
      * Determine event severity for proper alerting
-     */
+      */
     private getEventSeverity;
     /**
      * Send security events to external monitoring system
-     */
+      */
     private sendToSecurityMonitoring;
     /**
      * Health check for the rate limiting service
-     */
+      */
     healthCheck(): Promise<{
         healthy: boolean;
         details: Record<string, any>;

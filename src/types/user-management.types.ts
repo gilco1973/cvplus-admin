@@ -2,7 +2,7 @@
  * User Management Types
  * 
  * Types for user management functionality in the admin dashboard.
- */
+  */
 
 import type { User } from '@cvplus/auth';
 

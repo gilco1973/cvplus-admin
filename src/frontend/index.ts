@@ -5,7 +5,7 @@
  * 
  * @author Gil Klainert
  * @version 1.0.0
- */
+  */
 
 // ============================================================================
 // COMPONENTS EXPORTS
@@ -34,7 +34,7 @@ export const ADMIN_FRONTEND_MODULE = {
 
 /**
  * Frontend module capabilities
- */
+  */
 export const FRONTEND_CAPABILITIES = {
   dashboardComponents: 'Comprehensive admin dashboard components',
   userManagementUI: 'User management interface components',
@@ -48,7 +48,7 @@ export const FRONTEND_CAPABILITIES = {
 
 /**
  * Frontend dependencies
- */
+  */
 export const FRONTEND_DEPENDENCIES = {
   core: {
     react: '^18.0.0',

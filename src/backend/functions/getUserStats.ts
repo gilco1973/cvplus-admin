@@ -5,7 +5,7 @@ import { requireAdminPermission } from '../../middleware/admin-auth.middleware';
 
 /**
  * Admin function to get user statistics and management data
- */
+  */
 export const getUserStats = onCall({
   cors: true,
   enforceAppCheck: false,
@@ -107,7 +107,7 @@ export const getUserStats = onCall({
 
 /**
  * Helper function to log admin activities
- */
+  */
 const logAdminActivity = async (adminUid: string, action: string, details: any) => {
   try {
     const db = admin.firestore();

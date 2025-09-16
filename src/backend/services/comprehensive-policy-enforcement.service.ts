@@ -4,7 +4,7 @@
  *
  * This service provides extensive admin policy logic, usage monitoring, and violation tracking.
  * It has been adapted for the admin submodule with appropriate dependency management.
- */
+  */
 
 import { logger } from 'firebase-functions';
 import { getFirestore, FieldValue } from 'firebase-admin/firestore';
@@ -183,7 +183,7 @@ export class ComprehensivePolicyEnforcementService {
 
   /**
    * Set dependencies - would be handled by dependency injection in a real implementation
-   */
+    */
   setDependencies(cvHashService: CVHashService, nameVerificationService: NameVerificationService) {
     this.cvHashService = cvHashService;
     this.nameVerificationService = nameVerificationService;
@@ -191,7 +191,7 @@ export class ComprehensivePolicyEnforcementService {
 
   /**
    * Comprehensive policy check for CV upload
-   */
+    */
   async checkUploadPolicy(request: PolicyCheckRequest): Promise<PolicyCheckResult> {
     try {
       // Skip policy checks in development/emulator environment
@@ -374,7 +374,7 @@ export class ComprehensivePolicyEnforcementService {
 
   /**
    * Check user's monthly usage limits
-   */
+    */
   private async checkUsageLimits(userId: string, subscriptionData: any): Promise<UsageStats> {
     try {
       const now = new Date();
@@ -414,7 +414,7 @@ export class ComprehensivePolicyEnforcementService {
 
   /**
    * Get user account information
-   */
+    */
   private async getUserAccountInfo(userId: string): Promise<AccountNameData> {
     try {
       const userDoc = await this.db.collection('users').doc(userId).get();
@@ -441,7 +441,7 @@ export class ComprehensivePolicyEnforcementService {
 
   /**
    * Record policy check results
-   */
+    */
   private async recordPolicyCheck(userId: string, checkData: any): Promise<void> {
     try {
       // Skip recording in development environment
@@ -511,7 +511,7 @@ export class ComprehensivePolicyEnforcementService {
 
   /**
    * Get policy compliance statistics
-   */
+    */
   async getPolicyStats(timeRange: 'day' | 'week' | 'month' = 'week'): Promise<{
     totalChecks: number;
     totalViolations: number;

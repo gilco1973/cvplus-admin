@@ -3,7 +3,7 @@
  * 
  * Service for enforcing upload policies and content validation.
  * Minimal implementation for TypeScript compilation.
- */
+  */
 
 export interface PolicyCheckRequest {
   userId: string;

@@ -2,7 +2,7 @@
  * Admin Constants - Main Export File
  *
  * Exports all admin constants and configuration values.
- */
+  */
 export * from './admin.constants';
 export declare const CONSTANTS_VERSION = "1.0.0";
 export declare const LAST_UPDATED: Date;

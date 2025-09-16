@@ -6,7 +6,7 @@
  *
  * @author Gil Klainert
  * @version 1.0.0
- */
+  */
 import { ProviderPerformanceMetrics, VideoGenerationResult, VideoGenerationOptions } from './video-providers/base-provider.interface';
 interface PerformanceTrend {
     providerId: string;
@@ -34,7 +34,7 @@ interface PredictionModel {
 }
 /**
  * Provider Performance Tracker Service
- */
+  */
 export declare class ProviderPerformanceTracker {
     private metricsCollector;
     private trendAnalyzer;
@@ -43,27 +43,27 @@ export declare class ProviderPerformanceTracker {
     constructor();
     /**
      * Track a video generation operation
-     */
+      */
     trackVideoGeneration(providerId: string, options: VideoGenerationOptions, result: VideoGenerationResult, responseTime: number, success: boolean, error?: string): Promise<void>;
     /**
      * Track a status check operation
-     */
+      */
     trackStatusCheck(providerId: string, jobId: string, responseTime: number, success: boolean, error?: string): Promise<void>;
     /**
      * Get aggregated performance metrics
-     */
+      */
     getPerformanceMetrics(providerId: string, period?: '1h' | '24h' | '7d' | '30d'): Promise<ProviderPerformanceMetrics>;
     /**
      * Get performance trends
-     */
+      */
     getPerformanceTrends(providerId: string, timeframe?: '24h' | '7d' | '30d'): Promise<PerformanceTrend[]>;
     /**
      * Get predictive analytics
-     */
+      */
     getPredictions(providerId: string): Promise<PredictionModel>;
     /**
      * Get comprehensive performance dashboard data
-     */
+      */
     getDashboardData(providerId?: string): Promise<any>;
     private estimateVideoQuality;
     private estimateCost;
@@ -77,7 +77,7 @@ export declare class ProviderPerformanceTracker {
     private getAllProviderIds;
     /**
      * Cleanup method for proper service shutdown
-     */
+      */
     cleanup(): void;
 }
 export declare const providerPerformanceTracker: ProviderPerformanceTracker;

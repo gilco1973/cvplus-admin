@@ -1,6 +1,6 @@
 /**
  * Admin function to get user statistics and management data
- */
+  */
 export declare const getUserStats: import("firebase-functions/v2/https").CallableFunction<any, Promise<{
     success: boolean;
     data: {

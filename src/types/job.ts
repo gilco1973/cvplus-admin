@@ -3,7 +3,7 @@
  *
  * @author Gil Klainert
  * @version 1.0.0
- */
+  */
 
 export interface ParsedCV {
   id?: string;

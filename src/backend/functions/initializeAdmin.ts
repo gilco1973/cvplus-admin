@@ -6,7 +6,7 @@ import { requireAuth, AdminRole, AdminLevel } from '../../middleware/admin-auth.
 /**
  * Admin initialization function
  * Sets up admin custom claims for authorized users
- */
+  */
 export const initializeAdmin = onCall({
   cors: true,
   enforceAppCheck: false,
@@ -68,7 +68,7 @@ export const initializeAdmin = onCall({
 
 /**
  * Initialize admin user with custom claims and profile
- */
+  */
 async function initializeAdminUser(
   auth: admin.auth.Auth,
   db: admin.firestore.Firestore,
@@ -141,7 +141,7 @@ async function initializeAdminUser(
 
 /**
  * Initialize admin database collections with default data
- */
+  */
 async function initializeAdminCollections(db: admin.firestore.Firestore) {
   try {
     // Create system metrics collection
@@ -197,7 +197,7 @@ async function initializeAdminCollections(db: admin.firestore.Firestore) {
 
 /**
  * Get system admin permissions (full access)
- */
+  */
 function getSystemAdminPermissions() {
   return {
     canAccessDashboard: true,

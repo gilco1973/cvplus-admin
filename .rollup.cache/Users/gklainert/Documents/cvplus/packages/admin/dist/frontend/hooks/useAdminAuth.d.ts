@@ -3,7 +3,7 @@
  *
  * Provides admin-specific authentication state and methods.
  * Checks if the current user has admin privileges and loads their admin profile.
- */
+  */
 interface AdminProfile {
     id: string;
     userId: string;

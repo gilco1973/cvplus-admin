@@ -3,7 +3,7 @@
  *
  * Placeholder service for web search functionality that has been moved to @cvplus/core.
  * This placeholder maintains compatibility while the core submodule is being integrated.
- */
+  */
 
 export class WebSearchService {
   private apiKey: string | undefined;
@@ -14,14 +14,14 @@ export class WebSearchService {
 
   /**
    * Check if web search service is available
-   */
+    */
   isAvailable(): boolean {
     return !!this.apiKey;
   }
 
   /**
    * Test search functionality
-   */
+    */
   async testSearch(query: string = 'test'): Promise<{
     success: boolean;
     responseTime?: number;
@@ -56,7 +56,7 @@ export class WebSearchService {
 
   /**
    * Get service status information
-   */
+    */
   getServiceStatus(): {
     name: string;
     available: boolean;

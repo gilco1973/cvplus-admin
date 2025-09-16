@@ -6,7 +6,7 @@
  * 
  * @author Gil Klainert
  * @version 1.0.0
- */
+  */
 
 import { HttpsError, CallableRequest } from 'firebase-functions/v2/https';
 import { logger } from 'firebase-functions';
@@ -136,7 +136,7 @@ export interface AdminAuthenticatedRequest extends AuthenticatedRequest {
 
 /**
  * Basic authentication requirement
- */
+  */
 export const requireAuth = async (request: CallableRequest): Promise<AuthenticatedRequest> => {
   if (!request.auth) {
     logger.error('Authentication failed: No auth context', {
@@ -214,7 +214,7 @@ export const requireAuth = async (request: CallableRequest): Promise<Authenticat
 
 /**
  * Check if user has administrative privileges (legacy fallback)
- */
+  */
 export const isAdmin = (request: AuthenticatedRequest): boolean => {
   const adminEmailsEnv = process.env.ADMIN_EMAILS || 'gil.klainert@gmail.com,admin@cvplus.ai';
   const adminEmails = adminEmailsEnv.split(',').map(email => email.trim());
@@ -224,7 +224,7 @@ export const isAdmin = (request: AuthenticatedRequest): boolean => {
 
 /**
  * Enhanced admin authentication with Firebase Custom Claims
- */
+  */
 export const requireAdmin = async (request: CallableRequest, minLevel: AdminLevel = AdminLevel.L1_SUPPORT): Promise<AdminAuthenticatedRequest> => {
   const authenticatedRequest = await requireAuth(request);
   const { uid, token } = authenticatedRequest.auth;
@@ -305,7 +305,7 @@ export const requireAdmin = async (request: CallableRequest, minLevel: AdminLeve
 
 /**
  * Check specific admin permission
- */
+  */
 export const requireAdminPermission = async (
   request: CallableRequest, 
   permission: keyof AdminPermissions
@@ -331,7 +331,7 @@ export const requireAdminPermission = async (
 
 /**
  * Get admin profile from Firestore
- */
+  */
 const getAdminProfile = async (uid: string) => {
   try {
     const adminDoc = await admin.firestore()
@@ -356,7 +356,7 @@ const getAdminProfile = async (uid: string) => {
 
 /**
  * Get default permissions based on admin level
- */
+  */
 const getDefaultAdminPermissions = (level: AdminLevel): AdminPermissions => {
   const basePermissions: AdminPermissions = {
     canAccessDashboard: true,
@@ -645,7 +645,7 @@ const getDefaultAdminPermissions = (level: AdminLevel): AdminPermissions => {
 
 /**
  * Extract user information from authenticated request
- */
+  */
 export const getUserInfo = (request: AuthenticatedRequest) => {
   return {
     uid: request.auth.uid,
@@ -659,7 +659,7 @@ export const getUserInfo = (request: AuthenticatedRequest) => {
 
 /**
  * Rate limiting for admin functions
- */
+  */
 const rateLimitMap = new Map<string, { count: number; resetTime: number }>();
 const RATE_LIMIT_WINDOW = 60000; // 1 minute
 const RATE_LIMIT_MAX = 20; // 20 requests per minute per admin

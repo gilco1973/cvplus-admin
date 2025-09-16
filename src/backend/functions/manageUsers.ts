@@ -5,7 +5,7 @@ import { requireAdminPermission } from '../../middleware/admin-auth.middleware';
 
 /**
  * Admin function for comprehensive user management operations
- */
+  */
 export const manageUsers = onCall({
   cors: true,
   enforceAppCheck: false,
@@ -105,7 +105,7 @@ export const manageUsers = onCall({
 
 /**
  * Get detailed user information
- */
+  */
 const getUserDetails = async (db: admin.firestore.Firestore, auth: admin.auth.Auth, userId: string) => {
   if (!userId) {
     throw new Error('User ID is required');
@@ -182,7 +182,7 @@ const getUserDetails = async (db: admin.firestore.Firestore, auth: admin.auth.Au
 
 /**
  * Update user information
- */
+  */
 const updateUser = async (
   db: admin.firestore.Firestore, 
   auth: admin.auth.Auth, 
@@ -240,7 +240,7 @@ const updateUser = async (
 
 /**
  * Suspend user account
- */
+  */
 const suspendUser = async (
   db: admin.firestore.Firestore,
   auth: admin.auth.Auth,
@@ -281,7 +281,7 @@ const suspendUser = async (
 
 /**
  * Unsuspend user account
- */
+  */
 const unsuspendUser = async (
   db: admin.firestore.Firestore,
   auth: admin.auth.Auth,
@@ -323,7 +323,7 @@ const unsuspendUser = async (
 
 /**
  * Delete user account (requires high-level admin permission)
- */
+  */
 const deleteUser = async (
   db: admin.firestore.Firestore,
   auth: admin.auth.Auth,
@@ -392,7 +392,7 @@ const deleteUser = async (
 
 /**
  * Reset user password
- */
+  */
 const resetUserPassword = async (auth: admin.auth.Auth, userId: string, adminRequest: any) => {
   if (!userId) {
     throw new Error('User ID is required');
@@ -423,7 +423,7 @@ const resetUserPassword = async (auth: admin.auth.Auth, userId: string, adminReq
 
 /**
  * Verify user email
- */
+  */
 const verifyUserEmail = async (auth: admin.auth.Auth, userId: string, adminRequest: any) => {
   if (!userId) {
     throw new Error('User ID is required');
@@ -447,7 +447,7 @@ const verifyUserEmail = async (auth: admin.auth.Auth, userId: string, adminReque
 
 /**
  * Manage user subscription
- */
+  */
 const manageUserSubscription = async (
   db: admin.firestore.Firestore,
   userId: string,
@@ -490,7 +490,7 @@ const manageUserSubscription = async (
 
 /**
  * Export user data (GDPR compliance)
- */
+  */
 const exportUserData = async (
   db: admin.firestore.Firestore,
   userId: string,
@@ -529,7 +529,7 @@ const exportUserData = async (
 
 /**
  * Helper functions for subscription management
- */
+  */
 const upgradeUserToPremium = async (
   db: admin.firestore.Firestore,
   userId: string,
@@ -599,7 +599,7 @@ const extendSubscription = async (
 
 /**
  * Helper function to log admin activities
- */
+  */
 const logAdminActivity = async (adminUid: string, action: string, details: any) => {
   try {
     const db = admin.firestore();

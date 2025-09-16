@@ -5,7 +5,7 @@
  *
  * @author Gil Klainert
  * @version 1.0.0
- */
+  */
 export { AdminLayout } from './AdminLayout';
 export { BusinessMetricsCard } from './BusinessMetricsCard';
 export { UserStatsCard } from './UserStatsCard';
@@ -13,7 +13,7 @@ export { SystemHealthCard } from './SystemHealthCard';
 export { AnalyticsDashboard } from './AnalyticsDashboard';
 /**
  * Available admin components
- */
+  */
 export declare const ADMIN_COMPONENTS: {
     readonly layout: {
         readonly name: "AdminLayout";
@@ -42,7 +42,7 @@ export declare const ADMIN_COMPONENTS: {
 };
 /**
  * Component categories
- */
+  */
 export declare const COMPONENT_CATEGORIES: {
     readonly LAYOUT: "Layout Components";
     readonly ANALYTICS: "Analytics Components";
@@ -62,15 +62,15 @@ export interface CardComponentProps extends AdminComponentProps {
 }
 /**
  * Common component utilities and helpers
- */
+  */
 export declare const componentUtils: {
     /**
      * Generate data-testid for admin components
-     */
+      */
     generateTestId: (component: string, element?: string) => string;
     /**
      * Common loading states
-     */
+      */
     loadingStates: {
         readonly IDLE: "idle";
         readonly LOADING: "loading";
@@ -79,7 +79,7 @@ export declare const componentUtils: {
     };
     /**
      * Common error handling
-     */
+      */
     handleComponentError: (error: Error, componentName: string) => void;
 };
 //# sourceMappingURL=index.d.ts.map

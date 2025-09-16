@@ -6,7 +6,7 @@
  *
  * @author Gil Klainert
  * @version 1.0.0
- */
+  */
 
 // Core types and interfaces
 export * from './types';

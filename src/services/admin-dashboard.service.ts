@@ -3,7 +3,7 @@
  * 
  * Central service for managing the admin dashboard, aggregating data from all admin modules,
  * and providing real-time updates and quick actions.
- */
+  */
 
 import type {
   AdminDashboardState,
@@ -23,7 +23,7 @@ export class AdminDashboardService {
 
   /**
    * Initialize admin dashboard with user permissions and configuration
-   */
+    */
   async initializeDashboard(
     adminUserId: string,
     dashboardConfig: AdminDashboardConfig
@@ -80,7 +80,7 @@ export class AdminDashboardService {
 
   /**
    * Refresh dashboard data
-   */
+    */
   async refreshDashboard(
     dashboardId: string,
     adminUserId: string
@@ -126,7 +126,7 @@ export class AdminDashboardService {
 
   /**
    * Aggregate data from all admin modules based on permissions
-   */
+    */
   private async aggregateDashboardData(
     permissions: AdminPermissions,
     config: AdminDashboardConfig
@@ -176,7 +176,7 @@ export class AdminDashboardService {
 
   /**
    * Generate system overview data
-   */
+    */
   private async generateSystemOverview(): Promise<SystemOverviewData> {
     try {
       const [
@@ -211,7 +211,7 @@ export class AdminDashboardService {
 
   /**
    * Get admin permissions for user
-   */
+    */
   private async getAdminPermissions(adminUserId: string): Promise<AdminPermissions> {
     try {
       const response = await fetch(`${ADMIN_API_ENDPOINTS.DASHBOARD}/permissions/${adminUserId}`, {
@@ -234,7 +234,7 @@ export class AdminDashboardService {
 
   /**
    * Get active alerts based on permissions
-   */
+    */
   private async getActiveAlerts(permissions: AdminPermissions): Promise<AdminAlert[]> {
     try {
       const response = await fetch(`${ADMIN_API_ENDPOINTS.DASHBOARD}/alerts`, {
@@ -258,7 +258,7 @@ export class AdminDashboardService {
 
   /**
    * Generate quick actions based on permissions and data
-   */
+    */
   private async generateQuickActions(
     permissions: AdminPermissions,
     dashboardData: AdminDashboardData
@@ -364,7 +364,7 @@ export class AdminDashboardService {
 
   /**
    * Set up real-time updates configuration
-   */
+    */
   private async setupRealtimeUpdates(
     adminUserId: string,
     modules: string[]
@@ -381,7 +381,7 @@ export class AdminDashboardService {
 
   /**
    * Start real-time data updates
-   */
+    */
   private async startRealtimeUpdates(
     adminUserId: string,
     config: RealtimeConfig
@@ -410,7 +410,7 @@ export class AdminDashboardService {
 
   /**
    * Stop real-time updates for user
-   */
+    */
   private stopRealtimeUpdates(adminUserId: string): void {
     const timer = this.realtimeUpdates.get(adminUserId);
     if (timer) {
@@ -421,7 +421,7 @@ export class AdminDashboardService {
 
   /**
    * Fetch real-time data for specified modules
-   */
+    */
   private async fetchRealtimeData(modules: string[]): Promise<Record<string, any>> {
     const data: Record<string, any> = {};
 
@@ -454,7 +454,7 @@ export class AdminDashboardService {
 
   /**
    * Helper methods for fetching specific data
-   */
+    */
   private async fetchUserManagementData() {
     const response = await fetch(`${ADMIN_API_ENDPOINTS.USERS}/summary`);
     return response.json();
@@ -522,7 +522,7 @@ export class AdminDashboardService {
 
   /**
    * Generate trends and insights based on business metrics
-   */
+    */
   private async generateTrendsAndInsights(businessMetrics: any) {
     // This would implement trend analysis and insight generation
     // For now, returning a basic structure
@@ -557,7 +557,7 @@ export class AdminDashboardService {
 
   /**
    * Event emission methods
-   */
+    */
   private emitDashboardUpdate(dashboardId: string, dashboard: AdminDashboardState): void {
     const listeners = this.eventListeners.get(`dashboard:${dashboardId}`);
     if (listeners) {
@@ -574,7 +574,7 @@ export class AdminDashboardService {
 
   /**
    * Event subscription methods
-   */
+    */
   addEventListener(event: string, callback: (data: any) => void): void {
     if (!this.eventListeners.has(event)) {
       this.eventListeners.set(event, new Set());
@@ -594,7 +594,7 @@ export class AdminDashboardService {
 
   /**
    * Utility methods
-   */
+    */
   private generateDashboardId(adminUserId: string): string {
     return `dashboard_${adminUserId}_${Date.now()}`;
   }
@@ -607,7 +607,7 @@ export class AdminDashboardService {
 
   /**
    * Cleanup method
-   */
+    */
   dispose(): void {
     // Clear all real-time update timers
     this.realtimeUpdates.forEach((timer, userId) => {

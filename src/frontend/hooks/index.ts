@@ -5,7 +5,7 @@
  * 
  * @author Gil Klainert
  * @version 1.0.0
- */
+  */
 
 // ============================================================================
 // HOOK EXPORTS
@@ -19,7 +19,7 @@ export { useAdminAuth } from './useAdminAuth';
 
 /**
  * Available admin hooks
- */
+  */
 export const ADMIN_HOOKS = {
   adminAuth: {
     name: 'useAdminAuth',
@@ -32,7 +32,7 @@ export const ADMIN_HOOKS = {
 
 /**
  * Hook categories
- */
+  */
 export const HOOK_CATEGORIES = {
   AUTHENTICATION: 'Authentication Hooks',
   DATA_FETCHING: 'Data Fetching Hooks',
@@ -64,11 +64,11 @@ export interface AdminAuthHookOptions extends AdminHookOptions {
 
 /**
  * Hook utilities and helpers
- */
+  */
 export const hookUtils = {
   /**
    * Default hook options
-   */
+    */
   defaultOptions: {
     enabled: true,
     refreshInterval: 30000,
@@ -78,7 +78,7 @@ export const hookUtils = {
 
   /**
    * Create error handler for admin hooks
-   */
+    */
   createErrorHandler: (hookName: string) => (error: Error) => {
     console.error(`[Admin Hook: ${hookName}]`, error);
     // Additional error handling logic can be added here
@@ -86,7 +86,7 @@ export const hookUtils = {
 
   /**
    * Create success handler for admin hooks
-   */
+    */
   createSuccessHandler: (hookName: string) => (data: any) => {
     console.debug(`[Admin Hook: ${hookName}] Success`, data);
     // Additional success handling logic can be added here

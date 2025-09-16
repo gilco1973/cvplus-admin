@@ -6,7 +6,7 @@
  *
  * @author Gil Klainert
  * @version 1.0.0
- */
+  */
 
 import { ParsedCV } from '../../../types/job';
 import { PortalConfig } from '../../../types/portal';
@@ -28,7 +28,7 @@ export class ValidationService {
 
   /**
    * Validates complete CV data
-   */
+    */
   validateCV(cv: ParsedCV, options: ValidationOptions = {}): ValidationResult {
     const allErrors: any[] = [];
     const sanitizedCV: any = {};
@@ -84,42 +84,42 @@ export class ValidationService {
 
   /**
    * Validates portal configuration
-   */
+    */
   validatePortalConfig(config: PortalConfig, options: ValidationOptions = {}): ValidationResult {
     return this.portalValidator.validatePortalConfig(config);
   }
 
   /**
    * Validates individual text field
-   */
+    */
   validateText(text: string, fieldName: string, maxLength: number = 1000): ValidationResult {
     return this.textValidator.validateText(text, fieldName, maxLength);
   }
 
   /**
    * Validates email address
-   */
+    */
   validateEmail(email: string): ValidationResult {
     return this.textValidator.validateEmail(email);
   }
 
   /**
    * Validates URL
-   */
+    */
   validateUrl(url: string, fieldName: string = 'url'): ValidationResult {
     return this.textValidator.validateUrl(url, fieldName);
   }
 
   /**
    * Validates date string
-   */
+    */
   validateDate(date: string, fieldName: string = 'date'): ValidationResult {
     return this.textValidator.validateDate(date, fieldName);
   }
 
   /**
    * Validates projects array
-   */
+    */
   private validateProjects(projects: any[]): ValidationResult {
     const errors: any[] = [];
     const sanitizedData: any[] = [];
@@ -191,7 +191,7 @@ export class ValidationService {
 
   /**
    * Validates certifications array
-   */
+    */
   private validateCertifications(certifications: any[]): ValidationResult {
     const errors: any[] = [];
     const sanitizedData: any[] = [];

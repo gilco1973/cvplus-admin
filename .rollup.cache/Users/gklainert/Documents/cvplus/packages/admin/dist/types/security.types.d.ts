@@ -2,7 +2,7 @@
  * Security Types
  *
  * Types for security auditing, compliance monitoring, and threat detection.
- */
+  */
 export interface SecurityAuditOverview {
     securityScore: SecurityScore;
     compliance: ComplianceOverview;

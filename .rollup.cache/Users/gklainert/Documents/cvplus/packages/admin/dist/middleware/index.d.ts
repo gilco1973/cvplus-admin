@@ -6,11 +6,11 @@
  *
  * @author Gil Klainert
  * @version 1.0.0
- */
+  */
 export * from './admin-auth.middleware';
 /**
  * Available admin middleware functions
- */
+  */
 export declare const ADMIN_MIDDLEWARE: {
     readonly authentication: {
         readonly requireAuth: "Basic authentication requirement";
@@ -27,7 +27,7 @@ export declare const ADMIN_MIDDLEWARE: {
 };
 /**
  * Middleware categories
- */
+  */
 export declare const MIDDLEWARE_CATEGORIES: {
     readonly AUTHENTICATION: "Authentication Middleware";
     readonly AUTHORIZATION: "Authorization Middleware";

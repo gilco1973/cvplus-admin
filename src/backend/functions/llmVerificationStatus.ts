@@ -14,7 +14,7 @@ import { llmVerificationConfig } from '../config/llm-verification.config';
  * - Performance analytics
  * - Security audit reporting
  * - Operational dashboards
- */
+  */
 
 interface StatusRequest {
   action: 'health' | 'metrics' | 'dashboard' | 'config' | 'alerts' | 'export';
@@ -78,7 +78,7 @@ export const llmVerificationStatus = onRequest(
 
 /**
  * Handle system health check
- */
+  */
 async function handleHealthCheck(res: any) {
   try {
     // Get comprehensive health status
@@ -128,7 +128,7 @@ async function handleHealthCheck(res: any) {
 
 /**
  * Handle metrics request
- */
+  */
 async function handleMetrics(res: any, timeRange: '1h' | '24h' | '7d') {
   try {
     // Collect current metrics
@@ -167,7 +167,7 @@ async function handleMetrics(res: any, timeRange: '1h' | '24h' | '7d') {
 
 /**
  * Handle dashboard data request
- */
+  */
 async function handleDashboard(res: any, timeRange: '1h' | '24h' | '7d') {
   try {
     const dashboardData = llmMonitoringService.getDashboardData(timeRange);
@@ -197,7 +197,7 @@ async function handleDashboard(res: any, timeRange: '1h' | '24h' | '7d') {
 
 /**
  * Handle configuration request
- */
+  */
 async function handleConfig(res: any) {
   try {
     // Sanitize configuration (remove sensitive data)
@@ -241,7 +241,7 @@ async function handleConfig(res: any) {
 
 /**
  * Handle alerts request
- */
+  */
 async function handleAlerts(res: any, limit: number) {
   try {
     // In a full implementation, this would retrieve alerts from the monitoring service
@@ -272,7 +272,7 @@ async function handleAlerts(res: any, limit: number) {
 
 /**
  * Handle export request
- */
+  */
 async function handleExport(res: any, format: 'json' | 'prometheus') {
   try {
     const exportedData = llmMonitoringService.exportMetrics(format);
@@ -299,7 +299,7 @@ async function handleExport(res: any, format: 'json' | 'prometheus') {
 
 /**
  * Determine overall system health
- */
+  */
 function determineOverallHealth(
   verificationHealth: any,
   claudeHealth: any
@@ -317,7 +317,7 @@ function determineOverallHealth(
 
 /**
  * Generate operational recommendations
- */
+  */
 function generateRecommendations(dashboardData: any): string[] {
   const recommendations: string[] = [];
   

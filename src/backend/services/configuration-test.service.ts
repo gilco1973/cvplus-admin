@@ -6,7 +6,7 @@
  * 
  * @author Gil Klainert
  * @version 1.0.0
- */
+  */
 
 export interface SystemConfiguration {
   firebase: {
@@ -61,7 +61,7 @@ export interface SystemConfiguration {
 export class ConfigurationTestService {
   /**
    * Get system configuration with security-safe values
-   */
+    */
   async getConfiguration(): Promise<SystemConfiguration> {
     // In a real implementation, this would read from environment variables
     // or Firebase configuration. For now, return default configuration structure.
@@ -118,7 +118,7 @@ export class ConfigurationTestService {
 
   /**
    * Test configuration validity
-   */
+    */
   async testConfiguration(config: SystemConfiguration): Promise<{
     valid: boolean;
     issues: string[];
@@ -165,7 +165,7 @@ export class ConfigurationTestService {
 
   /**
    * Get configuration health status
-   */
+    */
   async getConfigurationHealth(): Promise<{
     status: 'healthy' | 'warning' | 'critical';
     score: number;

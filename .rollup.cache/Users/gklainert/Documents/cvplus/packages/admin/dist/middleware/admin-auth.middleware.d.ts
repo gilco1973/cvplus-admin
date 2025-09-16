@@ -6,7 +6,7 @@
  *
  * @author Gil Klainert
  * @version 1.0.0
- */
+  */
 import { CallableRequest } from 'firebase-functions/v2/https';
 import * as admin from 'firebase-admin';
 export declare enum AdminRole {
@@ -116,23 +116,23 @@ export interface AdminAuthenticatedRequest extends AuthenticatedRequest {
 }
 /**
  * Basic authentication requirement
- */
+  */
 export declare const requireAuth: (request: CallableRequest) => Promise<AuthenticatedRequest>;
 /**
  * Check if user has administrative privileges (legacy fallback)
- */
+  */
 export declare const isAdmin: (request: AuthenticatedRequest) => boolean;
 /**
  * Enhanced admin authentication with Firebase Custom Claims
- */
+  */
 export declare const requireAdmin: (request: CallableRequest, minLevel?: AdminLevel) => Promise<AdminAuthenticatedRequest>;
 /**
  * Check specific admin permission
- */
+  */
 export declare const requireAdminPermission: (request: CallableRequest, permission: keyof AdminPermissions) => Promise<AdminAuthenticatedRequest>;
 /**
  * Extract user information from authenticated request
- */
+  */
 export declare const getUserInfo: (request: AuthenticatedRequest) => {
     uid: string;
     email: string | undefined;

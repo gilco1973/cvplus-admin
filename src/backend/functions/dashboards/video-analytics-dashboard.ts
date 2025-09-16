@@ -7,7 +7,7 @@
  * 
  * @author Gil Klainert
  * @version 1.0.0
- */
+  */
 
 import { onRequest } from 'firebase-functions/v2/https';
 import * as admin from 'firebase-admin';
@@ -162,7 +162,7 @@ interface TrendData {
 
 /**
  * Main dashboard analytics function
- */
+  */
 export const videoAnalyticsDashboard = onRequest(
   {
     timeoutSeconds: 60,
@@ -259,7 +259,7 @@ export const videoAnalyticsDashboard = onRequest(
 
 /**
  * Get dashboard summary data
- */
+  */
 async function getDashboardSummary(): Promise<DashboardSummary> {
   try {
     // Get latest metrics from all services
@@ -306,7 +306,7 @@ async function getDashboardSummary(): Promise<DashboardSummary> {
 
 /**
  * Get performance metrics data
- */
+  */
 async function getPerformanceMetrics(query: any): Promise<any> {
   try {
     const timeRange = query.timeRange || '24h';
@@ -336,7 +336,7 @@ async function getPerformanceMetrics(query: any): Promise<any> {
 
 /**
  * Get quality analysis data
- */
+  */
 async function getQualityAnalysis(query: any): Promise<any> {
   try {
     const period = query.period || '24h' as '1h' | '24h' | '7d' | '30d';
@@ -361,7 +361,7 @@ async function getQualityAnalysis(query: any): Promise<any> {
 
 /**
  * Get business metrics data
- */
+  */
 async function getBusinessMetrics(query: any): Promise<any> {
   try {
     const period = query.period || '24h' as '1h' | '24h' | '7d' | '30d';
@@ -390,7 +390,7 @@ async function getBusinessMetrics(query: any): Promise<any> {
 
 /**
  * Get provider comparison data
- */
+  */
 async function getProviderComparison(): Promise<ProviderComparison[]> {
   try {
     // Get latest system metrics
@@ -425,7 +425,7 @@ async function getProviderComparison(): Promise<ProviderComparison[]> {
 
 /**
  * Get trends analysis data
- */
+  */
 async function getTrendsAnalysis(query: any): Promise<TrendData[]> {
   try {
     const metrics = query.metrics?.split(',') || [
@@ -466,7 +466,7 @@ async function getTrendsAnalysis(query: any): Promise<TrendData[]> {
 
 /**
  * Get alerts data
- */
+  */
 async function getAlertsData(): Promise<any> {
   try {
     const alertsData = await alertManager.getAlertDashboard();
@@ -485,7 +485,7 @@ async function getAlertsData(): Promise<any> {
 
 /**
  * Get user insights data
- */
+  */
 async function getUserInsights(query: any): Promise<any> {
   try {
     const userId = query.userId; // Optional: specific user or aggregate
@@ -506,7 +506,7 @@ async function getUserInsights(query: any): Promise<any> {
 
 /**
  * Get export data
- */
+  */
 async function getExportData(query: any): Promise<any> {
   try {
     const format = query.format || 'json';
@@ -540,7 +540,7 @@ async function getExportData(query: any): Promise<any> {
 
 /**
  * Helper functions
- */
+  */
 async function getActiveGenerationsCount(): Promise<number> {
   try {
     const activeQuery = await admin.firestore()

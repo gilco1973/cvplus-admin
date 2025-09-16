@@ -7,7 +7,7 @@
  *
  * @author Gil Klainert
  * @version 1.0.0
- */
+  */
 export * from './types';
 export { AdminDashboardService } from './services/admin-dashboard.service';
 export * from './backend';
@@ -52,11 +52,11 @@ export interface AdminModuleOptions {
 }
 /**
  * Default module configuration
- */
+  */
 export declare const DEFAULT_ADMIN_MODULE_OPTIONS: AdminModuleOptions;
 /**
  * Module initialization function
- */
+  */
 export declare function initializeAdminModule(options?: AdminModuleOptions): void;
 export declare function checkAdminModuleHealth(): Promise<{
     status: 'healthy' | 'degraded' | 'unhealthy';

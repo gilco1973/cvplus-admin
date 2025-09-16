@@ -7,7 +7,7 @@
  *
  * @author Gil Klainert
  * @version 1.0.0
- */
+  */
 export interface OptimizationRecommendation {
     recommendationId: string;
     type: 'code' | 'infrastructure' | 'database' | 'caching' | 'bundle';
@@ -79,79 +79,79 @@ declare class OptimizationEngineService {
     static getInstance(): OptimizationEngineService;
     /**
      * Analyze performance data and generate optimization recommendations
-     */
+      */
     generateRecommendations(performanceData: any[], timeframe?: string): Promise<OptimizationRecommendation[]>;
     /**
      * Apply automated optimizations
-     */
+      */
     applyAutomatedOptimizations(recommendations: OptimizationRecommendation[]): Promise<OptimizationResult[]>;
     /**
      * Analyze bundle optimization opportunities
-     */
+      */
     private analyzeBundleOptimizations;
     /**
      * Analyze database optimization opportunities
-     */
+      */
     private analyzeDatabaseOptimizations;
     /**
      * Analyze caching optimization opportunities
-     */
+      */
     private analyzeCacheOptimizations;
     /**
      * Analyze infrastructure optimization opportunities
-     */
+      */
     private analyzeInfrastructureOptimizations;
     /**
      * Create bundle optimization recommendations
-     */
+      */
     private createBundleRecommendations;
     /**
      * Create database optimization recommendations
-     */
+      */
     private createDatabaseRecommendations;
     /**
      * Create cache optimization recommendations
-     */
+      */
     private createCacheRecommendations;
     /**
      * Create infrastructure optimization recommendations
-     */
+      */
     private createInfrastructureRecommendations;
     /**
      * Prioritize recommendations based on impact and effort
-     */
+      */
     private prioritizeRecommendations;
     /**
      * Calculate priority score for recommendation
-     */
+      */
     private calculatePriorityScore;
     /**
      * Execute optimization recommendation
-     */
+      */
     private executeOptimization;
     /**
      * Execute database optimization
-     */
+      */
     private executeDatabaseOptimization;
     /**
      * Execute cache optimization
-     */
+      */
     private executeCacheOptimization;
     /**
      * Execute infrastructure optimization
-     */
+      */
     private executeInfrastructureOptimization;
     /**
      * Store recommendations in Firestore
-     */
+      */
     private storeRecommendations;
     /**
      * Store optimization result
-     */
+      */
     private storeOptimizationResult;
     /**
      * Get optimization dashboard data
-     */
+      */
     getOptimizationDashboard(): Promise<any>;
 }
 export default OptimizationEngineService;

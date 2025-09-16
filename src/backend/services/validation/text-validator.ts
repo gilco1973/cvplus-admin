@@ -6,7 +6,7 @@
  *
  * @author Gil Klainert
  * @version 1.0.0
- */
+  */
 
 import * as validator from 'validator';
 import { ValidationResult, ValidationError, ValidationErrorCode } from './types';
@@ -37,7 +37,7 @@ export class TextValidator {
 
   /**
    * Validates and sanitizes text input
-   */
+    */
   validateText(text: string, fieldName: string, maxLength: number): ValidationResult {
     const errors: ValidationError[] = [];
 
@@ -83,7 +83,7 @@ export class TextValidator {
 
   /**
    * Validates email format
-   */
+    */
   validateEmail(email: string): ValidationResult {
     const errors: ValidationError[] = [];
 
@@ -137,7 +137,7 @@ export class TextValidator {
 
   /**
    * Validates phone number format
-   */
+    */
   validatePhone(phone: string): ValidationResult {
     const errors: ValidationError[] = [];
 
@@ -177,7 +177,7 @@ export class TextValidator {
 
   /**
    * Validates URL format
-   */
+    */
   validateUrl(url: string, fieldName: string): ValidationResult {
     const errors: ValidationError[] = [];
 
@@ -236,7 +236,7 @@ export class TextValidator {
 
   /**
    * Validates date format
-   */
+    */
   validateDate(date: string, fieldName: string): ValidationResult {
     const errors: ValidationError[] = [];
 

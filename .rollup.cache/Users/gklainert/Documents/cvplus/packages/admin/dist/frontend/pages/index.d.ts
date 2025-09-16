@@ -5,12 +5,12 @@
  *
  * @author Gil Klainert
  * @version 1.0.0
- */
+  */
 export { AdminDashboard } from './AdminDashboard';
 export { default as RevenueAnalyticsDashboard } from './RevenueAnalyticsDashboard';
 /**
  * Available admin pages
- */
+  */
 export declare const ADMIN_PAGES: {
     readonly dashboard: {
         readonly name: "AdminDashboard";
@@ -31,7 +31,7 @@ export declare const ADMIN_PAGES: {
 };
 /**
  * Page categories
- */
+  */
 export declare const PAGE_CATEGORIES: {
     readonly OVERVIEW: "Overview Pages";
     readonly ANALYTICS: "Analytics Pages";
@@ -43,7 +43,7 @@ export declare const PAGE_CATEGORIES: {
 };
 /**
  * Page routing configuration
- */
+  */
 export declare const ADMIN_ROUTES: {
     readonly dashboard: "/admin/dashboard";
     readonly userManagement: "/admin/users";
@@ -65,19 +65,19 @@ export interface DashboardPageProps extends AdminPageProps {
 }
 /**
  * Page utilities and helpers
- */
+  */
 export declare const pageUtils: {
     /**
      * Generate page title for admin pages
-     */
+      */
     generatePageTitle: (pageName: string) => string;
     /**
      * Check if user has permission to access page
-     */
+      */
     hasPagePermission: (userPermissions: string[], requiredPermissions: string[]) => boolean;
     /**
      * Generate breadcrumb for admin pages
-     */
+      */
     generateBreadcrumb: (currentPage: string) => Array<{
         label: string;
         path: string;

@@ -6,7 +6,7 @@
  *
  * @author Gil Klainert
  * @version 1.0.0
- */
+  */
 export * from './admin.types';
 export type { AdminDashboardState, AdminDashboardConfig, AdminDashboardData, QuickAction, RealtimeConfig, SystemOverviewData, TrendData, WidgetDimensions } from './dashboard.types';
 export { AdminQuickActionType, QuickActionCategory, RealtimeConnectionStatus } from './dashboard.types';

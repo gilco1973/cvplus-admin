@@ -6,7 +6,7 @@
  *
  * @author Gil Klainert
  * @version 1.0.0
- */
+  */
 export interface SystemPerformanceMetrics {
     timestamp: Date;
     successRate: number;
@@ -74,27 +74,27 @@ export declare class PerformanceMonitorService {
     constructor();
     /**
      * Calculate current system performance metrics
-     */
+      */
     calculateSystemMetrics(timeRange: string): Promise<SystemPerformanceMetrics>;
     /**
      * Get performance trends over time
-     */
+      */
     getPerformanceTrends(hours: number, granularity: '1h' | '6h' | '24h'): Promise<PerformanceTrend[]>;
     /**
      * Monitor system health and record metrics
-     */
+      */
     recordSystemMetrics(): Promise<void>;
     /**
      * Get system uptime percentage
-     */
+      */
     private calculateSystemUptime;
     /**
      * Check for performance alerts
-     */
+      */
     private checkPerformanceAlerts;
     /**
      * Helper methods
-     */
+      */
     private parseTimeRange;
     private getIntervalMs;
     private groupDataByInterval;

@@ -3,7 +3,7 @@
  *
  * Placeholder service for podcast generation functionality that has been moved to @cvplus/multimedia.
  * This placeholder maintains compatibility while the multimedia submodule is being integrated.
- */
+  */
 
 export class PodcastGenerationService {
   private elevenLabsApiKey: string | undefined;
@@ -16,14 +16,14 @@ export class PodcastGenerationService {
 
   /**
    * Check if podcast generation service is available
-   */
+    */
   isAvailable(): boolean {
     return !!(this.elevenLabsApiKey && this.openaiApiKey);
   }
 
   /**
    * Test podcast generation functionality
-   */
+    */
   async testPodcastGeneration(): Promise<{
     success: boolean;
     responseTime?: number;
@@ -65,7 +65,7 @@ export class PodcastGenerationService {
 
   /**
    * Get service status information
-   */
+    */
   getServiceStatus(): {
     name: string;
     available: boolean;

@@ -5,7 +5,7 @@ import { requireAdminPermission } from '../../middleware/admin-auth.middleware';
 
 /**
  * Admin function to get comprehensive business metrics and analytics
- */
+  */
 export const getBusinessMetrics = onCall({
   cors: true,
   enforceAppCheck: false,
@@ -105,7 +105,7 @@ export const getBusinessMetrics = onCall({
 
 /**
  * Get user-related metrics
- */
+  */
 const getUserMetrics = async (
   db: admin.firestore.Firestore, 
   startDate: Date, 
@@ -177,7 +177,7 @@ const getUserMetrics = async (
 
 /**
  * Get revenue metrics
- */
+  */
 const getRevenueMetrics = async (
   db: admin.firestore.Firestore,
   startDate: Date,
@@ -262,7 +262,7 @@ const getRevenueMetrics = async (
 
 /**
  * Get usage metrics
- */
+  */
 const getUsageMetrics = async (
   db: admin.firestore.Firestore,
   startDate: Date,
@@ -329,7 +329,7 @@ const getUsageMetrics = async (
 
 /**
  * Get conversion metrics
- */
+  */
 const getConversionMetrics = async (
   db: admin.firestore.Firestore,
   startDate: Date,
@@ -390,7 +390,7 @@ const getConversionMetrics = async (
 
 /**
  * Get engagement metrics
- */
+  */
 const getEngagementMetrics = async (
   db: admin.firestore.Firestore,
   startDate: Date,
@@ -425,7 +425,7 @@ const getEngagementMetrics = async (
 
 /**
  * Get performance metrics
- */
+  */
 const getPerformanceMetrics = async (
   db: admin.firestore.Firestore,
   startDate: Date,
@@ -456,7 +456,7 @@ const getPerformanceMetrics = async (
 
 /**
  * Generate business summary
- */
+  */
 const generateSummary = (metrics: any) => {
   return {
     totalUsers: metrics.users.total,
@@ -471,7 +471,7 @@ const generateSummary = (metrics: any) => {
 
 /**
  * Generate business insights
- */
+  */
 const generateInsights = (metrics: any) => {
   const insights = [];
 
@@ -517,7 +517,7 @@ const generateInsights = (metrics: any) => {
 
 /**
  * Helper function to calculate start date based on time range
- */
+  */
 const getStartDate = (timeRange: string, endDate: Date): Date => {
   const start = new Date(endDate);
   
@@ -543,7 +543,7 @@ const getStartDate = (timeRange: string, endDate: Date): Date => {
 
 /**
  * Helper function to log admin activities
- */
+  */
 const logAdminActivity = async (adminUid: string, action: string, details: any) => {
   try {
     const db = admin.firestore();

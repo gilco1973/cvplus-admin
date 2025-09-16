@@ -3,7 +3,7 @@
  * 
  * Validates Anthropic Claude responses using OpenAI GPT-4 for quality assurance.
  * Implements retry logic with exponential backoff and comprehensive logging.
- */
+  */
 
 import OpenAI from 'openai';
 import Anthropic from '@anthropic-ai/sdk';
@@ -106,7 +106,7 @@ export class LLMVerificationService {
 
   /**
    * Verify an Anthropic response using OpenAI GPT-4
-   */
+    */
   async verifyResponse(request: VerificationRequest): Promise<VerificationResult> {
     const startTime = Date.now();
     let retryCount = 0;
@@ -201,7 +201,7 @@ export class LLMVerificationService {
 
   /**
    * Validate response using OpenAI GPT-4
-   */
+    */
   private async validateWithOpenAI(
     request: VerificationRequest, 
     responseToValidate: string, 
@@ -233,7 +233,7 @@ export class LLMVerificationService {
 
   /**
    * Retry with Anthropic using feedback from OpenAI validation
-   */
+    */
   private async retryWithAnthropic(
     request: VerificationRequest,
     validationFailure: { issues: string[]; suggestions: string[] },
@@ -259,7 +259,7 @@ export class LLMVerificationService {
 
   /**
    * Build validation prompt for OpenAI
-   */
+    */
   private buildValidationPrompt(
     request: VerificationRequest, 
     responseToValidate: string, 
@@ -308,7 +308,7 @@ Respond with JSON only, no additional text.`;
 
   /**
    * Build improved prompt for Anthropic retry
-   */
+    */
   private buildImprovedPrompt(
     request: VerificationRequest,
     validationFailure: { issues: string[]; suggestions: string[] },
@@ -333,7 +333,7 @@ Ensure your response is accurate, complete, relevant, properly formatted, and sa
 
   /**
    * Parse OpenAI validation result
-   */
+    */
   private parseValidationResult(validationResult: string): {
     isValid: boolean;
     confidence: number;
@@ -373,7 +373,7 @@ Ensure your response is accurate, complete, relevant, properly formatted, and sa
   /**
    * Sanitize text by removing or masking PII
    * @unused - Reserved for future logging implementation
-   */
+    */
   // @ts-ignore - Reserved for future logging implementation
   private sanitizeForLogging(text: string): string {
     if (!this.config.enableLogging) return '[LOGGING_DISABLED]';
@@ -389,7 +389,7 @@ Ensure your response is accurate, complete, relevant, properly formatted, and sa
 
   /**
    * Utility methods for logging
-   */
+    */
   private logInfo(message: string, data?: any): void {
     if (!this.config.enableLogging) return;
   }
@@ -404,14 +404,14 @@ Ensure your response is accurate, complete, relevant, properly formatted, and sa
 
   /**
    * Delay utility for exponential backoff
-   */
+    */
   private delay(ms: number): Promise<void> {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
 
   /**
    * Health check method
-   */
+    */
   async healthCheck(): Promise<{ status: string; details: any }> {
     try {
       const startTime = Date.now();

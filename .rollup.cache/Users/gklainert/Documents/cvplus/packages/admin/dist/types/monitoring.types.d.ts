@@ -2,7 +2,7 @@
  * System Monitoring Types
  *
  * Types for system health monitoring, performance tracking, and alerting.
- */
+  */
 export interface SystemHealthStatus {
     overall: SystemHealthScore;
     services: ServiceHealthStatus[];

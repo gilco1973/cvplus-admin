@@ -3,11 +3,11 @@
  *
  * Utility functions for sanitizing data before storing in Firestore.
  * Handles field validation, data transformation, and security sanitization.
- */
+  */
 
 /**
  * Sanitize data for Firestore storage
- */
+  */
 export function sanitizeForFirestore(data: any): any {
   if (data === null || data === undefined) {
     return null;
@@ -51,7 +51,7 @@ export function sanitizeForFirestore(data: any): any {
 
 /**
  * Check if key is valid for Firestore
- */
+  */
 export function isValidFirestoreKey(key: string): boolean {
   if (!key || typeof key !== 'string') {
     return false;
@@ -72,7 +72,7 @@ export function isValidFirestoreKey(key: string): boolean {
 
 /**
  * Remove sensitive fields from data
- */
+  */
 export function removeSensitiveFields(data: any): any {
   const sensitiveFields = [
     'password',
@@ -100,7 +100,7 @@ export function removeSensitiveFields(data: any): any {
 
 /**
  * Validate data size for Firestore
- */
+  */
 export function validateDataSize(data: any): {
   valid: boolean;
   size: number;
@@ -121,7 +121,7 @@ export function validateDataSize(data: any): {
 
 /**
  * Sanitize metrics data for Firestore storage
- */
+  */
 export function sanitizeMetrics(metrics: any): any {
   if (!metrics || typeof metrics !== 'object') {
     return {};

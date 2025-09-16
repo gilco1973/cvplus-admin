@@ -5,7 +5,7 @@
  *
  * @author Gil Klainert
  * @version 1.0.0
- */
+  */
 export * from './functions';
 export * from './services';
 export declare const ADMIN_BACKEND_MODULE: {
@@ -16,7 +16,7 @@ export declare const ADMIN_BACKEND_MODULE: {
 };
 /**
  * Backend module capabilities
- */
+  */
 export declare const BACKEND_CAPABILITIES: {
     readonly userManagement: "Complete user lifecycle management";
     readonly systemMonitoring: "Real-time system health monitoring";

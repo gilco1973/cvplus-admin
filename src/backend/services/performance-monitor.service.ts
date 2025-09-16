@@ -6,7 +6,7 @@
  * 
  * @author Gil Klainert
  * @version 1.0.0
- */
+  */
 
 import * as admin from 'firebase-admin';
 
@@ -90,7 +90,7 @@ export class PerformanceMonitorService {
 
   /**
    * Calculate current system performance metrics
-   */
+    */
   async calculateSystemMetrics(timeRange: string): Promise<SystemPerformanceMetrics> {
     try {
       const hours = this.parseTimeRange(timeRange);
@@ -178,7 +178,7 @@ export class PerformanceMonitorService {
 
   /**
    * Get performance trends over time
-   */
+    */
   async getPerformanceTrends(
     hours: number, 
     granularity: '1h' | '6h' | '24h'
@@ -218,7 +218,7 @@ export class PerformanceMonitorService {
 
   /**
    * Monitor system health and record metrics
-   */
+    */
   async recordSystemMetrics(): Promise<void> {
     try {
       const metrics = await this.calculateSystemMetrics('1h');
@@ -239,7 +239,7 @@ export class PerformanceMonitorService {
 
   /**
    * Get system uptime percentage
-   */
+    */
   private async calculateSystemUptime(): Promise<number> {
     try {
       // Query system status over the last 24 hours
@@ -275,7 +275,7 @@ export class PerformanceMonitorService {
 
   /**
    * Check for performance alerts
-   */
+    */
   private async checkPerformanceAlerts(metrics: SystemPerformanceMetrics): Promise<void> {
     try {
       const alerts = [];
@@ -333,7 +333,7 @@ export class PerformanceMonitorService {
 
   /**
    * Helper methods
-   */
+    */
   private parseTimeRange(timeRange: string): number {
     const match = timeRange.match(/(\d+)([hd])/);
     if (!match) return 24; // Default to 24 hours

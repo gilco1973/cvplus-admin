@@ -1,7 +1,7 @@
 import * as admin from 'firebase-admin';
 /**
  * Admin function to get comprehensive system health metrics
- */
+  */
 export declare const getSystemHealth: import("firebase-functions/v2/https").CallableFunction<any, Promise<{
     success: boolean;
     data: {

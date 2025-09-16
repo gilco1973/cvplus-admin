@@ -9,7 +9,7 @@ import { sanitizeForFirestore, sanitizeMetrics } from '../utils/firestore-saniti
  * Provides comprehensive monitoring and analytics for the LLM verification system.
  * This service aggregates metrics, generates reports, and provides insights into
  * system performance, quality trends, and operational health.
- */
+  */
 export interface MonitoringMetrics {
   timestamp: Date;
   timeWindow: string;
@@ -87,7 +87,7 @@ export interface MonitoringAlert {
 
 /**
  * Comprehensive monitoring service for LLM verification system
- */
+  */
 export class LLMMonitoringService {
   // private verificationService: LLMVerificationService;
   // private claudeService: VerifiedClaudeService;
@@ -108,7 +108,7 @@ export class LLMMonitoringService {
 
   /**
    * Start continuous monitoring
-   */
+    */
   public startMonitoring(intervalMinutes: number = 5): void {
     if (this.monitoringInterval) {
       clearInterval(this.monitoringInterval);
@@ -126,7 +126,7 @@ export class LLMMonitoringService {
 
   /**
    * Stop monitoring
-   */
+    */
   public stopMonitoring(): void {
     if (this.monitoringInterval) {
       clearInterval(this.monitoringInterval);
@@ -136,7 +136,7 @@ export class LLMMonitoringService {
 
   /**
    * Collect comprehensive metrics
-   */
+    */
   public async collectMetrics(timeWindow: string = '5m'): Promise<MonitoringMetrics> {
     const timestamp = new Date();
     
@@ -260,7 +260,7 @@ export class LLMMonitoringService {
 
   /**
    * Generate comprehensive dashboard data
-   */
+    */
   public getDashboardData(timeRange: '1h' | '24h' | '7d' = '24h'): {
     summary: {
       totalRequests: number;
@@ -394,7 +394,7 @@ export class LLMMonitoringService {
 
   /**
    * Initialize default alert rules
-   */
+    */
   private initializeDefaultAlerts(): void {
     this.alertRules = [
       {
@@ -455,7 +455,7 @@ export class LLMMonitoringService {
 
   /**
    * Evaluate alert conditions
-   */
+    */
   private async evaluateAlerts(): Promise<void> {
     const recentMetrics = this.metricsHistory.slice(-10); // Last 10 data points
     
@@ -472,7 +472,7 @@ export class LLMMonitoringService {
 
   /**
    * Evaluate individual alert rule
-   */
+    */
   private evaluateAlertRule(rule: AlertRule, metrics: MonitoringMetrics[]): boolean {
     if (metrics.length === 0) return false;
     
@@ -516,7 +516,7 @@ export class LLMMonitoringService {
 
   /**
    * Trigger alert
-   */
+    */
   private async triggerAlert(rule: AlertRule, metrics: MonitoringMetrics[]): Promise<void> {
     const alert: MonitoringAlert = {
       id: `alert_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
@@ -544,7 +544,7 @@ export class LLMMonitoringService {
 
   /**
    * Helper methods
-   */
+    */
   private getMetricsForTimeRange(timeRange: '1h' | '24h' | '7d'): MonitoringMetrics[] {
     const now = Date.now();
     let startTime: number;
@@ -629,7 +629,7 @@ export class LLMMonitoringService {
 
   /**
    * Export data for external monitoring systems
-   */
+    */
   public exportMetrics(format: 'json' | 'prometheus' = 'json'): string {
     if (format === 'prometheus') {
       return this.exportPrometheusMetrics();
@@ -669,7 +669,7 @@ llm_verification_quality_score ${latest.quality.averageVerificationScore}
 
   /**
    * Cleanup method
-   */
+    */
   public cleanup(): void {
     this.stopMonitoring();
     this.metricsHistory = [];

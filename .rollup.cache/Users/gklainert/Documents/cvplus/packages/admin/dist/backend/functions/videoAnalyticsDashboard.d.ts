@@ -3,7 +3,7 @@
  *
  * Placeholder Firebase Function for video analytics dashboard.
  * Maintains API compatibility while analytics functionality is migrated.
- */
+  */
 interface VideoAnalyticsRequest {
     timeRange?: string;
     userId?: string;

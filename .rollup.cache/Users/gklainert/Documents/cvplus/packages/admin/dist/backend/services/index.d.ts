@@ -5,7 +5,7 @@
  *
  * @author Gil Klainert
  * @version 1.0.0
- */
+  */
 export { AdminDashboardService } from '../../services/admin-dashboard.service';
 export { PerformanceMonitorService, type SystemPerformanceMetrics, type ProviderMetrics } from './performance-monitor.service';
 export { AlertManagerService } from './alert-manager.service';
@@ -23,7 +23,7 @@ export { PIIDetector } from './piiDetector';
 export type { PIIDetectionResult, PIIMaskingOptions } from './piiDetector';
 /**
  * Available admin services
- */
+  */
 export declare const ADMIN_SERVICES: {
     readonly dashboard: "AdminDashboardService";
     readonly userManagement: "UserManagementService";
@@ -42,7 +42,7 @@ export declare const ADMIN_SERVICES: {
 };
 /**
  * Service categories
- */
+  */
 export declare const SERVICE_CATEGORIES: {
     readonly MONITORING: readonly ["PerformanceMonitorService", "AlertManagerService", "JobMonitoringService"];
     readonly ANALYTICS: readonly ["AnalyticsEngineService", "AdminDashboardService"];
@@ -51,7 +51,7 @@ export declare const SERVICE_CATEGORIES: {
 };
 /**
  * Service dependencies
- */
+  */
 export declare const SERVICE_DEPENDENCIES: {
     readonly firebase: readonly ["firebase-admin", "firebase"];
     readonly core: readonly ["@cvplus/core"];

@@ -6,7 +6,7 @@
  *
  * @author Gil Klainert
  * @version 1.0.0
- */
+  */
 export interface SystemConfiguration {
     firebase: {
         apiKey?: string;
@@ -59,11 +59,11 @@ export interface SystemConfiguration {
 export declare class ConfigurationTestService {
     /**
      * Get system configuration with security-safe values
-     */
+      */
     getConfiguration(): Promise<SystemConfiguration>;
     /**
      * Test configuration validity
-     */
+      */
     testConfiguration(config: SystemConfiguration): Promise<{
         valid: boolean;
         issues: string[];
@@ -71,7 +71,7 @@ export declare class ConfigurationTestService {
     }>;
     /**
      * Get configuration health status
-     */
+      */
     getConfigurationHealth(): Promise<{
         status: 'healthy' | 'warning' | 'critical';
         score: number;

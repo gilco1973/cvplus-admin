@@ -6,7 +6,7 @@
  * 
  * @author Gil Klainert
  * @version 1.0.0
- */
+  */
 
 import * as admin from 'firebase-admin';
 import {
@@ -81,7 +81,7 @@ interface PredictionModel {
 
 /**
  * Performance Metrics Collector
- */
+  */
 class MetricsCollector {
   private db: admin.firestore.Firestore;
   private metricsBuffer: Map<string, MetricsSnapshot[]> = new Map();
@@ -165,7 +165,7 @@ class MetricsCollector {
 
 /**
  * Trend Analyzer for performance prediction
- */
+  */
 class TrendAnalyzer {
   private db: admin.firestore.Firestore;
 
@@ -325,7 +325,7 @@ class TrendAnalyzer {
 
 /**
  * Predictive Analytics Engine
- */
+  */
 class PredictiveAnalytics {
   private db: admin.firestore.Firestore;
 
@@ -448,7 +448,7 @@ class PredictiveAnalytics {
 
 /**
  * Provider Performance Tracker Service
- */
+  */
 export class ProviderPerformanceTracker {
   private metricsCollector: MetricsCollector;
   private trendAnalyzer: TrendAnalyzer;
@@ -464,7 +464,7 @@ export class ProviderPerformanceTracker {
 
   /**
    * Track a video generation operation
-   */
+    */
   async trackVideoGeneration(
     providerId: string,
     options: VideoGenerationOptions,
@@ -499,7 +499,7 @@ export class ProviderPerformanceTracker {
 
   /**
    * Track a status check operation
-   */
+    */
   async trackStatusCheck(
     providerId: string,
     jobId: string,
@@ -531,7 +531,7 @@ export class ProviderPerformanceTracker {
 
   /**
    * Get aggregated performance metrics
-   */
+    */
   async getPerformanceMetrics(
     providerId: string,
     period: '1h' | '24h' | '7d' | '30d' = '24h'
@@ -573,7 +573,7 @@ export class ProviderPerformanceTracker {
 
   /**
    * Get performance trends
-   */
+    */
   async getPerformanceTrends(
     providerId: string,
     timeframe: '24h' | '7d' | '30d' = '24h'
@@ -595,7 +595,7 @@ export class ProviderPerformanceTracker {
 
   /**
    * Get predictive analytics
-   */
+    */
   async getPredictions(providerId: string): Promise<PredictionModel> {
     try {
       return await this.predictiveAnalytics.generatePredictions(providerId);
@@ -606,7 +606,7 @@ export class ProviderPerformanceTracker {
 
   /**
    * Get comprehensive performance dashboard data
-   */
+    */
   async getDashboardData(providerId?: string): Promise<any> {
     try {
       if (providerId) {
@@ -784,7 +784,7 @@ export class ProviderPerformanceTracker {
 
   /**
    * Cleanup method for proper service shutdown
-   */
+    */
   cleanup(): void {
     this.metricsCollector.cleanup();
   }

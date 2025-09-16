@@ -3,7 +3,7 @@
  *
  * Cache management for subscription data and user access patterns.
  * Optimizes subscription verification and premium feature access.
- */
+  */
 
 export interface SubscriptionCacheData {
   userId: string;
@@ -20,7 +20,7 @@ export class SubscriptionCacheService {
 
   /**
    * Get subscription data from cache
-   */
+    */
   async getSubscriptionCache(userId: string): Promise<SubscriptionCacheData | null> {
     try {
       // Placeholder implementation for subscription cache
@@ -32,7 +32,7 @@ export class SubscriptionCacheService {
 
   /**
    * Set subscription data in cache
-   */
+    */
   async setSubscriptionCache(userId: string, data: SubscriptionCacheData): Promise<void> {
     try {
       // Placeholder implementation for subscription cache
@@ -43,7 +43,7 @@ export class SubscriptionCacheService {
 
   /**
    * Clear subscription cache for user
-   */
+    */
   async clearSubscriptionCache(userId: string): Promise<void> {
     try {
       // Placeholder implementation for subscription cache
@@ -54,7 +54,7 @@ export class SubscriptionCacheService {
 
   /**
    * Get cache statistics
-   */
+    */
   async getCacheStats(): Promise<{
     totalEntries: number;
     hitRate: number;
@@ -69,7 +69,7 @@ export class SubscriptionCacheService {
 
   /**
    * Get cache statistics (alias for getCacheStats)
-   */
+    */
   async getStats(): Promise<{
     totalEntries: number;
     hitRate: number;
@@ -80,7 +80,7 @@ export class SubscriptionCacheService {
 
   /**
    * Clean up expired cache entries
-   */
+    */
   async cleanupExpired(): Promise<void> {
     try {
       // Placeholder implementation for cache cleanup

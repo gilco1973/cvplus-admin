@@ -6,7 +6,7 @@
  *
  * @author Gil Klainert
  * @version 1.0.0
- */
+  */
 export { getUserStats } from './getUserStats';
 export { getSystemHealth } from './getSystemHealth';
 export { manageUsers } from './manageUsers';
@@ -23,7 +23,7 @@ export { getUserPolicyViolations } from './getUserPolicyViolations';
 export { getUserUsageStats } from './getUserUsageStats';
 /**
  * Available admin functions and their permissions
- */
+  */
 export declare const ADMIN_FUNCTIONS: {
     readonly getUserStats: {
         readonly name: "getUserStats";
@@ -147,7 +147,7 @@ export declare const ADMIN_FUNCTIONS: {
 };
 /**
  * Function categories
- */
+  */
 export declare const FUNCTION_CATEGORIES: {
     readonly USER_MANAGEMENT: "User Management";
     readonly SYSTEM_MONITORING: "System Monitoring";
@@ -160,7 +160,7 @@ export declare const FUNCTION_CATEGORIES: {
 };
 /**
  * Required permissions for admin functions
- */
+  */
 export declare const ADMIN_PERMISSIONS: {
     readonly canManageUsers: "Can manage user accounts and permissions";
     readonly canMonitorSystem: "Can monitor system health and performance";
@@ -172,7 +172,7 @@ export declare const ADMIN_PERMISSIONS: {
 };
 /**
  * Function deployment configuration
- */
+  */
 export declare const DEPLOYMENT_CONFIG: {
     readonly runtime: "nodejs18";
     readonly region: "us-central1";

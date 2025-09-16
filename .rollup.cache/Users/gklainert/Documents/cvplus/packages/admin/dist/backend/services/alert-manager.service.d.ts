@@ -7,7 +7,7 @@
  *
  * @author Gil Klainert
  * @version 1.0.0
- */
+  */
 import { BusinessMetrics, QualityInsights } from '../../types/analytics.types';
 export interface AlertRule {
     ruleId: string;
@@ -89,11 +89,11 @@ export declare class AlertManagerService {
     constructor();
     /**
      * Initialize default alert rules if they don't exist
-     */
+      */
     private initializeDefaultRules;
     /**
      * Check metrics against alert rules and trigger alerts if necessary
-     */
+      */
     checkAlerts(metrics: {
         performance?: any;
         quality?: QualityInsights;
@@ -102,23 +102,23 @@ export declare class AlertManagerService {
     }): Promise<AlertInstance[]>;
     /**
      * Process escalation for active alerts
-     */
+      */
     processEscalations(): Promise<void>;
     /**
      * Acknowledge an alert
-     */
+      */
     acknowledgeAlert(alertId: string, acknowledgedBy: string): Promise<void>;
     /**
      * Resolve an alert
-     */
+      */
     resolveAlert(alertId: string, resolvedBy: string, resolution?: string): Promise<void>;
     /**
      * Suppress an alert for a specified duration
-     */
+      */
     suppressAlert(alertId: string, suppressedBy: string, durationMinutes: number): Promise<void>;
     /**
      * Get alert dashboard data
-     */
+      */
     getAlertDashboard(): Promise<{
         activeAlerts: AlertInstance[];
         alertSummary: {
@@ -130,7 +130,7 @@ export declare class AlertManagerService {
     }>;
     /**
      * Private helper methods
-     */
+      */
     private extractMetricValue;
     private evaluateCondition;
     private getActiveAlert;

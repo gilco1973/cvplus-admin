@@ -2,7 +2,7 @@
  * System Monitoring Types
  * 
  * Types for system health monitoring, performance tracking, and alerting.
- */
+  */
 
 // ============================================================================
 // System Health & Status

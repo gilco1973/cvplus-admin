@@ -2,7 +2,7 @@
  * Security Types
  * 
  * Types for security auditing, compliance monitoring, and threat detection.
- */
+  */
 
 // ============================================================================
 // Security Overview

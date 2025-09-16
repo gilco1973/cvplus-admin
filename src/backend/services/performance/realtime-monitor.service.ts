@@ -7,7 +7,7 @@
  * 
  * @author Gil Klainert
  * @version 1.0.0
- */
+  */
 
 import * as admin from 'firebase-admin';
 import { config } from '../../config/environment';
@@ -85,7 +85,7 @@ class RealTimeMonitorService {
 
   /**
    * Start real-time monitoring with sub-second updates
-   */
+    */
   public startMonitoring(updateIntervalMs: number = 500): void {
     if (this.isMonitoring) return;
 
@@ -101,7 +101,7 @@ class RealTimeMonitorService {
 
   /**
    * Stop monitoring
-   */
+    */
   public stopMonitoring(): void {
     if (this.monitoringInterval) {
       clearInterval(this.monitoringInterval);
@@ -112,7 +112,7 @@ class RealTimeMonitorService {
 
   /**
    * Collect metrics from all Firebase Functions
-   */
+    */
   private async collectMetrics(): Promise<void> {
     try {
       const functions = await this.getActiveFunctions();
@@ -137,7 +137,7 @@ class RealTimeMonitorService {
 
   /**
    * Collect metrics for a specific function
-   */
+    */
   private async collectFunctionMetrics(functionName: string): Promise<RealTimeMetrics | null> {
     try {
       const timestamp = Date.now();
@@ -166,7 +166,7 @@ class RealTimeMonitorService {
 
   /**
    * Get function statistics from monitoring APIs
-   */
+    */
   private async getFunctionStats(functionName: string): Promise<any> {
     // This would integrate with Firebase Functions monitoring APIs
     // For now, return sample data structure
@@ -184,7 +184,7 @@ class RealTimeMonitorService {
 
   /**
    * Buffer metrics for analysis
-   */
+    */
   private bufferMetrics(metrics: RealTimeMetrics): void {
     const key = metrics.functionName;
     
@@ -203,7 +203,7 @@ class RealTimeMonitorService {
 
   /**
    * Detect performance anomalies
-   */
+    */
   private async detectAnomalies(): Promise<void> {
     const anomalies: PerformanceAnomaly[] = [];
 
@@ -225,7 +225,7 @@ class RealTimeMonitorService {
 
   /**
    * Handle detected anomalies
-   */
+    */
   private async handleAnomalies(anomalies: PerformanceAnomaly[]): Promise<void> {
     for (const anomaly of anomalies) {
       // Store anomaly
@@ -245,7 +245,7 @@ class RealTimeMonitorService {
 
   /**
    * Generate scaling recommendations
-   */
+    */
   private async generateScalingRecommendations(): Promise<void> {
     const recommendations: ScalingRecommendation[] = [];
 
@@ -270,7 +270,7 @@ class RealTimeMonitorService {
 
   /**
    * Update performance trends
-   */
+    */
   private async updateTrends(): Promise<void> {
     const trends: PerformanceTrend[] = [];
 
@@ -290,7 +290,7 @@ class RealTimeMonitorService {
 
   /**
    * Get list of active Firebase Functions
-   */
+    */
   private async getActiveFunctions(): Promise<string[]> {
     // This would query Firebase Functions API for active functions
     // For now, return a representative list
@@ -310,7 +310,7 @@ class RealTimeMonitorService {
 
   /**
    * Store aggregated metrics
-   */
+    */
   private async storeAggregatedMetrics(metrics: RealTimeMetrics[]): Promise<void> {
     const db = admin.firestore();
     const batch = db.batch();
@@ -328,7 +328,7 @@ class RealTimeMonitorService {
 
   /**
    * Store performance anomaly
-   */
+    */
   private async storeAnomaly(anomaly: PerformanceAnomaly): Promise<void> {
     const db = admin.firestore();
     await db.collection('performance_anomalies').add({
@@ -340,7 +340,7 @@ class RealTimeMonitorService {
 
   /**
    * Trigger anomaly alert
-   */
+    */
   private async triggerAnomalyAlert(anomaly: PerformanceAnomaly): Promise<void> {
     const alertData = {
       type: 'performance_anomaly',
@@ -363,7 +363,7 @@ class RealTimeMonitorService {
 
   /**
    * Execute auto-remediation
-   */
+    */
   private async executeAutoRemediation(anomaly: PerformanceAnomaly): Promise<void> {
     
     // Implementation would depend on the specific remediation action
@@ -372,7 +372,7 @@ class RealTimeMonitorService {
 
   /**
    * Store scaling recommendations
-   */
+    */
   private async storeScalingRecommendations(recommendations: ScalingRecommendation[]): Promise<void> {
     const db = admin.firestore();
     const batch = db.batch();
@@ -391,7 +391,7 @@ class RealTimeMonitorService {
 
   /**
    * Evaluate auto-scaling opportunities
-   */
+    */
   private async evaluateAutoScaling(recommendations: ScalingRecommendation[]): Promise<void> {
     for (const recommendation of recommendations) {
       // Only auto-scale if confidence is high and cost impact is reasonable
@@ -405,14 +405,14 @@ class RealTimeMonitorService {
 
   /**
    * Apply scaling recommendation
-   */
+    */
   private async applyScaling(recommendation: ScalingRecommendation): Promise<void> {
     // Implementation would call Firebase Functions scaling APIs
   }
 
   /**
    * Store performance trends
-   */
+    */
   private async storeTrends(trends: PerformanceTrend[]): Promise<void> {
     const db = admin.firestore();
     const batch = db.batch();
@@ -430,7 +430,7 @@ class RealTimeMonitorService {
 
   /**
    * Get real-time dashboard data
-   */
+    */
   public getDashboardData(): any {
     const currentMetrics = new Map();
     const anomalySummary = new Map();

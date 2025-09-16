@@ -6,7 +6,7 @@
  *
  * @author Gil Klainert
  * @version 1.0.0
- */
+  */
 export interface BusinessMetrics {
     totalRevenue: number;
     conversionRates: {
@@ -83,7 +83,7 @@ export declare class AnalyticsEngineService {
     constructor();
     /**
      * Get comprehensive analytics summary
-     */
+      */
     getAnalyticsSummary(): Promise<{
         performance: any;
         quality: any;
@@ -91,23 +91,23 @@ export declare class AnalyticsEngineService {
     }>;
     /**
      * Generate business metrics for specified period
-     */
+      */
     generateBusinessMetrics(period: '1h' | '24h' | '7d' | '30d'): Promise<BusinessMetrics>;
     /**
      * Generate quality insights for specified period
-     */
+      */
     generateQualityInsights(period: '1h' | '24h' | '7d' | '30d'): Promise<QualityInsights>;
     /**
      * Generate user behavior insights
-     */
+      */
     generateUserBehaviorInsights(userId?: string): Promise<UserBehaviorInsights>;
     /**
      * Analyze trends for specific metric
-     */
+      */
     analyzeTrends(metric: string, period: '7d' | '30d' | '90d'): Promise<TrendAnalysis>;
     /**
      * Private helper methods
-     */
+      */
     private getPerformanceSummary;
     private getQualitySummary;
     private getUserMetrics;

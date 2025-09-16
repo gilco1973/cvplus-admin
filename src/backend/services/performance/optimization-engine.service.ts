@@ -7,7 +7,7 @@
  * 
  * @author Gil Klainert
  * @version 1.0.0
- */
+  */
 
 import * as admin from 'firebase-admin';
 import { config } from '../../config/environment';
@@ -98,7 +98,7 @@ class OptimizationEngineService {
 
   /**
    * Analyze performance data and generate optimization recommendations
-   */
+    */
   public async generateRecommendations(
     performanceData: any[],
     timeframe: string = '24h'
@@ -132,7 +132,7 @@ class OptimizationEngineService {
 
   /**
    * Apply automated optimizations
-   */
+    */
   public async applyAutomatedOptimizations(
     recommendations: OptimizationRecommendation[]
   ): Promise<OptimizationResult[]> {
@@ -167,7 +167,7 @@ class OptimizationEngineService {
 
   /**
    * Analyze bundle optimization opportunities
-   */
+    */
   private async analyzeBundleOptimizations(performanceData: any[]): Promise<BundleOptimization[]> {
     const optimizations: BundleOptimization[] = [];
 
@@ -203,7 +203,7 @@ class OptimizationEngineService {
 
   /**
    * Analyze database optimization opportunities
-   */
+    */
   private async analyzeDatabaseOptimizations(performanceData: any[]): Promise<DatabaseOptimization[]> {
     const optimizations: DatabaseOptimization[] = [];
 
@@ -245,7 +245,7 @@ class OptimizationEngineService {
 
   /**
    * Analyze caching optimization opportunities
-   */
+    */
   private async analyzeCacheOptimizations(performanceData: any[]): Promise<CacheOptimization[]> {
     const optimizations: CacheOptimization[] = [];
 
@@ -281,7 +281,7 @@ class OptimizationEngineService {
 
   /**
    * Analyze infrastructure optimization opportunities
-   */
+    */
   private async analyzeInfrastructureOptimizations(performanceData: any[]): Promise<any[]> {
     const optimizations: any[] = [];
 
@@ -311,7 +311,7 @@ class OptimizationEngineService {
 
   /**
    * Create bundle optimization recommendations
-   */
+    */
   private createBundleRecommendations(optimizations: BundleOptimization[]): OptimizationRecommendation[] {
     return optimizations.map(opt => ({
       recommendationId: `bundle_${opt.type}_${Date.now()}`,
@@ -347,7 +347,7 @@ class OptimizationEngineService {
 
   /**
    * Create database optimization recommendations
-   */
+    */
   private createDatabaseRecommendations(optimizations: DatabaseOptimization[]): OptimizationRecommendation[] {
     return optimizations.map(opt => ({
       recommendationId: `db_${opt.type}_${opt.collection}_${Date.now()}`,
@@ -383,7 +383,7 @@ class OptimizationEngineService {
 
   /**
    * Create cache optimization recommendations
-   */
+    */
   private createCacheRecommendations(optimizations: CacheOptimization[]): OptimizationRecommendation[] {
     return optimizations.map(opt => ({
       recommendationId: `cache_${opt.type}_${opt.target}_${Date.now()}`,
@@ -420,7 +420,7 @@ class OptimizationEngineService {
 
   /**
    * Create infrastructure optimization recommendations
-   */
+    */
   private createInfrastructureRecommendations(optimizations: any[]): OptimizationRecommendation[] {
     return optimizations.map(opt => ({
       recommendationId: `infra_${opt.type}_${opt.functionName}_${Date.now()}`,
@@ -458,7 +458,7 @@ class OptimizationEngineService {
 
   /**
    * Prioritize recommendations based on impact and effort
-   */
+    */
   private prioritizeRecommendations(
     recommendations: OptimizationRecommendation[]
   ): OptimizationRecommendation[] {
@@ -473,7 +473,7 @@ class OptimizationEngineService {
 
   /**
    * Calculate priority score for recommendation
-   */
+    */
   private calculatePriorityScore(recommendation: OptimizationRecommendation): number {
     const priorityWeight = {
       'critical': 10,
@@ -505,7 +505,7 @@ class OptimizationEngineService {
 
   /**
    * Execute optimization recommendation
-   */
+    */
   private async executeOptimization(
     recommendation: OptimizationRecommendation
   ): Promise<OptimizationResult> {
@@ -542,7 +542,7 @@ class OptimizationEngineService {
 
   /**
    * Execute database optimization
-   */
+    */
   private async executeDatabaseOptimization(recommendation: OptimizationRecommendation): Promise<void> {
     // Implementation would create database indexes, optimize queries, etc.
     
@@ -552,7 +552,7 @@ class OptimizationEngineService {
 
   /**
    * Execute cache optimization
-   */
+    */
   private async executeCacheOptimization(recommendation: OptimizationRecommendation): Promise<void> {
     // Implementation would configure caching layers
     
@@ -562,7 +562,7 @@ class OptimizationEngineService {
 
   /**
    * Execute infrastructure optimization
-   */
+    */
   private async executeInfrastructureOptimization(recommendation: OptimizationRecommendation): Promise<void> {
     // Implementation would update function configurations, scaling settings, etc.
     
@@ -572,7 +572,7 @@ class OptimizationEngineService {
 
   /**
    * Store recommendations in Firestore
-   */
+    */
   private async storeRecommendations(recommendations: OptimizationRecommendation[]): Promise<void> {
     const batch = this.db.batch();
 
@@ -592,7 +592,7 @@ class OptimizationEngineService {
 
   /**
    * Store optimization result
-   */
+    */
   private async storeOptimizationResult(result: OptimizationResult): Promise<void> {
     await this.db.collection('optimization_results').doc(result.recommendationId).set({
       ...result,
@@ -604,7 +604,7 @@ class OptimizationEngineService {
 
   /**
    * Get optimization dashboard data
-   */
+    */
   public async getOptimizationDashboard(): Promise<any> {
     const recommendations = Array.from(this.recommendations.values());
     const results = Array.from(this.results.values());

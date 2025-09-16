@@ -5,7 +5,7 @@
  * 
  * @author Gil Klainert
  * @version 1.0.0
- */
+  */
 
 // ============================================================================
 // PAGE EXPORTS
@@ -20,7 +20,7 @@ export { default as RevenueAnalyticsDashboard } from './RevenueAnalyticsDashboar
 
 /**
  * Available admin pages
- */
+  */
 export const ADMIN_PAGES = {
   dashboard: {
     name: 'AdminDashboard',
@@ -42,7 +42,7 @@ export const ADMIN_PAGES = {
 
 /**
  * Page categories
- */
+  */
 export const PAGE_CATEGORIES = {
   OVERVIEW: 'Overview Pages',
   ANALYTICS: 'Analytics Pages',
@@ -55,7 +55,7 @@ export const PAGE_CATEGORIES = {
 
 /**
  * Page routing configuration
- */
+  */
 export const ADMIN_ROUTES = {
   dashboard: '/admin/dashboard',
   userManagement: '/admin/users',
@@ -88,25 +88,25 @@ export interface DashboardPageProps extends AdminPageProps {
 
 /**
  * Page utilities and helpers
- */
+  */
 export const pageUtils = {
   /**
    * Generate page title for admin pages
-   */
+    */
   generatePageTitle: (pageName: string): string => {
     return `CVPlus Admin - ${pageName}`;
   },
 
   /**
    * Check if user has permission to access page
-   */
+    */
   hasPagePermission: (userPermissions: string[], requiredPermissions: string[]): boolean => {
     return requiredPermissions.every(permission => userPermissions.includes(permission));
   },
 
   /**
    * Generate breadcrumb for admin pages
-   */
+    */
   generateBreadcrumb: (currentPage: string): Array<{ label: string; path: string }> => {
     const breadcrumb = [
       { label: 'Admin', path: '/admin' }

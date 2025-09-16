@@ -2,7 +2,7 @@
  * Admin Constants
  *
  * Core constants and configuration values for the admin module.
- */
+  */
 import { AdminRole, AdminLevel, AdminSpecialization } from '../types/admin.types';
 import type { AdminConfig, AdminFeature } from '../types/admin.types';
 export declare const ADMIN_MODULE_NAME = "@cvplus/admin";
@@ -16,11 +16,11 @@ export declare const MODULE_INFO: {
 };
 /**
  * Admin role hierarchy (highest to lowest privilege)
- */
+  */
 export declare const ADMIN_ROLE_HIERARCHY: readonly [AdminRole.SYSTEM_ADMIN, AdminRole.SUPER_ADMIN, AdminRole.ADMIN, AdminRole.MODERATOR, AdminRole.SUPPORT];
 /**
  * Admin level mappings
- */
+  */
 export declare const ADMIN_LEVEL_MAPPINGS: {
     readonly support: AdminLevel.L1_SUPPORT;
     readonly moderator: AdminLevel.L2_MODERATOR;
@@ -30,7 +30,7 @@ export declare const ADMIN_LEVEL_MAPPINGS: {
 };
 /**
  * Default specializations by role
- */
+  */
 export declare const DEFAULT_SPECIALIZATIONS: {
     readonly support: readonly [AdminSpecialization.USER_SUPPORT, AdminSpecialization.BILLING_SUPPORT];
     readonly moderator: readonly [AdminSpecialization.CONTENT_MODERATION, AdminSpecialization.USER_SUPPORT];
@@ -40,7 +40,7 @@ export declare const DEFAULT_SPECIALIZATIONS: {
 };
 /**
  * Permission matrices by role
- */
+  */
 export declare const ROLE_PERMISSIONS: {
     readonly support: {
         readonly canAccessDashboard: true;
@@ -175,15 +175,15 @@ export declare const ROLE_PERMISSIONS: {
 };
 /**
  * Default admin configuration
- */
+  */
 export declare const DEFAULT_ADMIN_CONFIG: AdminConfig;
 /**
  * Admin features configuration
- */
+  */
 export declare const ADMIN_FEATURES: AdminFeature[];
 /**
  * Dashboard layout constants
- */
+  */
 export declare const DASHBOARD_LAYOUTS: {
     readonly GRID: {
         readonly columns: 12;
@@ -204,7 +204,7 @@ export declare const DASHBOARD_LAYOUTS: {
 };
 /**
  * Widget size presets
- */
+  */
 export declare const WIDGET_SIZES: {
     readonly SMALL: {
         readonly w: 3;
@@ -225,7 +225,7 @@ export declare const WIDGET_SIZES: {
 };
 /**
  * Color schemes for admin UI
- */
+  */
 export declare const COLOR_SCHEMES: {
     readonly LIGHT: {
         readonly primary: "#2563eb";
@@ -246,7 +246,7 @@ export declare const COLOR_SCHEMES: {
 };
 /**
  * API endpoints for admin operations
- */
+  */
 export declare const ADMIN_API_ENDPOINTS: {
     readonly DASHBOARD: "/api/admin/dashboard";
     readonly HEALTH_CHECK: "/api/admin/health";
@@ -279,7 +279,7 @@ export declare const ADMIN_API_ENDPOINTS: {
 };
 /**
  * HTTP status codes for admin operations
- */
+  */
 export declare const ADMIN_HTTP_STATUS: {
     readonly OK: 200;
     readonly CREATED: 201;
@@ -296,7 +296,7 @@ export declare const ADMIN_HTTP_STATUS: {
 };
 /**
  * Request timeout configurations
- */
+  */
 export declare const REQUEST_TIMEOUTS: {
     readonly QUICK_OPERATION: 5000;
     readonly STANDARD_OPERATION: 30000;
@@ -306,7 +306,7 @@ export declare const REQUEST_TIMEOUTS: {
 };
 /**
  * Default pagination settings
- */
+  */
 export declare const PAGINATION_DEFAULTS: {
     readonly PAGE_SIZE: 25;
     readonly MAX_PAGE_SIZE: 100;
@@ -314,7 +314,7 @@ export declare const PAGINATION_DEFAULTS: {
 };
 /**
  * Rate limiting configuration
- */
+  */
 export declare const RATE_LIMITS: {
     readonly STANDARD_ADMIN: {
         readonly requests: 1000;
@@ -335,7 +335,7 @@ export declare const RATE_LIMITS: {
 };
 /**
  * Field validation rules
- */
+  */
 export declare const VALIDATION_RULES: {
     readonly ADMIN_EMAIL: {
         readonly required: true;
@@ -370,7 +370,7 @@ export declare const VALIDATION_RULES: {
 };
 /**
  * Admin-specific error codes
- */
+  */
 export declare const ADMIN_ERROR_CODES: {
     readonly INVALID_ADMIN_CREDENTIALS: "ADMIN_001";
     readonly INSUFFICIENT_PRIVILEGES: "ADMIN_002";
@@ -396,7 +396,7 @@ export declare const ADMIN_ERROR_CODES: {
 };
 /**
  * Error messages for admin operations
- */
+  */
 export declare const ADMIN_ERROR_MESSAGES: {
     readonly ADMIN_001: "Invalid admin credentials provided";
     readonly ADMIN_002: "Insufficient privileges for this operation";
@@ -422,7 +422,7 @@ export declare const ADMIN_ERROR_MESSAGES: {
 };
 /**
  * Default notification templates
- */
+  */
 export declare const NOTIFICATION_TEMPLATES: {
     readonly SYSTEM_ALERT: {
         readonly email: {
@@ -442,7 +442,7 @@ export declare const NOTIFICATION_TEMPLATES: {
 };
 /**
  * Audit event types
- */
+  */
 export declare const AUDIT_EVENT_TYPES: {
     readonly ADMIN_LOGIN: "admin.login";
     readonly ADMIN_LOGOUT: "admin.logout";
@@ -465,7 +465,7 @@ export declare const AUDIT_EVENT_TYPES: {
 };
 /**
  * Audit retention policies
- */
+  */
 export declare const AUDIT_RETENTION_POLICIES: {
     readonly AUTHENTICATION_EVENTS: 1095;
     readonly USER_MANAGEMENT_EVENTS: 2555;

@@ -3,7 +3,7 @@
  * 
  * Core administrative types for the CVPlus admin module.
  * Defines interfaces for admin users, permissions, and general admin functionality.
- */
+  */
 
 // Use local user interface for admin module
 interface User {

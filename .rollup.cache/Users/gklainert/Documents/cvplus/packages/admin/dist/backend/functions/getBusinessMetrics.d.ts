@@ -1,6 +1,6 @@
 /**
  * Admin function to get comprehensive business metrics and analytics
- */
+  */
 export declare const getBusinessMetrics: import("firebase-functions/v2/https").CallableFunction<any, Promise<{
     success: boolean;
     data: {

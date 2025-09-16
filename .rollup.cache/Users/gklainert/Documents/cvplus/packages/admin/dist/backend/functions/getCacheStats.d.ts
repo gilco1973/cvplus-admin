@@ -7,7 +7,7 @@
  * @author Gil Klainert
  * @version 2.0.0
  * @updated 2025-08-28
- */
+  */
 interface GetCacheStatsData {
     includeHealthReport?: boolean;
     includeDetailedMetrics?: boolean;
@@ -18,16 +18,16 @@ interface GetCacheStatsData {
 export declare const getCacheStats: import("firebase-functions/v2/https").CallableFunction<GetCacheStatsData, any>;
 /**
  * Enhanced cache management endpoints
- */
+  */
 /**
  * Warm cache endpoint for admin users
- */
+  */
 export declare const warmCaches: import("firebase-functions/v2/https").CallableFunction<{
     services?: string[];
 }, any>;
 /**
  * Clear cache endpoint for admin users
- */
+  */
 export declare const clearCaches: import("firebase-functions/v2/https").CallableFunction<{
     services?: ("pricing" | "subscription" | "featureAccess" | "analytics" | "all")[];
     pattern?: string;

@@ -3,17 +3,17 @@
  *
  * Placeholder service for video generation functionality that has been moved to @cvplus/multimedia.
  * This placeholder maintains compatibility while the multimedia submodule is being integrated.
- */
+  */
 export declare class VideoGenerationService {
     private didApiKey;
     constructor();
     /**
      * Check if video generation service is available
-     */
+      */
     isAvailable(): boolean;
     /**
      * Test video generation functionality
-     */
+      */
     testVideoGeneration(): Promise<{
         success: boolean;
         responseTime?: number;
@@ -22,7 +22,7 @@ export declare class VideoGenerationService {
     }>;
     /**
      * Get service status information
-     */
+      */
     getServiceStatus(): {
         name: string;
         available: boolean;
@@ -32,7 +32,7 @@ export declare class VideoGenerationService {
     };
     /**
      * Get available avatars for testing
-     */
+      */
     getAvailableAvatars(): Array<{
         type: string;
         name: string;

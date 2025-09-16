@@ -5,7 +5,7 @@
  * 
  * This service provides comprehensive security monitoring, threat detection,
  * and incident response for the LLM verification system.
- */
+  */
 
 export interface SecurityEvent {
   id: string;
@@ -85,7 +85,7 @@ export class LLMSecurityMonitorService {
 
   /**
    * Log a security event and trigger threat detection
-   */
+    */
   async logSecurityEvent(event: Omit<SecurityEvent, 'id' | 'timestamp' | 'resolved'>): Promise<string> {
     const securityEvent: SecurityEvent = {
       id: this.generateEventId(),
@@ -113,7 +113,7 @@ export class LLMSecurityMonitorService {
 
   /**
    * Check if an IP is currently blocked
-   */
+    */
   isIPBlocked(ip: string): boolean {
     const blockInfo = this.blockedIPs.get(ip);
     if (!blockInfo) return false;
@@ -128,7 +128,7 @@ export class LLMSecurityMonitorService {
 
   /**
    * Block an IP address temporarily
-   */
+    */
   blockIP(ip: string, durationMinutes: number, reason: string): void {
     const until = new Date(Date.now() + durationMinutes * 60000);
     this.blockedIPs.set(ip, { until, reason });
@@ -149,7 +149,7 @@ export class LLMSecurityMonitorService {
 
   /**
    * Check rate limits for a service/IP combination
-   */
+    */
   checkRateLimit(service: string, ip: string, limit: number = 100, windowMinutes: number = 60): boolean {
     const key = `${service}:${ip}`;
     const now = Date.now();
@@ -189,7 +189,7 @@ export class LLMSecurityMonitorService {
 
   /**
    * Detect potential security threats based on patterns
-   */
+    */
   private async processThreatDetection(event: SecurityEvent): Promise<void> {
     const recentEvents = this.getRecentEvents(24 * 60 * 60 * 1000); // Last 24 hours
     
@@ -209,7 +209,7 @@ export class LLMSecurityMonitorService {
 
   /**
    * Evaluate if a threat detection rule is triggered
-   */
+    */
   private evaluateThreatRule(
     rule: ThreatDetectionRule, 
     event: SecurityEvent, 
@@ -254,7 +254,7 @@ export class LLMSecurityMonitorService {
 
   /**
    * Handle threat detection trigger
-   */
+    */
   private async handleThreatDetection(
     rule: ThreatDetectionRule,
     triggerEvent: SecurityEvent,
@@ -295,7 +295,7 @@ export class LLMSecurityMonitorService {
 
   /**
    * Send security alerts
-   */
+    */
   private sendAlert(rule: ThreatDetectionRule, event: SecurityEvent): void {
     const alertMessage = {
       ruleName: rule.name,
@@ -323,7 +323,7 @@ export class LLMSecurityMonitorService {
 
   /**
    * Get security metrics and statistics
-   */
+    */
   getSecurityMetrics(): SecurityMetrics {
     const now = Date.now();
     const last24h = now - (24 * 60 * 60 * 1000);
@@ -359,7 +359,7 @@ export class LLMSecurityMonitorService {
 
   /**
    * Initialize default threat detection rules
-   */
+    */
   private initializeDefaultThreatRules(): void {
     this.threatRules = [
       {
@@ -464,7 +464,7 @@ export class LLMSecurityMonitorService {
 
   /**
    * Utility methods
-   */
+    */
   private getRecentEvents(timeWindowMs: number): SecurityEvent[] {
     const cutoff = Date.now() - timeWindowMs;
     return this.events.filter(event => event.timestamp.getTime() > cutoff);
@@ -527,7 +527,7 @@ export class LLMSecurityMonitorService {
 
   /**
    * Manual incident resolution
-   */
+    */
   resolveSecurityEvent(eventId: string, notes?: string): boolean {
     const event = this.events.find(e => e.id === eventId);
     if (!event) return false;
@@ -540,14 +540,14 @@ export class LLMSecurityMonitorService {
 
   /**
    * Add custom threat detection rule
-   */
+    */
   addThreatRule(rule: ThreatDetectionRule): void {
     this.threatRules.push(rule);
   }
 
   /**
    * Get recent security events
-   */
+    */
   getRecentSecurityEvents(limit: number = 100): SecurityEvent[] {
     return this.events
       .sort((a, b) => b.timestamp.getTime() - a.timestamp.getTime())
@@ -556,7 +556,7 @@ export class LLMSecurityMonitorService {
 
   /**
    * Get active incidents
-   */
+    */
   getActiveIncidents(): SecurityEvent[] {
     return this.events.filter(e => !e.resolved && ['high', 'critical'].includes(e.severity));
   }

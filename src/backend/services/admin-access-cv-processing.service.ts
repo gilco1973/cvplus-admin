@@ -3,7 +3,7 @@
  * 
  * Service for admin authentication and authorization.
  * Minimal implementation for TypeScript compilation.
- */
+  */
 
 export class AdminAccessService {
   private static instance: AdminAccessService;

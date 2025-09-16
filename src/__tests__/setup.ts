@@ -2,7 +2,7 @@
  * Test Setup File
  * 
  * Global test configuration and mocks for the admin module tests.
- */
+  */
 
 import { vi } from 'vitest';
 

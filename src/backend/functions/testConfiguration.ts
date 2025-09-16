@@ -6,7 +6,7 @@
  * 
  * @author Gil Klainert
  * @version 1.0.0
- */
+  */
 
 import { onRequest } from 'firebase-functions/v2/https';
 import { WebSearchService } from '../services/web-search.service';

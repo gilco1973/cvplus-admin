@@ -4,7 +4,7 @@ import React from 'react';
  *
  * Provides consistent layout for all admin pages with navigation sidebar,
  * header, and main content area.
- */
+  */
 interface AdminLayoutProps {
     children: React.ReactNode;
 }

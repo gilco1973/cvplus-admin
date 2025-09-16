@@ -6,7 +6,7 @@
  * 
  * @author Gil Klainert
  * @version 1.0.0
- */
+  */
 
 import * as admin from 'firebase-admin';
 
@@ -88,7 +88,7 @@ export class AnalyticsEngineService {
 
   /**
    * Get comprehensive analytics summary
-   */
+    */
   async getAnalyticsSummary(): Promise<{
     performance: any;
     quality: any;
@@ -119,7 +119,7 @@ export class AnalyticsEngineService {
 
   /**
    * Generate business metrics for specified period
-   */
+    */
   async generateBusinessMetrics(period: '1h' | '24h' | '7d' | '30d'): Promise<BusinessMetrics> {
     try {
       const startTime = this.getStartTime(period);
@@ -164,7 +164,7 @@ export class AnalyticsEngineService {
 
   /**
    * Generate quality insights for specified period
-   */
+    */
   async generateQualityInsights(period: '1h' | '24h' | '7d' | '30d'): Promise<QualityInsights> {
     try {
       const startTime = this.getStartTime(period);
@@ -231,7 +231,7 @@ export class AnalyticsEngineService {
 
   /**
    * Generate user behavior insights
-   */
+    */
   async generateUserBehaviorInsights(userId?: string): Promise<UserBehaviorInsights> {
     try {
       const startTime = new Date(Date.now() - (30 * 24 * 60 * 60 * 1000)); // Last 30 days
@@ -273,7 +273,7 @@ export class AnalyticsEngineService {
 
   /**
    * Analyze trends for specific metric
-   */
+    */
   async analyzeTrends(metric: string, period: '7d' | '30d' | '90d'): Promise<TrendAnalysis> {
     try {
       const startTime = this.getStartTime(period);
@@ -315,7 +315,7 @@ export class AnalyticsEngineService {
 
   /**
    * Private helper methods
-   */
+    */
   private async getPerformanceSummary(): Promise<any> {
     // Get basic performance data
     const startTime = new Date(Date.now() - (24 * 60 * 60 * 1000));

@@ -6,7 +6,7 @@
  * 
  * @author Gil Klainert
  * @version 1.0.0
- */
+  */
 
 // ============================================================================
 // SERVICE EXPORTS
@@ -21,7 +21,7 @@ export { AdminDashboardService } from './admin-dashboard.service';
 
 /**
  * Available admin services and their capabilities
- */
+  */
 export const ADMIN_SERVICES = {
   AdminAccessService: {
     name: 'AdminAccessService',
@@ -51,7 +51,7 @@ export const ADMIN_SERVICES = {
 
 /**
  * Service categories
- */
+  */
 export const SERVICE_CATEGORIES = {
   AUTHENTICATION: 'Authentication & Authorization',
   DASHBOARD: 'Dashboard Services',

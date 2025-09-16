@@ -5,7 +5,7 @@ import { requireAdminPermission } from '../../middleware/admin-auth.middleware';
 
 /**
  * Admin function to get comprehensive system health metrics
- */
+  */
 export const getSystemHealth = onCall({
   cors: true,
   enforceAppCheck: false,
@@ -88,7 +88,7 @@ export const getSystemHealth = onCall({
 
 /**
  * Get database health metrics
- */
+  */
 const getDatabaseHealth = async (db: admin.firestore.Firestore) => {
   try {
     const startTime = Date.now();
@@ -122,7 +122,7 @@ const getDatabaseHealth = async (db: admin.firestore.Firestore) => {
 
 /**
  * Get function execution metrics
- */
+  */
 const getFunctionMetrics = async (db: admin.firestore.Firestore, since: Date) => {
   try {
     // This would typically come from Cloud Monitoring API
@@ -144,7 +144,7 @@ const getFunctionMetrics = async (db: admin.firestore.Firestore, since: Date) =>
 
 /**
  * Get error metrics and patterns
- */
+  */
 const getErrorMetrics = async (db: admin.firestore.Firestore, since: Date) => {
   try {
     // Query error logs if they exist
@@ -178,7 +178,7 @@ const getErrorMetrics = async (db: admin.firestore.Firestore, since: Date) => {
 
 /**
  * Get performance metrics
- */
+  */
 const getPerformanceMetrics = async (db: admin.firestore.Firestore, since: Date) => {
   return {
     avgResponseTime: 245, // ms
@@ -192,7 +192,7 @@ const getPerformanceMetrics = async (db: admin.firestore.Firestore, since: Date)
 
 /**
  * Get resource usage metrics
- */
+  */
 const getResourceUsage = async () => {
   return {
     storage: {
@@ -215,7 +215,7 @@ const getResourceUsage = async () => {
 
 /**
  * Get security metrics
- */
+  */
 const getSecurityMetrics = async (db: admin.firestore.Firestore, since: Date) => {
   try {
     const securityEvents = await db.collection('securityEvents')
@@ -241,7 +241,7 @@ const getSecurityMetrics = async (db: admin.firestore.Firestore, since: Date) =>
 
 /**
  * Get activity metrics
- */
+  */
 const getActivityMetrics = async (db: admin.firestore.Firestore, since: Date) => {
   try {
     // Sample activity data
@@ -261,7 +261,7 @@ const getActivityMetrics = async (db: admin.firestore.Firestore, since: Date) =>
 
 /**
  * Calculate overall system status
- */
+  */
 const calculateSystemStatus = (metrics: any): 'healthy' | 'degraded' | 'unhealthy' => {
   const checks = [
     metrics.database.status === 'healthy',
@@ -279,7 +279,7 @@ const calculateSystemStatus = (metrics: any): 'healthy' | 'degraded' | 'unhealth
 
 /**
  * Get active system alerts
- */
+  */
 const getActiveAlerts = async (db: admin.firestore.Firestore) => {
   try {
     const alerts = await db.collection('systemAlerts')
@@ -296,7 +296,7 @@ const getActiveAlerts = async (db: admin.firestore.Firestore) => {
 
 /**
  * Generate system recommendations
- */
+  */
 const generateRecommendations = (metrics: any) => {
   const recommendations = [];
 
@@ -329,7 +329,7 @@ const generateRecommendations = (metrics: any) => {
 
 /**
  * Helper function to log admin activities
- */
+  */
 const logAdminActivity = async (adminUid: string, action: string, details: any) => {
   try {
     const db = admin.firestore();

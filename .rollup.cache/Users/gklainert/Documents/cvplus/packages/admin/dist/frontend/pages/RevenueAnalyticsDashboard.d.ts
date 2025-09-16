@@ -7,7 +7,7 @@
  * @author Gil Klainert
  * @version 1.0.0
  * @since Phase 3 - Analytics & Revenue Intelligence
- */
+  */
 import React from 'react';
 declare const RevenueAnalyticsDashboard: React.FC;
 export default RevenueAnalyticsDashboard;

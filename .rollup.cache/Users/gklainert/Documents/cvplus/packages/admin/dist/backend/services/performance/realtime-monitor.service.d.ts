@@ -7,7 +7,7 @@
  *
  * @author Gil Klainert
  * @version 1.0.0
- */
+  */
 export interface RealTimeMetrics {
     timestamp: number;
     functionName: string;
@@ -65,83 +65,83 @@ declare class RealTimeMonitorService {
     static getInstance(): RealTimeMonitorService;
     /**
      * Start real-time monitoring with sub-second updates
-     */
+      */
     startMonitoring(updateIntervalMs?: number): void;
     /**
      * Stop monitoring
-     */
+      */
     stopMonitoring(): void;
     /**
      * Collect metrics from all Firebase Functions
-     */
+      */
     private collectMetrics;
     /**
      * Collect metrics for a specific function
-     */
+      */
     private collectFunctionMetrics;
     /**
      * Get function statistics from monitoring APIs
-     */
+      */
     private getFunctionStats;
     /**
      * Buffer metrics for analysis
-     */
+      */
     private bufferMetrics;
     /**
      * Detect performance anomalies
-     */
+      */
     private detectAnomalies;
     /**
      * Handle detected anomalies
-     */
+      */
     private handleAnomalies;
     /**
      * Generate scaling recommendations
-     */
+      */
     private generateScalingRecommendations;
     /**
      * Update performance trends
-     */
+      */
     private updateTrends;
     /**
      * Get list of active Firebase Functions
-     */
+      */
     private getActiveFunctions;
     /**
      * Store aggregated metrics
-     */
+      */
     private storeAggregatedMetrics;
     /**
      * Store performance anomaly
-     */
+      */
     private storeAnomaly;
     /**
      * Trigger anomaly alert
-     */
+      */
     private triggerAnomalyAlert;
     /**
      * Execute auto-remediation
-     */
+      */
     private executeAutoRemediation;
     /**
      * Store scaling recommendations
-     */
+      */
     private storeScalingRecommendations;
     /**
      * Evaluate auto-scaling opportunities
-     */
+      */
     private evaluateAutoScaling;
     /**
      * Apply scaling recommendation
-     */
+      */
     private applyScaling;
     /**
      * Store performance trends
-     */
+      */
     private storeTrends;
     /**
      * Get real-time dashboard data
-     */
+      */
     getDashboardData(): any;
 }
 export default RealTimeMonitorService;

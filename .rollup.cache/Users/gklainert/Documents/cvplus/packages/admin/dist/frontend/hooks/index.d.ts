@@ -5,11 +5,11 @@
  *
  * @author Gil Klainert
  * @version 1.0.0
- */
+  */
 export { useAdminAuth } from './useAdminAuth';
 /**
  * Available admin hooks
- */
+  */
 export declare const ADMIN_HOOKS: {
     readonly adminAuth: {
         readonly name: "useAdminAuth";
@@ -21,7 +21,7 @@ export declare const ADMIN_HOOKS: {
 };
 /**
  * Hook categories
- */
+  */
 export declare const HOOK_CATEGORIES: {
     readonly AUTHENTICATION: "Authentication Hooks";
     readonly DATA_FETCHING: "Data Fetching Hooks";
@@ -42,19 +42,19 @@ export interface AdminAuthHookOptions extends AdminHookOptions {
 }
 /**
  * Hook utilities and helpers
- */
+  */
 export declare const hookUtils: {
     /**
      * Default hook options
-     */
+      */
     defaultOptions: AdminHookOptions;
     /**
      * Create error handler for admin hooks
-     */
+      */
     createErrorHandler: (hookName: string) => (error: Error) => void;
     /**
      * Create success handler for admin hooks
-     */
+      */
     createSuccessHandler: (hookName: string) => (data: any) => void;
 };
 //# sourceMappingURL=index.d.ts.map

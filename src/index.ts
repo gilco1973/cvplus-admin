@@ -7,7 +7,7 @@
  * 
  * @author Gil Klainert
  * @version 1.0.0
- */
+  */
 
 // ============================================================================
 // TYPE EXPORTS
@@ -107,7 +107,7 @@ export interface AdminModuleOptions {
 
 /**
  * Default module configuration
- */
+  */
 export const DEFAULT_ADMIN_MODULE_OPTIONS: AdminModuleOptions = {
   features: {
     realtimeUpdates: true,
@@ -130,7 +130,7 @@ export const DEFAULT_ADMIN_MODULE_OPTIONS: AdminModuleOptions = {
 
 /**
  * Module initialization function
- */
+  */
 export function initializeAdminModule(options: AdminModuleOptions = {}): void {
   const config = { ...DEFAULT_ADMIN_MODULE_OPTIONS, ...options };
   
@@ -148,7 +148,7 @@ export function initializeAdminModule(options: AdminModuleOptions = {}): void {
 
 /**
  * Validate required dependencies
- */
+  */
 function validateDependencies(): void {
   const missingDependencies: string[] = [];
   
@@ -169,7 +169,7 @@ function validateDependencies(): void {
 
 /**
  * Set up module configuration
- */
+  */
 function setupModuleConfiguration(config: AdminModuleOptions): void {
   // Configuration setup logic would go here
   // For now, just log the configuration

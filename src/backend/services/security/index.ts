@@ -3,7 +3,7 @@
  *
  * Consolidated security services for the entire CVPlus platform.
  * All modules should use these services to ensure consistent security policies.
- */
+  */
 
 export {
   SecureRateLimitGuard,

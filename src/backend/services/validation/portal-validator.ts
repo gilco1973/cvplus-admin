@@ -6,7 +6,7 @@
  *
  * @author Gil Klainert
  * @version 1.0.0
- */
+  */
 
 import { ValidationResult, ValidationError, ValidationErrorCode } from './types';
 import { TextValidator } from './text-validator';
@@ -20,7 +20,7 @@ export class PortalValidator {
 
   /**
    * Validates portal configuration
-   */
+    */
   validatePortalConfig(config: any): ValidationResult {
     const errors: ValidationError[] = [];
     const sanitizedData: any = {};
@@ -80,7 +80,7 @@ export class PortalValidator {
 
   /**
    * Validates template configuration
-   */
+    */
   private validateTemplateConfig(template: any): ValidationResult {
     const errors: ValidationError[] = [];
     const sanitizedData: any = {};
@@ -149,7 +149,7 @@ export class PortalValidator {
 
   /**
    * Validates customization settings
-   */
+    */
   private validateCustomization(customization: any): ValidationResult {
     const errors: ValidationError[] = [];
     const sanitizedData: any = {};

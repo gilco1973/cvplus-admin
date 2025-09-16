@@ -2,7 +2,7 @@
  * Core Web Vitals Service Placeholder
  *
  * This is a placeholder implementation for the admin module to maintain independence.
- */
+  */
 
 export interface WebVitalsMetrics {
   cls: number;

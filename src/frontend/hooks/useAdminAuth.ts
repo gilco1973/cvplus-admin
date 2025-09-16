@@ -8,7 +8,7 @@ import { getAuth } from 'firebase/auth';
  * 
  * Provides admin-specific authentication state and methods.
  * Checks if the current user has admin privileges and loads their admin profile.
- */
+  */
 
 interface AdminProfile {
   id: string;
@@ -150,7 +150,7 @@ export const useAdminAuth = () => {
 
   /**
    * Initialize admin system for current user
-   */
+    */
   const initializeAdminSystem = async () => {
     if (!user) {
       throw new Error('No user authenticated');
@@ -207,7 +207,7 @@ export const useAdminAuth = () => {
 
   /**
    * Check if user has specific admin permission
-   */
+    */
   const hasPermission = (permission: string): boolean => {
     if (!state.isAdmin || !state.adminProfile) {
       return false;
@@ -225,7 +225,7 @@ export const useAdminAuth = () => {
 
   /**
    * Check if user has minimum admin level
-   */
+    */
   const hasMinLevel = (minLevel: number): boolean => {
     if (!state.isAdmin || !state.adminProfile) {
       return false;

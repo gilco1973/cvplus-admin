@@ -2,7 +2,7 @@
  * User Journey Tracker Service Placeholder
  *
  * This is a placeholder implementation for the admin module to maintain independence.
- */
+  */
 
 export interface UserJourneyData {
   sessionId: string;

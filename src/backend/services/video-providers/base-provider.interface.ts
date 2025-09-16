@@ -3,7 +3,7 @@
  *
  * Interface definition for video generation providers.
  * Defines common contract for all video generation services.
- */
+  */
 
 export interface VideoGenerationProvider {
   providerId: string;
@@ -75,17 +75,17 @@ export abstract class BaseVideoProvider {
 
   /**
    * Check if provider is available and configured
-   */
+    */
   abstract isAvailable(): boolean;
 
   /**
    * Generate video with given parameters
-   */
+    */
   abstract generateVideo(request: VideoGenerationRequest): Promise<VideoGenerationResponse>;
 
   /**
    * Get provider status and metrics
-   */
+    */
   abstract getProviderStatus(): Promise<{
     provider: VideoGenerationProvider;
     metrics: ProviderMetrics;
@@ -94,7 +94,7 @@ export abstract class BaseVideoProvider {
 
   /**
    * Test provider connectivity
-   */
+    */
   abstract testConnection(): Promise<{
     success: boolean;
     responseTime: number;

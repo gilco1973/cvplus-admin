@@ -6,7 +6,7 @@
  *
  * @author Gil Klainert
  * @version 1.0.0
- */
+  */
 
 // LLM Provider configuration
 export interface LLMProviderConfig {

@@ -3,7 +3,7 @@ import { getFirestore } from 'firebase-admin/firestore';
 
 /**
  * Security Event Types for comprehensive monitoring
- */
+  */
 export type SecurityEventType =
   | 'RATE_LIMIT_EXCEEDED'
   | 'RATE_LIMIT_SERVICE_FAILURE'
@@ -18,12 +18,12 @@ export type SecurityEventType =
 
 /**
  * Security Event Severity Levels
- */
+  */
 export type SecurityEventSeverity = 'LOW' | 'MEDIUM' | 'HIGH' | 'CRITICAL';
 
 /**
  * Security Event Structure
- */
+  */
 export interface SecurityEvent {
   id?: string;
   timestamp: string;
@@ -44,7 +44,7 @@ export interface SecurityEvent {
 
 /**
  * Security Alert Configuration
- */
+  */
 export interface AlertConfig {
   eventType: SecurityEventType;
   threshold: number;
@@ -58,7 +58,7 @@ export interface AlertConfig {
  * 
  * Provides comprehensive security event logging, monitoring, and alerting
  * for the CVPlus platform.
- */
+  */
 export class SecurityMonitorService {
   private static instance: SecurityMonitorService;
   private db = getFirestore();
@@ -113,7 +113,7 @@ export class SecurityMonitorService {
 
   /**
    * Log a security event with automatic threat detection and alerting
-   */
+    */
   async logSecurityEvent(event: Omit<SecurityEvent, 'id' | 'timestamp'>): Promise<void> {
     const securityEvent: SecurityEvent = {
       ...event,
@@ -156,7 +156,7 @@ export class SecurityMonitorService {
 
   /**
    * Check if security event triggers any alerts
-   */
+    */
   private async checkAlertConditions(event: SecurityEvent): Promise<void> {
     try {
       const alertConfig = this.defaultAlertConfigs.find(
@@ -204,7 +204,7 @@ export class SecurityMonitorService {
 
   /**
    * Trigger security alert with multiple notification channels
-   */
+    */
   private async triggerSecurityAlert(alertData: {
     eventType: SecurityEventType;
     severity: SecurityEventSeverity;
@@ -251,7 +251,7 @@ export class SecurityMonitorService {
 
   /**
    * Send critical security alerts (immediate notification)
-   */
+    */
   private async sendCriticalAlert(alert: any): Promise<void> {
     // In production, this would integrate with:
     // - PagerDuty for immediate alerts
@@ -275,7 +275,7 @@ export class SecurityMonitorService {
 
   /**
    * Send high priority security alerts
-   */
+    */
   private async sendHighPriorityAlert(alert: any): Promise<void> {
     console.warn('⚠️ HIGH PRIORITY SECURITY ALERT', {
       alertId: alert.alertId,
@@ -288,7 +288,7 @@ export class SecurityMonitorService {
 
   /**
    * Get security event statistics for monitoring dashboard
-   */
+    */
   async getSecurityStatistics(hours: number = 24): Promise<{
     totalEvents: number;
     eventsByType: Record<string, number>;
@@ -359,7 +359,7 @@ export class SecurityMonitorService {
 
   /**
    * Mark security event as resolved
-   */
+    */
   async resolveSecurityEvent(eventId: string, resolvedBy: string, notes?: string): Promise<void> {
     try {
       await this.db.collection('security_events').doc(eventId).update({
@@ -386,7 +386,7 @@ export class SecurityMonitorService {
 
   /**
    * Send security events to external monitoring system
-   */
+    */
   private async sendToExternalMonitoring(event: SecurityEvent): Promise<void> {
     // Integration points for external monitoring systems:
     // - DataDog Security Monitoring
@@ -401,7 +401,7 @@ export class SecurityMonitorService {
 
   /**
    * Health check for security monitoring service
-   */
+    */
   async healthCheck(): Promise<{
     healthy: boolean;
     details: Record<string, any>;

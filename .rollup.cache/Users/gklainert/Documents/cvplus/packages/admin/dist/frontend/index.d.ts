@@ -5,7 +5,7 @@
  *
  * @author Gil Klainert
  * @version 1.0.0
- */
+  */
 export * from './components';
 export * from './pages';
 export * from './hooks';
@@ -17,7 +17,7 @@ export declare const ADMIN_FRONTEND_MODULE: {
 };
 /**
  * Frontend module capabilities
- */
+  */
 export declare const FRONTEND_CAPABILITIES: {
     readonly dashboardComponents: "Comprehensive admin dashboard components";
     readonly userManagementUI: "User management interface components";
@@ -30,7 +30,7 @@ export declare const FRONTEND_CAPABILITIES: {
 };
 /**
  * Frontend dependencies
- */
+  */
 export declare const FRONTEND_DEPENDENCIES: {
     readonly core: {
         readonly react: "^18.0.0";

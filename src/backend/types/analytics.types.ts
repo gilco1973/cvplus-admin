@@ -2,7 +2,7 @@
  * Analytics Types
  * 
  * Types for business analytics, reporting, and insights in the admin dashboard.
- */
+  */
 
 // import type { TrendData } from '../../types/dashboard.types';
 

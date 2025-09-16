@@ -1,6 +1,6 @@
 /**
  * CV Validator - Re-export Facade
- */
+  */
 
 // TEMPORARILY DISABLED: cv-processing package not built yet
 // export { CVValidator } from "@cvplus/cv-processing";
