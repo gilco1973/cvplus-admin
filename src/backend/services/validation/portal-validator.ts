@@ -26,8 +26,7 @@ export class PortalValidator {
     const sanitizedData: any = {};
 
     if (!config || typeof config !== 'object') {
-      errors.push({ name: 'ValidationError',
-        name: 'PortalConfigError',
+      errors.push({ name: 'PortalConfigError',
         field: 'portalConfig',
         code: ValidationErrorCode.REQUIRED_FIELD,
         message: 'Portal configuration is required',
@@ -40,8 +39,7 @@ export class PortalValidator {
     const requiredFields = ['id', 'jobId', 'userId'];
     for (const field of requiredFields) {
       if (!config[field]) {
-        errors.push({ name: 'ValidationError',
-          name: 'FieldError',
+        errors.push({ name: 'FieldError',
           field,
           code: ValidationErrorCode.REQUIRED_FIELD,
           message: `${field} is required`,
@@ -89,7 +87,6 @@ export class PortalValidator {
 
     if (!template || typeof template !== 'object') {
       errors.push({ name: 'ValidationError',
-        name: 'ValidationError',
         field: 'template',
         code: ValidationErrorCode.REQUIRED_FIELD,
         message: 'Template configuration is required',
@@ -101,7 +98,6 @@ export class PortalValidator {
     // Validate template ID
     if (!template.id) {
       errors.push({ name: 'ValidationError',
-        name: 'ValidationError',
         field: 'template.id',
         code: ValidationErrorCode.REQUIRED_FIELD,
         message: 'Template ID is required',
@@ -128,7 +124,6 @@ export class PortalValidator {
 
     if (template.category && !validCategories.includes(template.category)) {
       errors.push({ name: 'ValidationError',
-        name: 'ValidationError',
         field: 'template.category',
         code: ValidationErrorCode.INVALID_FORMAT,
         message: `Invalid template category. Must be one of: ${validCategories.join(', ')}`,
@@ -253,7 +248,6 @@ export class PortalValidator {
 
     if (layout.headerStyle && !validHeaderStyles.includes(layout.headerStyle)) {
       errors.push({ name: 'ValidationError',
-        name: 'ValidationError',
         field: 'layout.headerStyle',
         code: ValidationErrorCode.INVALID_FORMAT,
         message: `Invalid header style. Must be one of: ${validHeaderStyles.join(', ')}`,
@@ -265,7 +259,6 @@ export class PortalValidator {
 
     if (layout.navigationStyle && !validNavStyles.includes(layout.navigationStyle)) {
       errors.push({ name: 'ValidationError',
-        name: 'ValidationError',
         field: 'layout.navigationStyle',
         code: ValidationErrorCode.INVALID_FORMAT,
         message: `Invalid navigation style. Must be one of: ${validNavStyles.join(', ')}`,
@@ -277,7 +270,6 @@ export class PortalValidator {
 
     if (layout.contentLayout && !validContentLayouts.includes(layout.contentLayout)) {
       errors.push({ name: 'ValidationError',
-        name: 'ValidationError',
         field: 'layout.contentLayout',
         code: ValidationErrorCode.INVALID_FORMAT,
         message: `Invalid content layout. Must be one of: ${validContentLayouts.join(', ')}`,
@@ -303,7 +295,6 @@ export class PortalValidator {
       const validSchemes = ['light', 'dark', 'auto'];
       if (!validSchemes.includes(theme.colorScheme)) {
         errors.push({ name: 'ValidationError',
-          name: 'ValidationError',
           field: 'theme.colorScheme',
           code: ValidationErrorCode.INVALID_FORMAT,
           message: `Invalid color scheme. Must be one of: ${validSchemes.join(', ')}`,
@@ -322,7 +313,6 @@ export class PortalValidator {
           sanitizedData[field] = theme[field];
         } else {
           errors.push({ name: 'ValidationError',
-            name: 'ValidationError',
             field: `theme.${field}`,
             code: ValidationErrorCode.INVALID_FORMAT,
             message: `Invalid color format for ${field}`,
@@ -347,7 +337,6 @@ export class PortalValidator {
 
     if (privacy.level && !validLevels.includes(privacy.level)) {
       errors.push({ name: 'ValidationError',
-        name: 'ValidationError',
         field: 'privacy.level',
         code: ValidationErrorCode.INVALID_FORMAT,
         message: `Invalid privacy level. Must be one of: ${validLevels.join(', ')}`,

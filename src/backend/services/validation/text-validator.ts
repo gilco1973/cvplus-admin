@@ -42,8 +42,7 @@ export class TextValidator {
     const errors: ValidationError[] = [];
 
     if (!text || typeof text !== 'string') {
-      errors.push({ name: 'ValidationError',
-        name: 'TextValidationError',
+      errors.push({ name: 'TextValidationError',
         field: fieldName,
         code: ValidationErrorCode.REQUIRED_FIELD,
         message: `${fieldName} is required and must be a string`,
@@ -54,8 +53,7 @@ export class TextValidator {
 
     // Length validation
     if (text.length > maxLength) {
-      errors.push({ name: 'ValidationError',
-        name: 'TextValidationError',
+      errors.push({ name: 'TextValidationError',
         field: fieldName,
         code: ValidationErrorCode.TOO_LONG,
         message: `${fieldName} exceeds maximum length of ${maxLength} characters`,
@@ -65,8 +63,7 @@ export class TextValidator {
 
     // Security validation
     if (this.containsDangerousPatterns(text)) {
-      errors.push({ name: 'ValidationError',
-        name: 'ValidationError',
+      errors.push({ name: 'SecurityValidationError',
         field: fieldName,
         code: ValidationErrorCode.DANGEROUS_CONTENT,
         message: `${fieldName} contains potentially dangerous content`,
@@ -103,7 +100,6 @@ export class TextValidator {
     // Basic format validation
     if (!validator.isEmail(email)) {
       errors.push({ name: 'ValidationError',
-        name: 'ValidationError',
         field: 'email',
         code: ValidationErrorCode.INVALID_EMAIL,
         message: 'Invalid email format',
@@ -125,7 +121,6 @@ export class TextValidator {
     const domain = email.split('@')[1];
     if (domain && domain.length > 253) {
       errors.push({ name: 'ValidationError',
-        name: 'ValidationError',
         field: 'email',
         code: ValidationErrorCode.INVALID_FORMAT,
         message: 'Email domain is too long',
@@ -156,7 +151,6 @@ export class TextValidator {
     // Basic format validation
     if (!validator.isMobilePhone(cleanPhone, 'any', { strictMode: false })) {
       errors.push({ name: 'ValidationError',
-        name: 'ValidationError',
         field: 'phone',
         code: ValidationErrorCode.INVALID_PHONE,
         message: 'Invalid phone number format',

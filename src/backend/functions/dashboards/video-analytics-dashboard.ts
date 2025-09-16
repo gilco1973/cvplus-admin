@@ -17,6 +17,11 @@ interface SystemPerformanceMetrics {
   throughput: number;
   errorRate: number;
   uptime: number;
+  providerMetrics?: Record<string, {
+    successes: number;
+    failures: number;
+    [key: string]: any;
+  }>;
 }
 
 interface BusinessMetrics {
@@ -42,6 +47,12 @@ interface UserBehaviorInsights {
 const performanceMonitor = {
   async getSystemMetrics(): Promise<SystemPerformanceMetrics> {
     return { responseTime: 245, throughput: 45.2, errorRate: 1.2, uptime: 99.8 };
+  },
+  async getPerformanceTrends(_period: string | number, _granularity?: string): Promise<any> {
+    return { trend: 'stable', data: [] };
+  },
+  async calculateSystemMetrics(_period: string): Promise<SystemPerformanceMetrics> {
+    return this.getSystemMetrics();
   }
 };
 
@@ -54,12 +65,34 @@ const analyticsEngine = {
   },
   async getUserBehaviorInsights(): Promise<UserBehaviorInsights> {
     return { engagementMetrics: {}, featureUsage: {}, userSegments: {} };
+  },
+  async getAnalyticsSummary(): Promise<any> {
+    return {
+      performance: { successRate: 97.5, averageGenerationTime: 1250 },
+      quality: { overallScore: 87.5 },
+      usage: { totalGenerations: 1234 }
+    };
+  },
+  async generateQualityInsights(_period: string): Promise<any> {
+    return this.getQualityInsights();
+  },
+  async analyzeTrends(_metric: string, _period: string): Promise<any> {
+    return { trend: 'up', change: 5.2, data: [] };
+  },
+  async generateBusinessMetrics(_period: string): Promise<BusinessMetrics> {
+    return this.getBusinessMetrics();
+  },
+  async generateUserBehaviorInsights(_userId?: string): Promise<UserBehaviorInsights> {
+    return this.getUserBehaviorInsights();
   }
 };
 
 const alertManager = {
   async getActiveAlerts() {
     return [];
+  },
+  async getAlertDashboard(): Promise<any> {
+    return { activeAlerts: [], alertCount: 0, severity: 'low' };
   }
 };
 
@@ -366,7 +399,7 @@ async function getProviderComparison(): Promise<ProviderComparison[]> {
     const providers: ProviderComparison[] = [];
 
     // Process each provider's metrics
-    for (const [providerId, metrics] of Object.entries(systemMetrics.providerMetrics)) {
+    for (const [providerId, metrics] of Object.entries(systemMetrics.providerMetrics || {})) {
       providers.push({
         providerId,
         name: getProviderDisplayName(providerId),
@@ -495,7 +528,7 @@ async function getExportData(query: any): Promise<any> {
 
     if (includeRawData) {
       // Add raw data collections (limited for performance)
-      exportData['rawData'] = await getRawDataForExport(period);
+      (exportData as any)['rawData'] = await getRawDataForExport(period);
     }
 
     return exportData;

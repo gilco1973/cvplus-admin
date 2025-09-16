@@ -1,6 +1,7 @@
 {
   "name": "@cvplus/admin",
   "version": "1.0.0",
+  "type": "module",
   "description": "Comprehensive admin dashboard module for CVPlus platform management",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",

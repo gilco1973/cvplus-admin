@@ -33,6 +33,10 @@ export { AdminQuickActionType, QuickActionCategory, RealtimeConnectionStatus } f
 // Export main analytics types
 export type { BusinessAnalytics, RevenueAnalytics } from './analytics.types';
 
+// Job and Portal types for validation services
+export * from './job';
+export * from './portal';
+
 // TODO: Fix type issues in other modules and re-enable these exports
 // export type { ModerationQueue } from './moderation.types';
 // export type { SystemHealthStatus } from './monitoring.types';

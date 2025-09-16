@@ -8,8 +8,8 @@
  * @version 1.0.0
  */
 
-import { ParsedCV } from '../../types/job';
-import { PortalConfig } from '../../types/portal';
+import { ParsedCV } from '../../../types/job';
+import { PortalConfig } from '../../../types/portal';
 import { ValidationResult, ValidationOptions } from './types';
 import { TextValidator } from './text-validator';
 import { CVValidator } from './cv-validator';

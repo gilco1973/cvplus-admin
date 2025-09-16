@@ -18,7 +18,7 @@ export declare const monitorStuckJobs: import("firebase-functions/v2/scheduler")
 export declare const triggerJobMonitoring: import("firebase-functions/v2/https").CallableFunction<any, Promise<{
     success: boolean;
     message: string;
-    stats: import("../services/job-monitoring.service").JobProcessingStats;
+    stats: import("..").JobProcessingStats;
     timestamp: string;
     error?: undefined;
 } | {
@@ -49,7 +49,7 @@ export declare const getJobDetails: import("firebase-functions/v2/https").Callab
  */
 export declare const getJobStats: import("firebase-functions/v2/https").CallableFunction<any, Promise<{
     success: boolean;
-    stats: import("../services/job-monitoring.service").JobProcessingStats;
+    stats: import("..").JobProcessingStats;
     timestamp: string;
     error?: undefined;
 } | {

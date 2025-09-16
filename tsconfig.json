@@ -1,16 +1,19 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
+    "noEmit": false,
+    "moduleResolution": "bundler",
     "rootDir": "./src",
     "outDir": "./dist",
     "baseUrl": "./src",
     "paths": {
       "@/*": ["./*"],
-      "@cvplus/core": ["../core/src"],
-      "@cvplus/auth": ["../auth/src"],
-      "@cvplus/premium": ["../premium/src"],
-      "@cvplus/analytics": ["../analytics/src"],
-      "@cvplus/public-profiles": ["../public-profiles/src"]
+      "@cvplus/core": ["../core/dist"],
+      "@cvplus/auth": ["../auth/dist"],
+      "@cvplus/premium": ["../premium/dist"],
+      "@cvplus/analytics": ["../analytics/dist"],
+      "@cvplus/public-profiles": ["../public-profiles/dist"],
+      "@cvplus/logging": ["../logging/dist"]
     },
     "jsx": "react-jsx",
     "declaration": true,
@@ -22,7 +25,8 @@
     "noUnusedParameters": false
   },
   "include": [
-    "src/**/*"
+    "src/**/*",
+    "src/types/**/*.d.ts"
   ],
   "exclude": [
     "dist",
