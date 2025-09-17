@@ -3,15 +3,7 @@
  *
  * Types for user management functionality in the admin dashboard.
   */
-interface User {
-    uid: string;
-    email: string;
-    emailVerified: boolean;
-    displayName?: string;
-    photoURL?: string;
-    createdAt: Date;
-    lastLoginAt?: Date;
-}
+import { User } from '@cvplus/core';
 interface Subscription {
     id: string;
     userId: string;

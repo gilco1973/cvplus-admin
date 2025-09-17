@@ -1,5 +1,6 @@
 import { logger } from 'firebase-functions';
 import { getFirestore } from 'firebase-admin/firestore';
+import { adminLogger } from '../../../logging/AdminLogger';
 /**
  * Security Monitoring Service with Real-time Alerting
  *
@@ -177,7 +178,7 @@ export class SecurityMonitorService {
         // - Slack for team notifications
         // - Email for stakeholders
         // - SMS for on-call engineers
-        console.error('🚨 CRITICAL SECURITY ALERT 🚨', {
+        adminLogger.error('🚨 CRITICAL SECURITY ALERT 🚨', {
             alertId: alert.alertId,
             eventType: alert.eventType,
             message: `Critical security event: ${alert.eventType} occurred ${alert.actualCount} times in ${alert.windowMinutes} minutes (threshold: ${alert.threshold})`
@@ -193,7 +194,7 @@ export class SecurityMonitorService {
      * Send high priority security alerts
       */
     async sendHighPriorityAlert(alert) {
-        console.warn('⚠️ HIGH PRIORITY SECURITY ALERT', {
+        adminLogger.warn('⚠️ HIGH PRIORITY SECURITY ALERT', {
             alertId: alert.alertId,
             eventType: alert.eventType,
             message: `Security threshold exceeded: ${alert.eventType}`
@@ -290,7 +291,7 @@ export class SecurityMonitorService {
         // - Azure Security Center
         // - Custom SIEM systems
         // For now, ensure structured logging for external collection
-        console.log('EXTERNAL_SECURITY_MONITOR', JSON.stringify(event));
+        adminLogger.info('EXTERNAL_SECURITY_MONITOR', JSON.stringify(event));
     }
     /**
      * Health check for security monitoring service

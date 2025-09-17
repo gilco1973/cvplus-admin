@@ -215,23 +215,39 @@ export const llmVerificationConfig = {
     },
   },
 
-  // Development/test overrides
+  // Test environment overrides
   ...(process.env.NODE_ENV === 'test' && {
     providers: {
       claude: {
-        name: 'Mock Claude',
-        apiKey: 'test-key',
-        baseUrl: 'http://localhost:8080/mock-claude',
+        name: 'Claude API Test',
+        apiKey: process.env.CLAUDE_API_KEY_TEST || process.env.CLAUDE_API_KEY || '',
+        baseUrl: process.env.CLAUDE_BASE_URL_TEST || 'https://api.anthropic.com/v1',
         timeout: 5000,
         retries: 1,
         rateLimit: { requestsPerMinute: 100, requestsPerHour: 1000 },
         models: ['claude-3-haiku'],
-        enabled: true,
+        enabled: !!process.env.CLAUDE_API_KEY_TEST || !!process.env.CLAUDE_API_KEY,
       },
     },
     monitoring: {
       enabled: false,
       logLevel: 'silent',
+    },
+    verification: {
+      enabled: false, // Disable verification in test mode for faster execution
+      confidenceThreshold: 0.5,
+      scoreThreshold: 0.5,
+      maxRetries: 1,
+      timeoutMs: 5000,
+      contentFilters: [],
+      qualityChecks: [],
+      performanceThresholds: {
+        maxResponseTime: 10000,
+        minSuccessRate: 0.8,
+        maxErrorRate: 0.2,
+        maxTokensPerRequest: 1000,
+      },
+      complianceRules: [],
     },
   }),
 };

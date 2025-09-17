@@ -182,19 +182,20 @@ export class DashboardPermissionValidator extends EnhancedBaseService {
 
       // Return minimal permissions as fallback
       return {
-        canAccessDashboard: false,
-        canManageUsers: false,
-        canModerateContent: false,
-        canMonitorSystem: false,
-        canViewAnalytics: false,
-        canAuditSecurity: false,
-        canManageSupport: false,
-        canManageBilling: false,
-        canConfigureSystem: false,
-        canManageAdmins: false,
-        canExportData: false,
-        canManageFeatureFlags: false
-      },
+        basic: {
+          canAccessDashboard: false,
+          canManageUsers: false,
+          canModerateContent: false,
+          canMonitorSystem: false,
+          canViewAnalytics: false,
+          canAuditSecurity: false,
+          canManageSupport: false,
+          canManageBilling: false,
+          canConfigureSystem: false,
+          canManageAdmins: false,
+          canExportData: false,
+          canManageFeatureFlags: false
+        },
       userManagement: {
         canViewUsers: false,
         canEditUsers: false,
@@ -257,8 +258,9 @@ export class DashboardPermissionValidator extends EnhancedBaseService {
         canConfigureCompliance: false,
         canInvestigateIncidents: false,
         canManageSecurityAlerts: false
-      }
-    };
+        }
+      };
+    }
   }
 
   private async getAdminLevel(adminUserId: string): Promise<AdminLevel> {

@@ -8,6 +8,7 @@
 
 import { logger } from 'firebase-functions';
 import { getFirestore, FieldValue } from 'firebase-admin/firestore';
+import { PremiumService } from '@cvplus/premium';
 
 // NOTE: These services would need to be provided via dependency injection
 // or imported from appropriate submodules in a real implementation
@@ -240,8 +241,7 @@ export class ComprehensivePolicyEnforcementService {
       // Step 1: Get user account and subscription info
       const [userAccount, subscriptionData] = await Promise.all([
         this.getUserAccountInfo(request.userId),
-        // TEMPORARILY DISABLED: getUserSubscriptionInternal(request.userId)
-        Promise.resolve({ subscriptionStatus: 'free', lifetimeAccess: false })
+        this.getUserSubscriptionData(request.userId)
       ]);
 
       // Step 2: Check usage limits
@@ -436,6 +436,23 @@ export class ComprehensivePolicyEnforcementService {
     } catch (error) {
       logger.error('Error getting user account info', { error, userId });
       throw new Error('Failed to get user account information');
+    }
+  }
+
+  /**
+   * Get user subscription data using real PremiumService
+   */
+  private async getUserSubscriptionData(userId: string): Promise<{ subscriptionStatus: string; lifetimeAccess: boolean }> {
+    try {
+      const subscriptionData = await PremiumService.getUserSubscription(userId);
+      return {
+        subscriptionStatus: subscriptionData.status || 'free',
+        lifetimeAccess: subscriptionData.lifetimeAccess || false
+      };
+    } catch (error) {
+      logger.error('Failed to get user subscription data', { userId, error });
+      // Fallback to free plan if subscription service fails
+      return { subscriptionStatus: 'free', lifetimeAccess: false };
     }
   }
 

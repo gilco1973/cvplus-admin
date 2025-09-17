@@ -5,6 +5,7 @@
   */
 import { AuthenticationError } from '../utils/autonomous-utils';
 import * as admin from 'firebase-admin';
+import { adminLogger } from '../../logging/AdminLogger';
 
 export class AutonomousAdminService {
   private static db = admin.firestore();
@@ -31,7 +32,7 @@ export class AutonomousAdminService {
         throw error;
       }
       
-      console.error('Admin access check failed:', error);
+      adminLogger.error('Admin access check failed:', error);
       throw new AuthenticationError('Admin access verification failed', 'ADMIN_CHECK_FAILED');
     }
   }
@@ -46,7 +47,7 @@ export class AutonomousAdminService {
       
       return !!(userData?.isAdmin && !userData.disabled);
     } catch (error) {
-      console.error('Admin check failed:', error);
+      adminLogger.error('Admin check failed:', error);
       return false;
     }
   }
@@ -65,7 +66,7 @@ export class AutonomousAdminService {
       
       return userData.adminLevel || 'basic';
     } catch (error) {
-      console.error('Admin level check failed:', error);
+      adminLogger.error('Admin level check failed:', error);
       return 'none';
     }
   }
@@ -84,7 +85,7 @@ export class AutonomousAdminService {
         userAgent: details?.userAgent
       });
     } catch (error) {
-      console.error('Failed to log admin action:', error);
+      adminLogger.error('Failed to log admin action:', error);
       // Don't throw - logging failures shouldn't break functionality
     }
   }

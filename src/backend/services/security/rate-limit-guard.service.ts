@@ -1,5 +1,6 @@
 import { logger } from 'firebase-functions';
 import { getFirestore } from 'firebase-admin/firestore';
+import { adminLogger } from '../../../logging/AdminLogger';
 
 /**
  * Secure Rate Limiting Service with Fail-Closed Policy
@@ -263,11 +264,43 @@ export class SecureRateLimitGuard {
    * Send security events to external monitoring system
     */
   private sendToSecurityMonitoring(event: Record<string, any>): void {
-    // Implementation would depend on your security monitoring system
-    // Examples: DataDog, Splunk, Custom SIEM, etc.
+    // Send security events to configured monitoring systems
+    // Based on CVPlus monitoring configuration
 
-    // For now, ensure it's logged for external collection
-    console.log('SECURITY_MONITOR:', JSON.stringify(event));
+    // Send to configured webhook if available
+    const webhookUrl = process.env.SECURITY_MONITORING_WEBHOOK;
+    if (webhookUrl) {
+      this.sendToWebhook(webhookUrl, event);
+    }
+
+    // Send to logging service for collection and analysis
+    adminLogger.info('SECURITY_MONITOR:', JSON.stringify(event));
+  }
+
+  /**
+   * Send event to webhook endpoint
+   */
+  private async sendToWebhook(webhookUrl: string, event: Record<string, any>): Promise<void> {
+    try {
+      const response = await fetch(webhookUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'User-Agent': 'CVPlus-Security-Monitor/1.0',
+        },
+        body: JSON.stringify({
+          timestamp: new Date().toISOString(),
+          source: 'cvplus-admin-rate-limiter',
+          event,
+        }),
+      });
+
+      if (!response.ok) {
+        adminLogger.error('Failed to send security event to webhook:', response.statusText);
+      }
+    } catch (error) {
+      adminLogger.error('Error sending security event to webhook:', error);
+    }
   }
 
   /**

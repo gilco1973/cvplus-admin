@@ -63,6 +63,10 @@ export declare class SecureRateLimitGuard {
       */
     private sendToSecurityMonitoring;
     /**
+     * Send event to webhook endpoint
+     */
+    private sendToWebhook;
+    /**
      * Health check for the rate limiting service
       */
     healthCheck(): Promise<{

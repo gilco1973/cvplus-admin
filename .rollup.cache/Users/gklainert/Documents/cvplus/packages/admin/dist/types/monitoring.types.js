@@ -194,6 +194,13 @@ export var LogLevel;
     LogLevel["ERROR"] = "error";
     LogLevel["CRITICAL"] = "critical";
 })(LogLevel || (LogLevel = {}));
+export var BackupStatusType;
+(function (BackupStatusType) {
+    BackupStatusType["SUCCESS"] = "success";
+    BackupStatusType["FAILED"] = "failed";
+    BackupStatusType["IN_PROGRESS"] = "in_progress";
+    BackupStatusType["SCHEDULED"] = "scheduled";
+})(BackupStatusType || (BackupStatusType = {}));
 export var TrendDirection;
 (function (TrendDirection) {
     TrendDirection["UP"] = "up";

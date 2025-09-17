@@ -17,6 +17,7 @@
 import * as admin from 'firebase-admin';
 import * as functions from 'firebase-functions';
 import { AdminRole } from '../types';
+import { adminLogger } from '../logging/AdminLogger';
 export class AdminAccessService {
     /**
      * Check if user has basic admin access
@@ -49,7 +50,7 @@ export class AdminAccessService {
             return false;
         }
         catch (error) {
-            console.error(`Admin access check failed for user ${userId}:`, error);
+            adminLogger.error(`Admin access check failed for user ${userId}:`, error);
             return false;
         }
     }
@@ -78,7 +79,7 @@ export class AdminAccessService {
             return permissions[permission] === true;
         }
         catch (error) {
-            console.error(`Permission check failed for user ${userId}, permission ${permission}:`, error);
+            adminLogger.error(`Permission check failed for user ${userId}, permission ${permission}:`, error);
             return false;
         }
     }
@@ -122,7 +123,7 @@ export class AdminAccessService {
             return this.calculatePermissions(adminLevel, adminRoles, userId);
         }
         catch (error) {
-            console.error(`Failed to get admin permissions for user ${userId}:`, error);
+            adminLogger.error(`Failed to get admin permissions for user ${userId}:`, error);
             return this.getEmptyPermissions();
         }
     }
@@ -146,7 +147,7 @@ export class AdminAccessService {
             };
         }
         catch (error) {
-            console.error(`Failed to get admin user info for ${userId}:`, error);
+            adminLogger.error(`Failed to get admin user info for ${userId}:`, error);
             throw new functions.https.HttpsError('internal', 'Failed to retrieve admin user information');
         }
     }
@@ -172,10 +173,10 @@ export class AdminAccessService {
                 upgradeDate: new Date().toISOString(),
                 upgradeReason: 'email_based_fallback'
             });
-            console.log(`Upgraded user ${userId} (${email}) to custom claims with admin level ${adminLevel}`);
+            adminLogger.info(`Upgraded user ${userId} (${email}) to custom claims with admin level ${adminLevel}`);
         }
         catch (error) {
-            console.error(`Failed to upgrade user ${userId} to custom claims:`, error);
+            adminLogger.error(`Failed to upgrade user ${userId} to custom claims:`, error);
             // Don't throw - fallback should still work
         }
     }
@@ -437,7 +438,7 @@ export class AdminAccessService {
             }
         };
         // Log permission calculation for audit
-        console.log(`Calculated permissions for user ${userId}: level ${adminLevel}, roles [${roles.join(', ')}]`);
+        adminLogger.info(`Calculated permissions for user ${userId}: level ${adminLevel}, roles [${roles.join(', ')}]`);
         return permissions;
     }
     /**
@@ -476,10 +477,10 @@ export class AdminAccessService {
             await admin.firestore()
                 .collection('admin_audit_log')
                 .add(logEntry);
-            console.log(`Admin action logged: ${action} by ${userId} (${adminInfo.email})`);
+            adminLogger.info(`Admin action logged: ${action} by ${userId} (${adminInfo.email})`);
         }
         catch (error) {
-            console.error(`Failed to log admin action ${action} by ${userId}:`, error);
+            adminLogger.error(`Failed to log admin action ${action} by ${userId}:`, error);
             // Don't throw - logging failure shouldn't break functionality
         }
     }

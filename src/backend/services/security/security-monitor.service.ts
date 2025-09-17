@@ -1,5 +1,6 @@
 import { logger } from 'firebase-functions';
 import { getFirestore } from 'firebase-admin/firestore';
+import { adminLogger } from '../../../logging/AdminLogger';
 
 /**
  * Security Event Types for comprehensive monitoring
@@ -259,7 +260,7 @@ export class SecurityMonitorService {
     // - Email for stakeholders
     // - SMS for on-call engineers
 
-    console.error('🚨 CRITICAL SECURITY ALERT 🚨', {
+    adminLogger.error('🚨 CRITICAL SECURITY ALERT 🚨', {
       alertId: alert.alertId,
       eventType: alert.eventType,
       message: `Critical security event: ${alert.eventType} occurred ${alert.actualCount} times in ${alert.windowMinutes} minutes (threshold: ${alert.threshold})`
@@ -277,7 +278,7 @@ export class SecurityMonitorService {
    * Send high priority security alerts
     */
   private async sendHighPriorityAlert(alert: any): Promise<void> {
-    console.warn('⚠️ HIGH PRIORITY SECURITY ALERT', {
+    adminLogger.warn('⚠️ HIGH PRIORITY SECURITY ALERT', {
       alertId: alert.alertId,
       eventType: alert.eventType,
       message: `Security threshold exceeded: ${alert.eventType}`
@@ -396,7 +397,7 @@ export class SecurityMonitorService {
     // - Custom SIEM systems
 
     // For now, ensure structured logging for external collection
-    console.log('EXTERNAL_SECURITY_MONITOR', JSON.stringify(event));
+    adminLogger.info('EXTERNAL_SECURITY_MONITOR', JSON.stringify(event));
   }
 
   /**

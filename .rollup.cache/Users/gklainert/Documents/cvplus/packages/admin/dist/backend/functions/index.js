@@ -17,6 +17,7 @@ export { manageUsers } from './manageUsers';
 export { getBusinessMetrics } from './getBusinessMetrics';
 export { getCacheStats, warmCaches, clearCaches } from './getCacheStats';
 export { initializeAdmin } from './initializeAdmin';
+export { llmVerificationStatus } from './llmVerificationStatus';
 // Comprehensive dashboard functions
 export { videoAnalyticsDashboard } from './dashboards/videoAnalyticsDashboard';
 export { videoAnalyticsDashboard as videoAnalyticsDashboardAlt } from './dashboards/video-analytics-dashboard';
@@ -153,6 +154,13 @@ export const ADMIN_FUNCTIONS = {
         description: 'Get user usage statistics and subscription limits',
         requiredPermissions: ['canManageUsers'],
         category: 'POLICY_MANAGEMENT',
+        region: 'us-central1'
+    },
+    llmVerificationStatus: {
+        name: 'llmVerificationStatus',
+        description: 'Get LLM verification system status and health metrics',
+        requiredPermissions: ['canMonitorSystem'],
+        category: 'SYSTEM_MONITORING',
         region: 'us-central1'
     }
 };

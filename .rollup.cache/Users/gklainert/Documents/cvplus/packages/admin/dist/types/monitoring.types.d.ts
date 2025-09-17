@@ -7,7 +7,7 @@ export interface SystemHealthStatus {
     overall: SystemHealthScore;
     services: ServiceHealthStatus[];
     resources: ResourceUtilization;
-    database: any;
+    database: DatabaseHealth;
     dependencies: ExternalDependencyHealth[];
     lastChecked: Date;
     trends: HealthTrends;
@@ -649,6 +649,30 @@ export declare enum LogLevel {
 export interface AlertRetention {
     resolved: number;
     active: number;
+}
+export interface DatabaseHealth {
+    status: HealthStatus;
+    connections: ConnectionMetrics;
+    performance: DatabasePerformanceMetrics;
+    storage: DatabaseStorageMetrics;
+    replication?: ReplicationMetrics;
+    lastCheck: Date;
+    version: string;
+    uptime: number;
+    backupStatus: BackupStatus;
+}
+export interface BackupStatus {
+    lastBackup: Date;
+    status: BackupStatusType;
+    size: number;
+    duration: number;
+    nextScheduled: Date;
+}
+export declare enum BackupStatusType {
+    SUCCESS = "success",
+    FAILED = "failed",
+    IN_PROGRESS = "in_progress",
+    SCHEDULED = "scheduled"
 }
 export interface HealthTrends {
     availability: TrendData;

@@ -13,6 +13,7 @@ export { manageUsers } from './manageUsers';
 export { getBusinessMetrics } from './getBusinessMetrics';
 export { getCacheStats, warmCaches, clearCaches } from './getCacheStats';
 export { initializeAdmin } from './initializeAdmin';
+export { llmVerificationStatus } from './llmVerificationStatus';
 export { videoAnalyticsDashboard } from './dashboards/videoAnalyticsDashboard';
 export { videoAnalyticsDashboard as videoAnalyticsDashboardAlt } from './dashboards/video-analytics-dashboard';
 export { testConfiguration } from './testConfiguration';
@@ -142,6 +143,13 @@ export declare const ADMIN_FUNCTIONS: {
         readonly description: "Get user usage statistics and subscription limits";
         readonly requiredPermissions: readonly ["canManageUsers"];
         readonly category: "POLICY_MANAGEMENT";
+        readonly region: "us-central1";
+    };
+    readonly llmVerificationStatus: {
+        readonly name: "llmVerificationStatus";
+        readonly description: "Get LLM verification system status and health metrics";
+        readonly requiredPermissions: readonly ["canMonitorSystem"];
+        readonly category: "SYSTEM_MONITORING";
         readonly region: "us-central1";
     };
 };

@@ -1,10 +1,21 @@
 import { onCall, HttpsError } from 'firebase-functions/v2/https';
 import { logger } from 'firebase-functions';
 import * as admin from 'firebase-admin';
-// TEMPORARILY DISABLED FOR DEPLOYMENT
-// Temporary function for deployment
+import { PremiumService } from '@cvplus/premium';
+// Real subscription service integration
 const getUserSubscriptionInternal = async (userId) => {
-    return { subscriptionStatus: 'free', lifetimeAccess: false };
+    try {
+        const subscriptionData = await PremiumService.getUserSubscription(userId);
+        return {
+            subscriptionStatus: subscriptionData.status || 'free',
+            lifetimeAccess: subscriptionData.lifetimeAccess || false
+        };
+    }
+    catch (error) {
+        logger.error('Failed to get user subscription', { userId, error });
+        // Fallback to free plan if subscription service fails
+        return { subscriptionStatus: 'free', lifetimeAccess: false };
+    }
 };
 export const getUserUsageStats = onCall({
     cors: true

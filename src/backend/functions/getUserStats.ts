@@ -82,7 +82,7 @@ export const getUserStats = onCall({
     await logAdminActivity(adminRequest.auth.uid, 'USER_STATS_VIEW', {
       totalUsers,
       timestamp: new Date().toISOString()
-    });
+    }, request);
 
     logger.info('User statistics retrieved successfully', {
       adminUid: adminRequest.auth.uid,
@@ -108,7 +108,7 @@ export const getUserStats = onCall({
 /**
  * Helper function to log admin activities
   */
-const logAdminActivity = async (adminUid: string, action: string, details: any) => {
+const logAdminActivity = async (adminUid: string, action: string, details: any, request?: any) => {
   try {
     const db = admin.firestore();
     await db.collection('adminAuditLogs').add({
@@ -116,8 +116,8 @@ const logAdminActivity = async (adminUid: string, action: string, details: any) 
       action,
       details,
       timestamp: admin.firestore.FieldValue.serverTimestamp(),
-      ipAddress: 'unknown', // TODO: Extract from request
-      userAgent: 'unknown'  // TODO: Extract from request
+      ipAddress: request?.rawRequest?.ip || request?.rawRequest?.connection?.remoteAddress || 'unknown',
+      userAgent: request?.rawRequest?.headers?.['user-agent'] || 'unknown'
     });
   } catch (error) {
     logger.error('Failed to log admin activity', {

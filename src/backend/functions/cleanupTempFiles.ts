@@ -9,6 +9,7 @@
   */
 
 import { onSchedule } from 'firebase-functions/v2/scheduler';
+import { logger } from 'firebase-functions';
 import * as admin from 'firebase-admin';
 
 export const cleanupTempFiles = onSchedule(
@@ -24,14 +25,14 @@ export const cleanupTempFiles = onSchedule(
     const cutoffTime = now - (24 * 60 * 60 * 1000); // 24 hours ago
 
     try {
-      console.log('Starting scheduled cleanup of temporary files...');
+      logger.info('Starting scheduled cleanup of temporary files');
 
       // List files in temp directory
       const [files] = await bucket.getFiles({
         prefix: 'temp/'
       });
 
-      console.log(`Found ${files.length} files in temp directory`);
+      logger.info(`Found ${files.length} files in temp directory`);
 
       const deletePromises = files
         .filter(file => {
@@ -40,12 +41,12 @@ export const cleanupTempFiles = onSchedule(
           return timeCreated < cutoffTime;
         })
         .map(file => {
-          console.log(`Deleting temp file: ${file.name}`);
+          logger.info(`Deleting temp file: ${file.name}`);
           return file.delete();
         });
 
       await Promise.all(deletePromises);
-      console.log(`Deleted ${deletePromises.length} temporary files`);
+      logger.info(`Deleted ${deletePromises.length} temporary files`);
 
       // Also clean up old failed jobs
       const db = admin.firestore();
@@ -55,7 +56,7 @@ export const cleanupTempFiles = onSchedule(
         .where('updatedAt', '<', new Date(cutoffTime));
 
       const failedJobs = await failedJobsQuery.get();
-      console.log(`Found ${failedJobs.size} failed jobs to clean up`);
+      logger.info(`Found ${failedJobs.size} failed jobs to clean up`);
 
       if (failedJobs.size > 0) {
         const batch = db.batch();
@@ -65,13 +66,13 @@ export const cleanupTempFiles = onSchedule(
         });
 
         await batch.commit();
-        console.log(`Deleted ${failedJobs.size} failed job records`);
+        logger.info(`Deleted ${failedJobs.size} failed job records`);
       }
 
-      console.log('Temporary file cleanup completed successfully');
+      logger.info('Temporary file cleanup completed successfully');
 
     } catch (error) {
-      console.error('Temporary file cleanup failed:', error);
+      logger.error('Temporary file cleanup failed:', error);
       throw error;
     }
   });
