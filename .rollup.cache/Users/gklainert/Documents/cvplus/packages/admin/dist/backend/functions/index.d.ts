@@ -14,8 +14,6 @@ export { getBusinessMetrics } from './getBusinessMetrics';
 export { getCacheStats, warmCaches, clearCaches } from './getCacheStats';
 export { initializeAdmin } from './initializeAdmin';
 export { llmVerificationStatus } from './llmVerificationStatus';
-export { videoAnalyticsDashboard } from './dashboards/videoAnalyticsDashboard';
-export { videoAnalyticsDashboard as videoAnalyticsDashboardAlt } from './dashboards/video-analytics-dashboard';
 export { testConfiguration } from './testConfiguration';
 export { monitorStuckJobs, triggerJobMonitoring, getJobDetails, getJobStats } from './monitorJobs';
 export { cleanupTempFiles } from './cleanupTempFiles';
@@ -66,13 +64,6 @@ export declare const ADMIN_FUNCTIONS: {
         readonly description: "Initialize admin user account with proper permissions";
         readonly requiredPermissions: readonly ["canManageAdmins"];
         readonly category: "ADMIN_MANAGEMENT";
-        readonly region: "us-central1";
-    };
-    readonly videoAnalyticsDashboard: {
-        readonly name: "videoAnalyticsDashboard";
-        readonly description: "Comprehensive video analytics dashboard with performance and business metrics";
-        readonly requiredPermissions: readonly ["canViewAnalytics"];
-        readonly category: "BUSINESS_ANALYTICS";
         readonly region: "us-central1";
     };
     readonly testConfiguration: {

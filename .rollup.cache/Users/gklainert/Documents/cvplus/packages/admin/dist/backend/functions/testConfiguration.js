@@ -10,8 +10,9 @@
 import { onRequest } from 'firebase-functions/v2/https';
 import { WebSearchService } from '../services/web-search.service';
 import { ConfigurationTestService } from '../services/configuration-test.service';
-import { PodcastGenerationService } from '@cvplus/multimedia/src/services/audio/podcast-generation.service';
-import { VideoGenerationService } from '@cvplus/multimedia/src/services/video/video-generation.service';
+// Multimedia services temporarily unavailable during cleanup
+// import { PodcastGenerationService } from '@cvplus/multimedia/src/services/audio/podcast-generation.service';
+// import { VideoGenerationService } from '@cvplus/multimedia/src/services/video/video-generation.service';
 // CORS configuration for admin functions
 const corsOptions = {
     cors: true
@@ -104,15 +105,19 @@ export const testConfiguration = onRequest({
             serviceStatus.webSearch.error = error.message;
         }
         try {
-            new PodcastGenerationService();
-            serviceStatus.podcast.available = true;
+            // Multimedia services temporarily unavailable during cleanup
+            // new PodcastGenerationService();
+            serviceStatus.podcast.available = false;
+            serviceStatus.podcast.error = 'Service temporarily unavailable during cleanup';
         }
         catch (error) {
             serviceStatus.podcast.error = error.message;
         }
         try {
-            new VideoGenerationService();
-            serviceStatus.video.available = true;
+            // Multimedia services temporarily unavailable during cleanup
+            // new VideoGenerationService();
+            serviceStatus.video.available = false;
+            serviceStatus.video.error = 'Service temporarily unavailable during cleanup';
         }
         catch (error) {
             serviceStatus.video.error = error.message;

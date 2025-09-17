@@ -1,4 +1,5 @@
 // import { config } from '../config/environment';
+import { logger } from 'firebase-functions';
 export class LLMSecurityMonitorService {
     constructor() {
         this.events = [];
@@ -164,7 +165,7 @@ export class LLMSecurityMonitorService {
             response.actions.push('ip_blocked');
         }
         if (rule.actions.alert) {
-            this.sendAlert(rule, triggerEvent);
+            await this.sendAlert(rule, triggerEvent);
             response.actions.push('alert_sent');
         }
         // Log with appropriate level
@@ -181,7 +182,7 @@ export class LLMSecurityMonitorService {
     /**
      * Send security alerts
       */
-    sendAlert(rule, event) {
+    async sendAlert(rule, event) {
         const alertMessage = {
             ruleName: rule.name,
             severity: rule.severity,

@@ -22,8 +22,7 @@ export { initializeAdmin } from './initializeAdmin';
 export { llmVerificationStatus } from './llmVerificationStatus';
 
 // Comprehensive dashboard functions
-export { videoAnalyticsDashboard } from './dashboards/videoAnalyticsDashboard';
-export { videoAnalyticsDashboard as videoAnalyticsDashboardAlt } from './dashboards/video-analytics-dashboard';
+// Video analytics dashboard functions temporarily removed during cleanup
 export { testConfiguration } from './testConfiguration';
 export { monitorStuckJobs, triggerJobMonitoring, getJobDetails, getJobStats } from './monitorJobs';
 export { cleanupTempFiles } from './cleanupTempFiles';
@@ -84,13 +83,7 @@ export const ADMIN_FUNCTIONS = {
     region: 'us-central1'
   },
   // Migrated admin functions
-  videoAnalyticsDashboard: {
-    name: 'videoAnalyticsDashboard',
-    description: 'Comprehensive video analytics dashboard with performance and business metrics',
-    requiredPermissions: ['canViewAnalytics'],
-    category: 'BUSINESS_ANALYTICS',
-    region: 'us-central1'
-  },
+  // videoAnalyticsDashboard temporarily removed during cleanup
   testConfiguration: {
     name: 'testConfiguration',
     description: 'Test system configuration and service availability',

@@ -236,6 +236,8 @@ export interface UserManagementData {
   pendingActions: number;
   recentRegistrations: UserRegistrationData[];
   userSegments: UserSegmentData[];
+  userRegistrations?: UserRegistrationData[];
+  userJourney?: UserJourneyData[];
 }
 
 export interface UserRegistrationData {
@@ -261,6 +263,10 @@ export interface ContentModerationData {
   averageReviewTime: number;
   moderatorPerformance: ModeratorPerformance[];
   contentTypes: ContentTypeStatistics[];
+  contentTrends?: ContentTrendData[];
+  totalContent?: number;
+  approvalRate?: number;
+  escalationRate?: number;
 }
 
 export interface ModeratorPerformance {
@@ -289,9 +295,11 @@ export interface SystemMonitoringData {
 
 export interface SystemAlert {
   id: string;
+  type?: string;
   severity: 'info' | 'warning' | 'error' | 'critical';
   title: string;
   description: string;
+  message?: string;
   timestamp: Date;
   isResolved: boolean;
 }
@@ -302,6 +310,10 @@ export interface PerformanceMetrics {
   errorRate: number;
   uptime: number;
   resourceUtilization: ResourceUtilization;
+  cpuUsage?: number;
+  memoryUsage?: number;
+  diskUsage?: number;
+  totalRequests?: number;
 }
 
 export interface ServiceStatus {
@@ -326,6 +338,11 @@ export interface AnalyticsOverview {
   churnRate: number;
   averageSessionDuration: number;
   topFeatures: FeatureUsageData[];
+  totalEvents?: number;
+  uniqueUsers?: number;
+  bounceRate?: number;
+  pageViews?: number;
+  sessionDuration?: number;
 }
 
 export interface RevenueAnalytics {
@@ -335,6 +352,9 @@ export interface RevenueAnalytics {
   lifetimeValue: number;
   revenueGrowth: number;
   churnImpact: number;
+  totalRevenue?: number;
+  churnRate?: number;
+  growthRate?: number;
 }
 
 export interface UserAnalytics {
@@ -344,6 +364,10 @@ export interface UserAnalytics {
   retentionRate: number;
   engagementScore: number;
   userJourney: UserJourneyData[];
+  dailyActiveUsers?: number;
+  weeklyActiveUsers?: number;
+  monthlyActiveUsers?: number;
+  acquisitionRate?: number;
 }
 
 export interface UserJourneyData {
@@ -359,6 +383,11 @@ export interface ContentAnalytics {
   qualityScore: number;
   popularTemplates: TemplateUsageData[];
   contentTrends: ContentTrendData[];
+  totalCVsCreated?: number;
+  dailyCVCreations?: number;
+  popularFeatures?: Array<{ feature: string; usage: number }>;
+  templateUsage?: Array<{ template: string; usage: number }>;
+  completionRate?: number;
 }
 
 export interface FeatureUsageData {
@@ -389,6 +418,7 @@ export interface SecurityAuditData {
   complianceStatus: ComplianceStatus;
   recentEvents: SecurityEvent[];
   vulnerabilities: SecurityVulnerability[];
+  accessAttempts?: number;
 }
 
 export interface ComplianceStatus {
@@ -396,6 +426,7 @@ export interface ComplianceStatus {
   ccpa: 'compliant' | 'partial' | 'non_compliant';
   sox: 'compliant' | 'partial' | 'non_compliant';
   iso27001: 'compliant' | 'partial' | 'non_compliant';
+  soc2?: 'compliant' | 'partial' | 'non_compliant';
   lastAudit: Date;
   nextAudit: Date;
 }
@@ -577,6 +608,8 @@ export interface DashboardFilters {
 
 export interface TimeRangeFilter {
   preset: 'last_hour' | 'last_day' | 'last_week' | 'last_month' | 'custom';
+  start?: Date;
+  end?: Date;
   customRange?: {
     start: Date;
     end: Date;

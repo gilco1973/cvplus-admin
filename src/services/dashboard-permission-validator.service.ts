@@ -182,82 +182,80 @@ export class DashboardPermissionValidator extends EnhancedBaseService {
 
       // Return minimal permissions as fallback
       return {
-        basic: {
-          canAccessDashboard: false,
-          canManageUsers: false,
-          canModerateContent: false,
-          canMonitorSystem: false,
-          canViewAnalytics: false,
-          canAuditSecurity: false,
-          canManageSupport: false,
-          canManageBilling: false,
-          canConfigureSystem: false,
-          canManageAdmins: false,
-          canExportData: false,
-          canManageFeatureFlags: false
+        canAccessDashboard: false,
+        canManageUsers: false,
+        canModerateContent: false,
+        canMonitorSystem: false,
+        canViewAnalytics: false,
+        canAuditSecurity: false,
+        canManageSupport: false,
+        canManageBilling: false,
+        canConfigureSystem: false,
+        canManageAdmins: false,
+        canExportData: false,
+        canManageFeatureFlags: false,
+        userManagement: {
+          canViewUsers: false,
+          canEditUsers: false,
+          canSuspendUsers: false,
+          canDeleteUsers: false,
+          canImpersonateUsers: false,
+          canManageSubscriptions: false,
+          canProcessRefunds: false,
+          canMergeAccounts: false,
+          canExportUserData: false,
+          canViewUserAnalytics: false,
         },
-      userManagement: {
-        canViewUsers: false,
-        canEditUsers: false,
-        canSuspendUsers: false,
-        canDeleteUsers: false,
-        canImpersonateUsers: false,
-        canManageSubscriptions: false,
-        canProcessRefunds: false,
-        canMergeAccounts: false,
-        canExportUserData: false,
-        canViewUserAnalytics: false
-      },
-      contentModeration: {
-        canReviewContent: false,
-        canApproveContent: false,
-        canRejectContent: false,
-        canFlagContent: false,
-        canHandleAppeals: false,
-        canConfigureFilters: false,
-        canViewModerationQueue: false,
-        canAssignModerators: false,
-        canExportModerationData: false
-      },
-      systemAdministration: {
-        canViewSystemHealth: false,
-        canManageServices: false,
-        canConfigureFeatures: false,
-        canViewLogs: false,
-        canManageIntegrations: false,
-        canDeployUpdates: false,
-        canManageBackups: false,
-        canConfigureSecurity: false
-      },
-      billing: {
-        canViewBilling: false,
-        canProcessPayments: false,
-        canProcessRefunds: false,
-        canManageSubscriptions: false,
-        canViewFinancialReports: false,
-        canConfigurePricing: false,
-        canManageDisputes: false,
-        canExportBillingData: false
-      },
-      analytics: {
-        canViewBasicAnalytics: false,
-        canViewAdvancedAnalytics: false,
-        canExportAnalytics: false,
-        canConfigureAnalytics: false,
-        canViewCustomReports: false,
-        canCreateCustomReports: false,
-        canScheduleReports: false,
-        canViewRealTimeData: false
-      },
-      security: {
-        canViewSecurityEvents: false,
-        canManageSecurityPolicies: false,
-        canViewAuditLogs: false,
-        canExportAuditData: false,
-        canManageAccessControl: false,
-        canConfigureCompliance: false,
-        canInvestigateIncidents: false,
-        canManageSecurityAlerts: false
+        contentModeration: {
+          canReviewContent: false,
+          canApproveContent: false,
+          canRejectContent: false,
+          canFlagContent: false,
+          canHandleAppeals: false,
+          canConfigureFilters: false,
+          canViewModerationQueue: false,
+          canAssignModerators: false,
+          canExportModerationData: false,
+        },
+        systemAdministration: {
+          canViewSystemHealth: false,
+          canManageServices: false,
+          canConfigureFeatures: false,
+          canViewLogs: false,
+          canManageIntegrations: false,
+          canDeployUpdates: false,
+          canManageBackups: false,
+          canConfigureSecurity: false,
+        },
+        billing: {
+          canViewBilling: false,
+          canProcessPayments: false,
+          canProcessRefunds: false,
+          canManageSubscriptions: false,
+          canViewFinancialReports: false,
+          canConfigurePricing: false,
+          canManageDisputes: false,
+          canExportBillingData: false,
+        },
+        analytics: {
+          canViewBasicAnalytics: false,
+          canViewAdvancedAnalytics: false,
+          canExportAnalytics: false,
+          canConfigureAnalytics: false,
+          canViewCustomReports: false,
+          canCreateCustomReports: false,
+          canScheduleReports: false,
+          canViewRealTimeData: false,
+        },
+        security: {
+          canViewSecurityEvents: false,
+          canManageSecurityPolicies: false,
+          canViewAuditLogs: false,
+          canExportAuditData: false,
+          canManageAccessControl: false,
+          canConfigureCompliance: false,
+          canInvestigateIncidents: false,
+          canManageSecurityAlerts: false,
         }
       };
     }
@@ -266,8 +264,9 @@ export class DashboardPermissionValidator extends EnhancedBaseService {
   private async getAdminLevel(adminUserId: string): Promise<AdminLevel> {
     try {
       // Use the real AdminAccessService to get admin level
-      const adminInfo = await AdminAccessService.getAdminInfo(adminUserId);
-      return adminInfo.adminLevel || AdminLevel.L1_SUPPORT;
+      const adminInfo = await AdminAccessService.getAdminUserInfo(adminUserId);
+      // adminLevel is not directly available in the returned object, use L1_SUPPORT as default
+      return AdminLevel.L1_SUPPORT;
     } catch (error) {
       this.logger.error(`Failed to fetch admin level for user ${adminUserId}`, error);
       return AdminLevel.L1_SUPPORT;

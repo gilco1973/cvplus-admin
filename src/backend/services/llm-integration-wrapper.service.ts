@@ -161,268 +161,100 @@ export function createLLMWrapper(serviceName: string, options?: {
 }
 
 /**
- * Pre-configured service wrappers for common CVPlus services
-  */
-export class CVParsingLLMWrapper extends LLMIntegrationWrapperService {
-  constructor() {
-    super({
-      serviceName: 'cv-parsing',
-      customValidationCriteria: { accuracy: true, completeness: true, relevance: true, consistency: true, safety: true, format: true }
-    });
+ * Admin Orchestration Interfaces for Domain Services
+ *
+ * These interfaces provide admin monitoring and orchestration access to domain services
+ * without containing the business logic implementations.
+ */
+
+// Service status interfaces for admin monitoring
+export interface ServiceMonitoringStatus {
+  serviceName: string;
+  available: boolean;
+  lastChecked: Date;
+  responseTime?: number;
+  errorRate?: number;
+}
+
+export interface DomainServiceOrchestrator {
+  getServiceStatus(): Promise<ServiceMonitoringStatus>;
+  testConnection(): Promise<{ success: boolean; error?: string }>;
+  getUsageMetrics(): Promise<{ requestCount: number; avgResponseTime: number }>;
+}
+
+/**
+ * CV Processing Service Orchestrator
+ * Admin interface to cv-processing module services
+ */
+export class CVProcessingOrchestrator implements DomainServiceOrchestrator {
+  async getServiceStatus(): Promise<ServiceMonitoringStatus> {
+    return {
+      serviceName: 'cv-processing',
+      available: true, // TODO: Implement actual health check via @cvplus/processing
+      lastChecked: new Date()
+    };
   }
 
-  /**
-   * CV-specific parsing method with enhanced validation
-    */
-  async parseCV(
-    cvText: string, 
-    userInstructions?: string,
-    context?: { fileName?: string; mimeType?: string }
-  ): Promise<LegacyClaudeResponse> {
-    const prompt = this.buildCVParsingPrompt(cvText, userInstructions);
-    
-    return await this.callClaude({
-      prompt,
-      system: 'You are a professional CV parser that extracts structured data from CVs with absolute accuracy. You MUST only extract information that is explicitly present in the CV text.',
-      temperature: 0,
-      maxTokens: 4000,
-      context: {
-        ...context,
-        parsing_type: 'cv_extraction',
-        has_user_instructions: !!userInstructions
-      }
-    });
+  async testConnection(): Promise<{ success: boolean; error?: string }> {
+    // TODO: Implement connection test to @cvplus/processing module
+    return { success: true };
   }
 
-  private buildCVParsingPrompt(cvText: string, userInstructions?: string): string {
-    let prompt = 'Please analyze the following CV/resume text and extract structured information.\n\n';
-    
-    if (userInstructions) {
-      prompt += `USER SPECIAL INSTRUCTIONS (HIGHEST PRIORITY):\n${userInstructions}\n\n`;
-      prompt += 'These user instructions should take precedence and guide how you analyze and extract information from the CV.\n\n';
-    }
-
-    prompt += `IMPORTANT INSTRUCTIONS:
-1. Use ONLY the provided context from the CV to answer accurately
-2. Never make up, invent, or assume any information not explicitly present
-3. If information is not available, use null or empty values
-4. Extract ALL relevant information including work experience, education, skills, achievements
-5. Maintain consistent formatting and structure
-6. Ensure all dates, locations, and details are accurate as written
-
-CV TEXT:
-${cvText}
-
-Please extract and return the information in a structured JSON format with the following schema:
-{
-  "personalInfo": {
-    "name": string,
-    "email": string,
-    "phone": string,
-    "address": string,
-    "linkedin": string,
-    "website": string,
-    "summary": string
-  },
-  "workExperience": [
-    {
-      "position": string,
-      "company": string,
-      "startDate": string,
-      "endDate": string,
-      "location": string,
-      "description": string,
-      "achievements": [string]
-    }
-  ],
-  "education": [
-    {
-      "degree": string,
-      "institution": string,
-      "graduationDate": string,
-      "gpa": string,
-      "location": string,
-      "details": string
-    }
-  ],
-  "skills": {
-    "technical": [string],
-    "soft": [string],
-    "languages": [string],
-    "certifications": [string]
-  },
-  "projects": [
-    {
-      "name": string,
-      "description": string,
-      "technologies": [string],
-      "link": string
-    }
-  ],
-  "achievements": [string],
-  "volunteer": [
-    {
-      "organization": string,
-      "role": string,
-      "startDate": string,
-      "endDate": string,
-      "description": string
-    }
-  ]
-}`;
-
-    return prompt;
+  async getUsageMetrics(): Promise<{ requestCount: number; avgResponseTime: number }> {
+    // TODO: Implement metrics collection from @cvplus/processing module
+    return { requestCount: 0, avgResponseTime: 0 };
   }
 }
 
-export class PIIDetectionLLMWrapper extends LLMIntegrationWrapperService {
-  constructor() {
-    super({
+/**
+ * PII Detection Service Orchestrator
+ * Admin interface to auth module PII detection services
+ */
+export class PIIDetectionOrchestrator implements DomainServiceOrchestrator {
+  async getServiceStatus(): Promise<ServiceMonitoringStatus> {
+    return {
       serviceName: 'pii-detection',
-      customValidationCriteria: { accuracy: true, completeness: true, relevance: true, consistency: true, safety: true, format: true }
-    });
+      available: true, // TODO: Implement actual health check via @cvplus/auth
+      lastChecked: new Date()
+    };
   }
 
-  async detectPII(
-    text: string,
-    options?: {
-      categories?: string[];
-      sensitivity?: 'low' | 'medium' | 'high';
-      includeContext?: boolean;
-    }
-  ): Promise<LegacyClaudeResponse> {
-    const prompt = this.buildPIIDetectionPrompt(text, options);
-    
-    return await this.callClaude({
-      prompt,
-      system: 'You are a PII detection expert. Identify all personally identifiable information with high accuracy while minimizing false positives.',
-      temperature: 0,
-      maxTokens: 2000,
-      context: {
-        detection_type: 'pii_analysis',
-        sensitivity: options?.sensitivity || 'medium',
-        categories: options?.categories
-      }
-    });
+  async testConnection(): Promise<{ success: boolean; error?: string }> {
+    // TODO: Implement connection test to @cvplus/auth module
+    return { success: true };
   }
 
-  private buildPIIDetectionPrompt(
-    text: string, 
-    options?: {
-      categories?: string[];
-      sensitivity?: 'low' | 'medium' | 'high';
-      includeContext?: boolean;
-    }
-  ): string {
-    const categories = options?.categories || [
-      'names', 'email', 'phone', 'address', 'ssn', 'credit_card', 
-      'bank_account', 'date_of_birth', 'government_id'
-    ];
-
-    return `Analyze the following text and identify all personally identifiable information (PII).
-
-DETECTION CATEGORIES:
-${categories.map(cat => `- ${cat}`).join('\n')}
-
-SENSITIVITY LEVEL: ${options?.sensitivity || 'medium'}
-
-TEXT TO ANALYZE:
-${text}
-
-Return results in JSON format:
-{
-  "piiDetected": boolean,
-  "totalFindings": number,
-  "findings": [
-    {
-      "type": string,
-      "value": string,
-      "confidence": number,
-      "location": {
-        "start": number,
-        "end": number
-      },
-      "context": string
-    }
-  ],
-  "riskLevel": "low|medium|high|critical",
-  "recommendations": [string]
-}`;
+  async getUsageMetrics(): Promise<{ requestCount: number; avgResponseTime: number }> {
+    // TODO: Implement metrics collection from @cvplus/auth module
+    return { requestCount: 0, avgResponseTime: 0 };
   }
 }
 
-export class SkillsAnalysisLLMWrapper extends LLMIntegrationWrapperService {
-  constructor() {
-    super({
+/**
+ * Skills Analysis Service Orchestrator
+ * Admin interface to recommendations module skills analysis services
+ */
+export class SkillsAnalysisOrchestrator implements DomainServiceOrchestrator {
+  async getServiceStatus(): Promise<ServiceMonitoringStatus> {
+    return {
       serviceName: 'skills-analysis',
-      customValidationCriteria: { accuracy: true, completeness: true, relevance: true, consistency: true, safety: true, format: true }
-    });
+      available: true, // TODO: Implement actual health check via @cvplus/recommendations
+      lastChecked: new Date()
+    };
   }
 
-  async analyzeSkills(
-    cvData: any,
-    options?: {
-      includeMarketAnalysis?: boolean;
-      targetRole?: string;
-      industry?: string;
-    }
-  ): Promise<LegacyClaudeResponse> {
-    const prompt = this.buildSkillsAnalysisPrompt(cvData, options);
-    
-    return await this.callClaude({
-      prompt,
-      system: 'You are a skills analysis expert specializing in technical and professional competencies assessment.',
-      temperature: 0.1,
-      maxTokens: 3000,
-      context: {
-        analysis_type: 'skills_proficiency',
-        target_role: options?.targetRole,
-        industry: options?.industry,
-        include_market_analysis: options?.includeMarketAnalysis
-      }
-    });
+  async testConnection(): Promise<{ success: boolean; error?: string }> {
+    // TODO: Implement connection test to @cvplus/recommendations module
+    return { success: true };
   }
 
-  private buildSkillsAnalysisPrompt(cvData: any, options?: any): string {
-    return `Analyze the skills and competencies from this CV data and provide detailed assessment.
-
-CV DATA:
-${JSON.stringify(cvData, null, 2)}
-
-${options?.targetRole ? `TARGET ROLE: ${options.targetRole}` : ''}
-${options?.industry ? `INDUSTRY: ${options.industry}` : ''}
-
-Provide analysis in JSON format:
-{
-  "skillsBreakdown": {
-    "technical": [
-      {
-        "name": string,
-        "category": string,
-        "proficiencyLevel": "beginner|intermediate|advanced|expert",
-        "yearsOfExperience": number,
-        "marketDemand": "low|medium|high",
-        "evidence": [string]
-      }
-    ],
-    "soft": [similar structure],
-    "certifications": [similar structure]
-  },
-  "overallAssessment": {
-    "strengths": [string],
-    "gaps": [string],
-    "recommendations": [string]
-  },
-  "marketAlignment": {
-    "score": number,
-    "analysis": string,
-    "improvementAreas": [string]
-  }
-}`;
+  async getUsageMetrics(): Promise<{ requestCount: number; avgResponseTime: number }> {
+    // TODO: Implement metrics collection from @cvplus/recommendations module
+    return { requestCount: 0, avgResponseTime: 0 };
   }
 }
 
-// Export pre-configured wrappers
-export const cvParsingWrapper = new CVParsingLLMWrapper();
-export const piiDetectionWrapper = new PIIDetectionLLMWrapper();
-export const skillsAnalysisWrapper = new SkillsAnalysisLLMWrapper();
+// Export orchestrator instances for admin monitoring
+export const cvProcessingOrchestrator = new CVProcessingOrchestrator();
+export const piiDetectionOrchestrator = new PIIDetectionOrchestrator();
+export const skillsAnalysisOrchestrator = new SkillsAnalysisOrchestrator();

@@ -4,10 +4,18 @@
  * Types for user management functionality in the admin dashboard.
   */
 
-import { User } from '@cvplus/core';
-
-// Real User type from CVPlus core module
-// Note: If circular dependency issues occur, this can be resolved through proper module architecture
+// Admin-specific User interface (self-contained for admin module)
+export interface User {
+  uid: string;
+  email: string;
+  displayName?: string;
+  photoURL?: string;
+  emailVerified: boolean;
+  createdAt: Date;
+  lastLoginAt?: Date;
+  disabled?: boolean;
+  customClaims?: Record<string, any>;
+}
 
 interface Subscription {
   id: string;

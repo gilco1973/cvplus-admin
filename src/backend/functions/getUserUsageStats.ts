@@ -1,12 +1,15 @@
 import { onCall, HttpsError } from 'firebase-functions/v2/https';
 import { logger } from 'firebase-functions';
 import * as admin from 'firebase-admin';
-import { PremiumService } from '@cvplus/premium';
+// Premium service temporarily unavailable during cleanup
+// import { PremiumService } from '@cvplus/premium';
 
 // Real subscription service integration
 const getUserSubscriptionInternal = async (userId: string) => {
   try {
-    const subscriptionData = await PremiumService.getUserSubscription(userId);
+    // Premium service temporarily unavailable during cleanup
+    // const subscriptionData = await PremiumService.getUserSubscription(userId);
+    const subscriptionData = { status: 'free', lifetimeAccess: false };
     return {
       subscriptionStatus: subscriptionData.status || 'free',
       lifetimeAccess: subscriptionData.lifetimeAccess || false

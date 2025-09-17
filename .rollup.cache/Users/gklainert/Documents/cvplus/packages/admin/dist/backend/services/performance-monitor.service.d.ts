@@ -14,6 +14,15 @@ export interface SystemPerformanceMetrics {
     errorRate: number;
     systemUptime: number;
     providerMetrics: Record<string, ProviderMetrics>;
+    responseTime?: number;
+    totalRequests?: number;
+    cpuUsage?: number;
+    memoryUsage?: number;
+    diskUsage?: number;
+    uptime?: number;
+    databaseUptime?: number;
+    activeConnections?: number;
+    issues?: any[];
 }
 export interface ProviderMetrics {
     successes: number;

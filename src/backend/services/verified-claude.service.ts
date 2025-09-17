@@ -11,6 +11,7 @@ export interface ClaudeVerificationResult {
   status: string;
   version?: string;
   error?: string;
+  usage?: any;
 }
 
 export interface VerifiedMessageOptions {
@@ -18,6 +19,7 @@ export interface VerifiedMessageOptions {
   temperature?: number;
   maxTokens?: number;
   model?: string;
+  systemPrompt?: string;
   messages?: Array<{
     role: string;
     content: string;
@@ -115,7 +117,7 @@ export class VerifiedClaudeService {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'x-api-key': this.apiKey,
+          'x-api-key': this.apiKey || '',
           'anthropic-version': '2023-06-01'
         },
         body: JSON.stringify({
@@ -173,7 +175,7 @@ export class VerifiedClaudeService {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'x-api-key': this.apiKey,
+          'x-api-key': this.apiKey || '',
           'anthropic-version': '2023-06-01'
         },
         body: JSON.stringify({

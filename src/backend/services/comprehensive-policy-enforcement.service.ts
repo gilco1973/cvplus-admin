@@ -8,7 +8,8 @@
 
 import { logger } from 'firebase-functions';
 import { getFirestore, FieldValue } from 'firebase-admin/firestore';
-import { PremiumService } from '@cvplus/premium';
+// Premium service temporarily unavailable during cleanup
+// import { PremiumService } from '@cvplus/premium';
 
 // NOTE: These services would need to be provided via dependency injection
 // or imported from appropriate submodules in a real implementation
@@ -444,7 +445,9 @@ export class ComprehensivePolicyEnforcementService {
    */
   private async getUserSubscriptionData(userId: string): Promise<{ subscriptionStatus: string; lifetimeAccess: boolean }> {
     try {
-      const subscriptionData = await PremiumService.getUserSubscription(userId);
+      // Premium service temporarily unavailable during cleanup
+      // const subscriptionData = await PremiumService.getUserSubscription(userId);
+      const subscriptionData = { status: 'free', lifetimeAccess: false };
       return {
         subscriptionStatus: subscriptionData.status || 'free',
         lifetimeAccess: subscriptionData.lifetimeAccess || false

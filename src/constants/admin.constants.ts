@@ -404,6 +404,7 @@ export const ADMIN_API_ENDPOINTS = {
   USERS: '/api/admin/users',
   USER_DETAILS: (id: string) => `/api/admin/users/${id}`,
   USER_ACTIONS: (id: string) => `/api/admin/users/${id}/actions`,
+  USER_STATS: '/api/admin/users/stats',
   BULK_OPERATIONS: '/api/admin/users/bulk',
   
   // Content Moderation
@@ -411,6 +412,7 @@ export const ADMIN_API_ENDPOINTS = {
   MODERATION_ITEM: (id: string) => `/api/admin/moderation/items/${id}`,
   MODERATION_ACTIONS: '/api/admin/moderation/actions',
   MODERATION_STATS: '/api/admin/moderation/statistics',
+  CONTENT_STATS: '/api/admin/moderation/content/stats',
   
   // System Monitoring
   SYSTEM_HEALTH: '/api/admin/system/health',
@@ -419,6 +421,7 @@ export const ADMIN_API_ENDPOINTS = {
   SYSTEM_LOGS: '/api/admin/system/logs',
   
   // Analytics
+  ANALYTICS: '/api/admin/analytics',
   BUSINESS_METRICS: '/api/admin/analytics/business',
   USER_ANALYTICS: '/api/admin/analytics/users',
   REVENUE_ANALYTICS: '/api/admin/analytics/revenue',
@@ -426,6 +429,7 @@ export const ADMIN_API_ENDPOINTS = {
   
   // Security
   SECURITY_OVERVIEW: '/api/admin/security/overview',
+  SECURITY_AUDIT: '/api/admin/security/audit',
   AUDIT_LOGS: '/api/admin/security/audit',
   COMPLIANCE: '/api/admin/security/compliance',
   THREATS: '/api/admin/security/threats',
@@ -438,7 +442,10 @@ export const ADMIN_API_ENDPOINTS = {
   // Configuration
   FEATURE_FLAGS: '/api/admin/config/features',
   SYSTEM_CONFIG: '/api/admin/config/system',
-  ADMIN_SETTINGS: '/api/admin/config/settings'
+  ADMIN_SETTINGS: '/api/admin/config/settings',
+
+  // Data Export
+  DATA_EXPORT: '/api/admin/export'
 } as const;
 
 /**

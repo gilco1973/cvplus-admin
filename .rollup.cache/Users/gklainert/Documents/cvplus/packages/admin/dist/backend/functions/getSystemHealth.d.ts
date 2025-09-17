@@ -5,7 +5,7 @@ import * as admin from 'firebase-admin';
 export declare const getSystemHealth: import("firebase-functions/v2/https").CallableFunction<any, Promise<{
     success: boolean;
     data: {
-        status: "healthy" | "degraded" | "unhealthy";
+        status: "healthy" | "unhealthy" | "degraded";
         timestamp: string;
         metrics: {
             database: {

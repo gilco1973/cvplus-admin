@@ -253,20 +253,24 @@ export declare const ADMIN_API_ENDPOINTS: {
     readonly USERS: "/api/admin/users";
     readonly USER_DETAILS: (id: string) => string;
     readonly USER_ACTIONS: (id: string) => string;
+    readonly USER_STATS: "/api/admin/users/stats";
     readonly BULK_OPERATIONS: "/api/admin/users/bulk";
     readonly MODERATION_QUEUE: "/api/admin/moderation/queue";
     readonly MODERATION_ITEM: (id: string) => string;
     readonly MODERATION_ACTIONS: "/api/admin/moderation/actions";
     readonly MODERATION_STATS: "/api/admin/moderation/statistics";
+    readonly CONTENT_STATS: "/api/admin/moderation/content/stats";
     readonly SYSTEM_HEALTH: "/api/admin/system/health";
     readonly SYSTEM_METRICS: "/api/admin/system/metrics";
     readonly SYSTEM_ALERTS: "/api/admin/system/alerts";
     readonly SYSTEM_LOGS: "/api/admin/system/logs";
+    readonly ANALYTICS: "/api/admin/analytics";
     readonly BUSINESS_METRICS: "/api/admin/analytics/business";
     readonly USER_ANALYTICS: "/api/admin/analytics/users";
     readonly REVENUE_ANALYTICS: "/api/admin/analytics/revenue";
     readonly CONTENT_ANALYTICS: "/api/admin/analytics/content";
     readonly SECURITY_OVERVIEW: "/api/admin/security/overview";
+    readonly SECURITY_AUDIT: "/api/admin/security/audit";
     readonly AUDIT_LOGS: "/api/admin/security/audit";
     readonly COMPLIANCE: "/api/admin/security/compliance";
     readonly THREATS: "/api/admin/security/threats";
@@ -276,6 +280,7 @@ export declare const ADMIN_API_ENDPOINTS: {
     readonly FEATURE_FLAGS: "/api/admin/config/features";
     readonly SYSTEM_CONFIG: "/api/admin/config/system";
     readonly ADMIN_SETTINGS: "/api/admin/config/settings";
+    readonly DATA_EXPORT: "/api/admin/export";
 };
 /**
  * HTTP status codes for admin operations

@@ -14,6 +14,7 @@ export interface BusinessMetrics {
         trialToSubscription: number;
         visitorToUser: number;
     };
+    conversionRate?: number;
     userMetrics: {
         totalUsers: number;
         activeUsers: number;
@@ -25,6 +26,10 @@ export interface BusinessMetrics {
         averageQualityScore: number;
         premiumAdoptionRate: number;
     };
+    totalEvents?: number;
+    uniqueUsers?: number;
+    totalCVsCreated?: number;
+    dailyCVCreations?: number;
 }
 export interface QualityInsights {
     overallQualityScore: number;
@@ -40,6 +45,16 @@ export interface QualityInsights {
         errorRate: number;
         retryRate: number;
     };
+    popularFeatures?: Array<{
+        feature: string;
+        usage: number;
+    }>;
+    templateUsage?: Array<{
+        template: string;
+        usage: number;
+    }>;
+    averageQualityScore?: number;
+    completionRate?: number;
 }
 export interface UserBehaviorInsights {
     engagementMetrics: {
@@ -68,6 +83,12 @@ export interface UserBehaviorInsights {
         users: number;
         conversionRate: number;
     }>;
+    dailyActiveUsers?: number;
+    weeklyActiveUsers?: number;
+    monthlyActiveUsers?: number;
+    retentionRate?: number;
+    acquisitionRate?: number;
+    engagementScore?: number;
 }
 export interface TrendAnalysis {
     trend: 'increasing' | 'decreasing' | 'stable';

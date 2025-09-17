@@ -3,7 +3,7 @@
  * Autonomous Admin Service
  * Provides basic admin access control for autonomous operation
   */
-import { AuthenticationError } from '../utils/autonomous-utils';
+import { AuthenticationError } from '../../utils/autonomous-utils';
 import * as admin from 'firebase-admin';
 import { adminLogger } from '../../logging/AdminLogger';
 

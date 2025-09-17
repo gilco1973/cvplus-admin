@@ -1,4 +1,5 @@
 // import { config } from '../config/environment';
+import { logger } from 'firebase-functions';
 
 /**
  * LLM Security Monitor Service
@@ -276,7 +277,7 @@ export class LLMSecurityMonitorService {
     }
 
     if (rule.actions.alert) {
-      this.sendAlert(rule, triggerEvent);
+      await this.sendAlert(rule, triggerEvent);
       response.actions.push('alert_sent');
     }
 
@@ -296,7 +297,7 @@ export class LLMSecurityMonitorService {
   /**
    * Send security alerts
     */
-  private sendAlert(rule: ThreatDetectionRule, event: SecurityEvent): void {
+  private async sendAlert(rule: ThreatDetectionRule, event: SecurityEvent): Promise<void> {
     const alertMessage = {
       ruleName: rule.name,
       severity: rule.severity,

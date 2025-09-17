@@ -4,11 +4,19 @@
  * Real analytics types imported from CVPlus analytics module.
  * Provides complete analytics functionality for admin dashboard.
   */
-import type { BusinessMetrics as CVPlusBusinessMetrics, QualityInsights as CVPlusQualityInsights, UserBehaviorInsights as CVPlusUserBehaviorInsights, RevenueAnalytics as CVPlusRevenueAnalytics } from '@cvplus/analytics';
-export type BusinessMetrics = CVPlusBusinessMetrics;
-export type QualityInsights = CVPlusQualityInsights;
-export type UserBehaviorInsights = CVPlusUserBehaviorInsights;
-export type RevenueAnalytics = CVPlusRevenueAnalytics;
+import type { BusinessMetrics, QualityInsights, UserBehaviorInsights } from '../backend/services/analytics-engine.service';
+export interface RevenueAnalytics {
+    monthlyRecurringRevenue: number;
+    annualRecurringRevenue: number;
+    averageRevenuePerUser: number;
+    lifetimeValue: number;
+    revenueGrowth: number;
+    churnImpact: number;
+    totalRevenue?: number;
+    churnRate?: number;
+    growthRate?: number;
+}
+export type { BusinessMetrics, QualityInsights, UserBehaviorInsights };
 export interface AdminAnalyticsOverview extends BusinessMetrics {
     systemHealth: {
         uptime: number;

@@ -153,5 +153,9 @@ export declare class AlertManagerService {
     private switchProvider;
     private throttleRequests;
     private restartService;
+    /**
+     * Get all active alerts
+     */
+    getActiveAlerts(): Promise<AlertInstance[]>;
 }
 //# sourceMappingURL=alert-manager.service.d.ts.map

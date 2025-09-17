@@ -766,4 +766,25 @@ export class AlertManagerService {
   private async restartService(parameters: any): Promise<boolean> {
     return true; // Would implement actual service restart
   }
+
+  /**
+   * Get all active alerts
+   */
+  async getActiveAlerts(): Promise<AlertInstance[]> {
+    try {
+      const snapshot = await this.firestore
+        .collection(this.alertInstancesCollection)
+        .where('status', '==', 'active')
+        .orderBy('createdAt', 'desc')
+        .get();
+
+      return snapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      })) as AlertInstance[];
+    } catch (error) {
+      console.error('Failed to fetch active alerts:', error);
+      return [];
+    }
+  }
 }
