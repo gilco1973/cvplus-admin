@@ -4,9 +4,19 @@
  * Types for user management functionality in the admin dashboard.
   */
 
-import type { User } from '@cvplus/auth';
+// Note: User type should be imported from @cvplus/auth when module dependencies are resolved
+// For now, using local definition to prevent build issues
 
-// Temporary local type definition to avoid circular dependency
+// Temporary local type definitions to avoid circular dependency
+interface User {
+  uid: string;
+  email: string;
+  emailVerified: boolean;
+  displayName?: string;
+  photoURL?: string;
+  createdAt: Date;
+  lastLoginAt?: Date;
+}
 interface Subscription {
   id: string;
   userId: string;

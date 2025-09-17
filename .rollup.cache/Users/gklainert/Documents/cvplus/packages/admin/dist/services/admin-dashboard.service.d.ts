@@ -1,95 +1,48 @@
 /**
  * Admin Dashboard Service
  *
- * Central service for managing the admin dashboard, aggregating data from all admin modules,
- * and providing real-time updates and quick actions.
-  */
-import type { AdminDashboardState, AdminDashboardConfig } from '../types/dashboard.types';
+ * REFACTORED: Now uses orchestrator pattern with specialized services
+ * Maintains backward compatibility while following 200-line compliance
+ *
+ * @author Gil Klainert
+ * @version 2.0.0
+ */
+import type { AdminDashboardState, AdminDashboardConfig, AdminDashboardData, SystemOverviewData } from '../types/dashboard.types';
 export declare class AdminDashboardService {
-    private realtimeUpdates;
-    private eventListeners;
+    private isInitialized;
+    private dataAggregator;
+    private permissionValidator;
+    private realtimeManager;
+    private logger;
+    constructor();
+    /**
+     * Initialize the service
+     */
+    initialize(): Promise<void>;
+    /**
+     * Cleanup the service
+     */
+    cleanup(): Promise<void>;
     /**
      * Initialize admin dashboard with user permissions and configuration
-      */
+     */
     initializeDashboard(adminUserId: string, dashboardConfig: AdminDashboardConfig): Promise<AdminDashboardState>;
     /**
+     * Get system overview for admin dashboard
+     */
+    getSystemOverview(adminUserId: string): Promise<SystemOverviewData>;
+    /**
      * Refresh dashboard data
-      */
-    refreshDashboard(dashboardId: string, adminUserId: string): Promise<AdminDashboardState>;
+     */
+    refreshDashboard(adminUserId: string): Promise<AdminDashboardData>;
     /**
-     * Aggregate data from all admin modules based on permissions
-      */
-    private aggregateDashboardData;
+     * Subscribe to real-time dashboard updates
+     */
+    subscribeToUpdates(adminUserId: string, callback: (data: any) => void): () => void;
     /**
-     * Generate system overview data
-      */
-    private generateSystemOverview;
-    /**
-     * Get admin permissions for user
-      */
-    private getAdminPermissions;
-    /**
-     * Get active alerts based on permissions
-      */
-    private getActiveAlerts;
-    /**
-     * Generate quick actions based on permissions and data
-      */
-    private generateQuickActions;
-    /**
-     * Set up real-time updates configuration
-      */
-    private setupRealtimeUpdates;
-    /**
-     * Start real-time data updates
-      */
-    private startRealtimeUpdates;
-    /**
-     * Stop real-time updates for user
-      */
-    private stopRealtimeUpdates;
-    /**
-     * Fetch real-time data for specified modules
-      */
-    private fetchRealtimeData;
-    /**
-     * Helper methods for fetching specific data
-      */
-    private fetchUserManagementData;
-    private fetchContentModerationData;
-    private fetchSystemMonitoringData;
-    private fetchAnalyticsData;
-    private fetchSecurityAuditData;
-    private fetchSupportTicketsData;
-    private fetchSystemHealthSummary;
-    private fetchBusinessMetricsSummary;
-    private fetchRecentSystemEvents;
-    private fetchResourceUtilization;
-    private fetchActiveUsersCount;
-    private fetchPendingModerationCount;
-    private fetchSystemAlertsCount;
-    /**
-     * Generate trends and insights based on business metrics
-      */
-    private generateTrendsAndInsights;
-    /**
-     * Event emission methods
-      */
-    private emitDashboardUpdate;
-    private emitRealtimeUpdate;
-    /**
-     * Event subscription methods
-      */
-    addEventListener(event: string, callback: (data: any) => void): void;
-    removeEventListener(event: string, callback: (data: any) => void): void;
-    /**
-     * Utility methods
-      */
-    private generateDashboardId;
-    private getDashboard;
-    /**
-     * Cleanup method
-      */
-    dispose(): void;
+     * Perform quick action
+     */
+    executeQuickAction(adminUserId: string, actionType: string, parameters: any): Promise<any>;
 }
+export default AdminDashboardService;
 //# sourceMappingURL=admin-dashboard.service.d.ts.map

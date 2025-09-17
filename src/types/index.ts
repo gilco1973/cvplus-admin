@@ -33,12 +33,9 @@ export { AdminQuickActionType, QuickActionCategory, RealtimeConnectionStatus } f
 // Export main analytics types
 export type { BusinessAnalytics, RevenueAnalytics } from './analytics.types';
 
-// Job and Portal types for validation services
-export * from './job';
-export * from './portal';
+// NOTE: Job and Portal types have been migrated to their respective modules
+// Job types moved to: @cvplus/processing/src/types/job
+// Portal types moved to: @cvplus/public-profiles/src/types/portal
 
-// TODO: Fix type issues in other modules and re-enable these exports
-// export type { ModerationQueue } from './moderation.types';
-// export type { SystemHealthStatus } from './monitoring.types';
-// export type { SecurityAuditRecord } from './security.types';
-// export type { UserManagementAction } from './user-management.types';
+// Core module types - only export what exists
+export type { UserManagementAction } from './user-management.types';

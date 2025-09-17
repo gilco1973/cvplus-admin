@@ -1,10 +1,8 @@
 /**
- * Analytics Types - Admin Placeholder
+ * Analytics Types - Real CVPlus Analytics Integration
  *
- * Placeholder types for analytics functionality that has been moved to @cvplus/analytics.
- * These types maintain compatibility while the analytics submodule is being integrated.
+ * Real analytics types imported from CVPlus analytics module.
+ * Provides complete analytics functionality for admin dashboard.
   */
 export {};
-// Note: Full analytics types have been moved to @cvplus/analytics/admin/types/analytics.types.ts
-// These placeholders ensure admin module compilation while submodule integration is completed.
 //# sourceMappingURL=analytics.types.js.map

@@ -15,12 +15,7 @@ export { ConfigurationTestService, type SystemConfiguration } from './configurat
 export { WebSearchService } from './web-search.service';
 export { ComprehensivePolicyEnforcementService } from './comprehensive-policy-enforcement.service';
 export type { PolicyCheckRequest, PolicyCheckResult, PolicyViolation, PolicyWarning, PolicyAction, UsageStats } from './comprehensive-policy-enforcement.service';
-export { PodcastGenerationService } from './podcast-generation.service';
-export { VideoGenerationService } from './video-generation.service';
 export * from './security';
-export * from './validation';
-export { PIIDetector } from './piiDetector';
-export type { PIIDetectionResult, PIIMaskingOptions } from './piiDetector';
 /**
  * Available admin services
   */
@@ -37,8 +32,6 @@ export declare const ADMIN_SERVICES: {
     readonly jobMonitoring: "JobMonitoringService";
     readonly configurationTest: "ConfigurationTestService";
     readonly webSearch: "WebSearchService";
-    readonly podcastGeneration: "PodcastGenerationService";
-    readonly videoGeneration: "VideoGenerationService";
 };
 /**
  * Service categories
@@ -47,7 +40,7 @@ export declare const SERVICE_CATEGORIES: {
     readonly MONITORING: readonly ["PerformanceMonitorService", "AlertManagerService", "JobMonitoringService"];
     readonly ANALYTICS: readonly ["AnalyticsEngineService", "AdminDashboardService"];
     readonly CONFIGURATION: readonly ["ConfigurationTestService"];
-    readonly EXTERNAL: readonly ["WebSearchService", "PodcastGenerationService", "VideoGenerationService"];
+    readonly EXTERNAL: readonly ["WebSearchService"];
 };
 /**
  * Service dependencies

@@ -1,78 +1,43 @@
 /**
- * Analytics Types - Admin Placeholder
+ * Analytics Types - Real CVPlus Analytics Integration
  *
- * Placeholder types for analytics functionality that has been moved to @cvplus/analytics.
- * These types maintain compatibility while the analytics submodule is being integrated.
+ * Real analytics types imported from CVPlus analytics module.
+ * Provides complete analytics functionality for admin dashboard.
   */
-export interface BusinessMetrics {
-    totalRevenue: number;
-    conversionRates: {
-        userToPremium: number;
-        trialToSubscription: number;
-        visitorToUser: number;
-    };
-    userMetrics: {
-        totalUsers: number;
-        activeUsers: number;
-        newUsers: number;
-        churned: number;
-    };
-    videoMetrics: {
-        totalGenerated: number;
-        averageQualityScore: number;
-        premiumAdoptionRate: number;
-    };
-}
-export interface QualityInsights {
-    overallQualityScore: number;
-    qualityTrend: 'improving' | 'declining' | 'stable';
-    satisfactionAnalysis: {
-        averageRating: number;
-        responseRate: number;
-        commonComplaints: string[];
-        positivePoints: string[];
-    };
-    technicalMetrics: {
-        averageGenerationTime: number;
+import type { BusinessMetrics as CVPlusBusinessMetrics, QualityInsights as CVPlusQualityInsights, UserBehaviorInsights as CVPlusUserBehaviorInsights, RevenueAnalytics as CVPlusRevenueAnalytics } from '@cvplus/analytics';
+export type BusinessMetrics = CVPlusBusinessMetrics;
+export type QualityInsights = CVPlusQualityInsights;
+export type UserBehaviorInsights = CVPlusUserBehaviorInsights;
+export type RevenueAnalytics = CVPlusRevenueAnalytics;
+export interface AdminAnalyticsOverview extends BusinessMetrics {
+    systemHealth: {
+        uptime: number;
+        responseTime: number;
         errorRate: number;
-        retryRate: number;
+    };
+    securityMetrics: {
+        activeThreats: number;
+        blockedAttempts: number;
+        securityScore: number;
     };
 }
-export interface UserBehaviorInsights {
-    engagementMetrics: {
-        averageSessionDuration: number;
-        pagesPerSession: number;
-        bounceRate: number;
-    };
-    featureUsage: {
-        mostUsedFeatures: Array<{
-            feature: string;
-            usage: number;
-        }>;
-        leastUsedFeatures: Array<{
-            feature: string;
-            usage: number;
-        }>;
-    };
-    userSegments: {
-        newUsers: number;
-        returningUsers: number;
-        premiumUsers: number;
-        activeUsers: number;
-    };
-    conversionFunnel: Array<{
-        stage: string;
-        users: number;
-        conversionRate: number;
+export interface AdminRealtimeMetrics {
+    currentActiveUsers: number;
+    currentSystemLoad: number;
+    realtimeEvents: Array<{
+        timestamp: Date;
+        type: string;
+        severity: 'low' | 'medium' | 'high' | 'critical';
+        message: string;
     }>;
 }
+export interface AdminAnalyticsService {
+    getBusinessMetrics(timeRange: string): Promise<BusinessMetrics>;
+    getQualityInsights(timeRange: string): Promise<QualityInsights>;
+    getUserBehaviorInsights(timeRange: string): Promise<UserBehaviorInsights>;
+    getRevenueAnalytics(timeRange: string): Promise<RevenueAnalytics>;
+    getAdminOverview(timeRange: string): Promise<AdminAnalyticsOverview>;
+    getRealtimeMetrics(): Promise<AdminRealtimeMetrics>;
+}
 export type BusinessAnalytics = BusinessMetrics;
-export type RevenueAnalytics = {
-    totalRevenue: number;
-    monthlyRevenue: number;
-    subscriptionRevenue: number;
-    oneTimeRevenue: number;
-    revenueGrowth: number;
-    averageOrderValue: number;
-};
 //# sourceMappingURL=analytics.types.d.ts.map

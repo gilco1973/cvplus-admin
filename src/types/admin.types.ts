@@ -1,9 +1,11 @@
 /**
  * Admin Interface Types
- * 
+ *
  * Core administrative types for the CVPlus admin module.
  * Defines interfaces for admin users, permissions, and general admin functionality.
   */
+
+import type { AdminPermissions, AdminLevel } from '../middleware/admin-auth.middleware';
 
 // Use local user interface for admin module
 interface User {
@@ -54,38 +56,8 @@ export interface AdminSession {
 // Admin Permissions & Roles
 // ============================================================================
 
-export interface AdminPermissions {
-  // Core permissions used by AdminAccessService
-  canManageUsers: boolean;
-  canMonitorSystem: boolean;
-  canViewAnalytics: boolean;
-  canManageAdmins: boolean;
-  canModerateContent: boolean;
-  canAuditSecurity: boolean;
-  canManageBilling: boolean;
-  canAccessSupport: boolean;
-  canViewReports: boolean;
-  canManageContent: boolean;
-  
-  // Admin metadata
-  adminLevel: AdminLevel;
-  roles: AdminRole[];
-  
-  // Extended permissions (optional - for detailed admin interfaces)
-  canAccessDashboard?: boolean;
-  canManageSupport?: boolean;
-  canConfigureSystem?: boolean;
-  canExportData?: boolean;
-  canManageFeatureFlags?: boolean;
-  
-  // Granular permissions (optional - for detailed permission management)
-  userManagement?: UserManagementPermissions;
-  contentModeration?: ContentModerationPermissions;
-  systemAdministration?: SystemAdministrationPermissions;
-  billing?: BillingPermissions;
-  analytics?: AnalyticsPermissions;
-  security?: SecurityPermissions;
-}
+// AdminPermissions is exported from middleware/admin-auth.middleware.ts to avoid conflicts
+export type { AdminPermissions } from '../middleware/admin-auth.middleware';
 
 export interface UserManagementPermissions {
   canViewUsers: boolean;
@@ -168,13 +140,8 @@ export enum AdminRole {
   SYSTEM_ADMIN = 'system_admin'
 }
 
-export enum AdminLevel {
-  L1_SUPPORT = 1,       // Basic support access
-  L2_MODERATOR = 2,     // Content moderation + limited user management
-  L3_ADMIN = 3,         // Full admin access (no system config)
-  L4_SUPER_ADMIN = 4,   // Full platform management
-  L5_SYSTEM_ADMIN = 5   // System administration
-}
+// AdminLevel is exported from middleware/admin-auth.middleware.ts to avoid conflicts
+export { AdminLevel } from '../middleware/admin-auth.middleware';
 
 export enum AdminSpecialization {
   USER_SUPPORT = 'user_support',

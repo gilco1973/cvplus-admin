@@ -10,8 +10,8 @@
 import { onRequest } from 'firebase-functions/v2/https';
 import { WebSearchService } from '../services/web-search.service';
 import { ConfigurationTestService } from '../services/configuration-test.service';
-import { PodcastGenerationService } from '../services/podcast-generation.service';
-import { VideoGenerationService } from '../services/video-generation.service';
+import { PodcastGenerationService } from '@cvplus/multimedia/src/services/audio/podcast-generation.service';
+import { VideoGenerationService } from '@cvplus/multimedia/src/services/video/video-generation.service';
 // CORS configuration for admin functions
 const corsOptions = {
     cors: true

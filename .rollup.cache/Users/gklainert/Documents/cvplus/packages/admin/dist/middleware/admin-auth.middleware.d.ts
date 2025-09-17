@@ -119,7 +119,8 @@ export interface AdminAuthenticatedRequest extends AuthenticatedRequest {
   */
 export declare const requireAuth: (request: CallableRequest) => Promise<AuthenticatedRequest>;
 /**
- * Check if user has administrative privileges (legacy fallback)
+ * Check if user has administrative privileges using Firebase Custom Claims
+ * SECURITY: Removed hardcoded admin emails - using proper Firebase Custom Claims only
   */
 export declare const isAdmin: (request: AuthenticatedRequest) => boolean;
 /**

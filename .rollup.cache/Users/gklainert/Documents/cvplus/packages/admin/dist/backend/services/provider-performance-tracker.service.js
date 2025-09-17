@@ -384,24 +384,62 @@ export class ProviderPerformanceTracker {
             if (metrics.length === 0) {
                 return this.getDefaultMetrics(providerId, period);
             }
-            const aggregated = await this.aggregateMetrics(metrics);
+            const aggregated = this.aggregateMetrics(metrics);
             return {
                 providerId,
-                period,
-                metrics: {
-                    successRate: aggregated.successRate,
-                    averageGenerationTime: aggregated.averageResponseTime,
-                    averageVideoQuality: aggregated.averageVideoQuality,
-                    userSatisfactionScore: aggregated.averageUserSatisfaction,
-                    costEfficiency: aggregated.averageCost > 0 ? aggregated.averageVideoQuality / aggregated.averageCost : 0,
-                    uptimePercentage: aggregated.uptimePercentage
-                },
-                lastUpdated: new Date()
+                totalRequests: aggregated.totalRequests,
+                successfulRequests: aggregated.successfulRequests,
+                failedRequests: aggregated.failedRequests,
+                averageResponseTime: aggregated.averageResponseTime,
+                availability: aggregated.availability,
+                successRate: aggregated.successRate,
+                errorRate: aggregated.errorRate,
+                avgProcessingTime: aggregated.averageResponseTime,
+                peakUsage: aggregated.peakUsage
             };
         }
         catch (error) {
             return this.getDefaultMetrics(providerId, period);
         }
+    }
+    /**
+     * Aggregate raw metrics into performance summary
+     */
+    aggregateMetrics(metrics) {
+        if (metrics.length === 0) {
+            return {
+                totalRequests: 0,
+                successfulRequests: 0,
+                failedRequests: 0,
+                averageResponseTime: 0,
+                availability: 0,
+                successRate: 0,
+                errorRate: 100,
+                peakUsage: 0
+            };
+        }
+        const totalRequests = metrics.reduce((sum, metric) => sum + (metric.requestCount || 0), 0);
+        const successfulRequests = metrics.reduce((sum, metric) => sum + (metric.successCount || 0), 0);
+        const failedRequests = totalRequests - successfulRequests;
+        const totalResponseTime = metrics.reduce((sum, metric) => sum + ((metric.responseTime || 0) * (metric.requestCount || 1)), 0);
+        const averageResponseTime = totalRequests > 0 ? totalResponseTime / totalRequests : 0;
+        const successRate = totalRequests > 0 ? (successfulRequests / totalRequests) * 100 : 0;
+        const errorRate = 100 - successRate;
+        const uptimeMetrics = metrics.filter(m => typeof m.uptime === 'number');
+        const availability = uptimeMetrics.length > 0
+            ? uptimeMetrics.reduce((sum, m) => sum + m.uptime, 0) / uptimeMetrics.length
+            : 100;
+        const peakUsage = Math.max(...metrics.map(m => m.cpuUsage || 0), 0);
+        return {
+            totalRequests,
+            successfulRequests,
+            failedRequests,
+            averageResponseTime,
+            availability,
+            successRate,
+            errorRate,
+            peakUsage
+        };
     }
     /**
      * Get performance trends
@@ -480,7 +518,8 @@ export class ProviderPerformanceTracker {
         // This would calculate actual cost based on provider pricing
         // For now, return estimated costs
         const baseCost = 0.50;
-        const durationMultiplier = options.duration === 'long' ? 1.5 : options.duration === 'short' ? 0.8 : 1.0;
+        const duration = options.duration || 60;
+        const durationMultiplier = duration > 90 ? 1.5 : duration < 45 ? 0.8 : 1.0;
         return baseCost * durationMultiplier;
     }
     getDurationInSeconds(duration) {
@@ -559,16 +598,15 @@ export class ProviderPerformanceTracker {
     getDefaultMetrics(providerId, period) {
         return {
             providerId,
-            period: period,
-            metrics: {
-                successRate: 95,
-                averageGenerationTime: 60,
-                averageVideoQuality: 8.0,
-                userSatisfactionScore: 4.0,
-                costEfficiency: 10,
-                uptimePercentage: 99
-            },
-            lastUpdated: new Date()
+            totalRequests: 0,
+            successfulRequests: 0,
+            failedRequests: 0,
+            averageResponseTime: 60,
+            availability: 100,
+            successRate: 95,
+            errorRate: 5,
+            avgProcessingTime: 60,
+            peakUsage: 100
         };
     }
     async getAllProviderIds() {

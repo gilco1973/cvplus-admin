@@ -176,8 +176,6 @@ export class AdminAccessService {
         userId,
         email: user.email,
         displayName: user.displayName,
-        adminLevel: permissions.adminLevel,
-        roles: permissions.roles,
         permissions,
         lastSignIn: user.metadata.lastSignInTime,
         createdAt: user.metadata.creationTime
@@ -230,18 +228,81 @@ export class AdminAccessService {
     */
   private static getEmptyPermissions(): AdminPermissions {
     return {
+      canAccessDashboard: false,
       canManageUsers: false,
+      canModerateContent: false,
       canMonitorSystem: false,
       canViewAnalytics: false,
-      canManageAdmins: false,
-      canModerateContent: false,
       canAuditSecurity: false,
+      canManageSupport: false,
       canManageBilling: false,
-      canAccessSupport: false,
-      canViewReports: false,
-      canManageContent: false,
-      adminLevel: AdminLevel.L1_SUPPORT,
-      roles: []
+      canConfigureSystem: false,
+      canManageAdmins: false,
+      canExportData: false,
+      canManageFeatureFlags: false,
+      userManagement: {
+        canViewUsers: false,
+        canEditUsers: false,
+        canSuspendUsers: false,
+        canDeleteUsers: false,
+        canImpersonateUsers: false,
+        canManageSubscriptions: false,
+        canProcessRefunds: false,
+        canMergeAccounts: false,
+        canExportUserData: false,
+        canViewUserAnalytics: false
+      },
+      contentModeration: {
+        canReviewContent: false,
+        canApproveContent: false,
+        canRejectContent: false,
+        canFlagContent: false,
+        canHandleAppeals: false,
+        canConfigureFilters: false,
+        canViewModerationQueue: false,
+        canAssignModerators: false,
+        canExportModerationData: false
+      },
+      systemAdministration: {
+        canViewSystemHealth: false,
+        canManageServices: false,
+        canConfigureFeatures: false,
+        canViewLogs: false,
+        canManageIntegrations: false,
+        canDeployUpdates: false,
+        canManageBackups: false,
+        canConfigureSecurity: false
+      },
+      billing: {
+        canViewBilling: false,
+        canProcessPayments: false,
+        canProcessRefunds: false,
+        canManageSubscriptions: false,
+        canViewFinancialReports: false,
+        canConfigurePricing: false,
+        canManageDisputes: false,
+        canExportBillingData: false
+      },
+      analytics: {
+        canViewBasicAnalytics: false,
+        canViewAdvancedAnalytics: false,
+        canExportAnalytics: false,
+        canConfigureAnalytics: false,
+        canViewCustomReports: false,
+        canCreateCustomReports: false,
+        canScheduleReports: false,
+        canViewRealTimeData: false
+      },
+      security: {
+        canViewSecurityEvents: false,
+        canManageSecurityPolicies: false,
+        canViewAuditLogs: false,
+        canExportAuditData: false,
+        canManageAccessControl: false,
+        canConfigureCompliance: false,
+        canInvestigateIncidents: false,
+        canManageSecurityAlerts: false
+      }
     };
   }
 
@@ -253,18 +314,81 @@ export class AdminAccessService {
     */
   private static getSuperAdminPermissions(): AdminPermissions {
     return {
+      canAccessDashboard: true,
       canManageUsers: true,
+      canModerateContent: true,
       canMonitorSystem: true,
       canViewAnalytics: true,
-      canManageAdmins: true,
-      canModerateContent: true,
       canAuditSecurity: true,
+      canManageSupport: true,
       canManageBilling: true,
-      canAccessSupport: true,
-      canViewReports: true,
-      canManageContent: true,
-      adminLevel: 5,
-      roles: [AdminRole.SYSTEM_ADMIN, AdminRole.SUPER_ADMIN, AdminRole.ADMIN, AdminRole.MODERATOR, AdminRole.SUPPORT]
+      canConfigureSystem: true,
+      canManageAdmins: true,
+      canExportData: true,
+      canManageFeatureFlags: true,
+      userManagement: {
+        canViewUsers: true,
+        canEditUsers: true,
+        canSuspendUsers: true,
+        canDeleteUsers: true,
+        canImpersonateUsers: true,
+        canManageSubscriptions: true,
+        canProcessRefunds: true,
+        canMergeAccounts: true,
+        canExportUserData: true,
+        canViewUserAnalytics: true
+      },
+      contentModeration: {
+        canReviewContent: true,
+        canApproveContent: true,
+        canRejectContent: true,
+        canFlagContent: true,
+        canHandleAppeals: true,
+        canConfigureFilters: true,
+        canViewModerationQueue: true,
+        canAssignModerators: true,
+        canExportModerationData: true
+      },
+      systemAdministration: {
+        canViewSystemHealth: true,
+        canManageServices: true,
+        canConfigureFeatures: true,
+        canViewLogs: true,
+        canManageIntegrations: true,
+        canDeployUpdates: true,
+        canManageBackups: true,
+        canConfigureSecurity: true
+      },
+      billing: {
+        canViewBilling: true,
+        canProcessPayments: true,
+        canProcessRefunds: true,
+        canManageSubscriptions: true,
+        canViewFinancialReports: true,
+        canConfigurePricing: true,
+        canManageDisputes: true,
+        canExportBillingData: true
+      },
+      analytics: {
+        canViewBasicAnalytics: true,
+        canViewAdvancedAnalytics: true,
+        canExportAnalytics: true,
+        canConfigureAnalytics: true,
+        canViewCustomReports: true,
+        canCreateCustomReports: true,
+        canScheduleReports: true,
+        canViewRealTimeData: true
+      },
+      security: {
+        canViewSecurityEvents: true,
+        canManageSecurityPolicies: true,
+        canViewAuditLogs: true,
+        canExportAuditData: true,
+        canManageAccessControl: true,
+        canConfigureCompliance: true,
+        canInvestigateIncidents: true,
+        canManageSecurityAlerts: true
+      }
     };
   }
 
@@ -283,18 +407,81 @@ export class AdminAccessService {
     userId: string
   ): AdminPermissions {
     const permissions: AdminPermissions = {
+      canAccessDashboard: adminLevel >= 1 || roles.includes(AdminRole.SUPPORT),
       canManageUsers: adminLevel >= 2 || roles.includes(AdminRole.ADMIN),
       canMonitorSystem: adminLevel >= 1 || roles.includes(AdminRole.SUPPORT),
       canViewAnalytics: adminLevel >= 2 || roles.includes(AdminRole.ADMIN),
       canManageAdmins: adminLevel >= 4 || roles.includes(AdminRole.SUPER_ADMIN),
       canModerateContent: adminLevel >= 2 || roles.includes(AdminRole.MODERATOR),
       canAuditSecurity: adminLevel >= 3 || roles.includes(AdminRole.ADMIN),
+      canManageSupport: adminLevel >= 3 || roles.includes(AdminRole.ADMIN),
       canManageBilling: adminLevel >= 3 || roles.includes(AdminRole.ADMIN),
-      canAccessSupport: adminLevel >= 1 || roles.includes(AdminRole.SUPPORT),
-      canViewReports: adminLevel >= 2 || roles.includes(AdminRole.ADMIN),
-      canManageContent: adminLevel >= 2 || roles.includes(AdminRole.MODERATOR),
-      adminLevel,
-      roles
+      canConfigureSystem: adminLevel >= 4 || roles.includes(AdminRole.SUPER_ADMIN),
+      canExportData: adminLevel >= 3 || roles.includes(AdminRole.ADMIN),
+      canManageFeatureFlags: adminLevel >= 4 || roles.includes(AdminRole.SUPER_ADMIN),
+      userManagement: {
+        canViewUsers: true,
+        canEditUsers: adminLevel >= 2,
+        canSuspendUsers: adminLevel >= 2,
+        canDeleteUsers: adminLevel >= 3,
+        canImpersonateUsers: adminLevel >= 4,
+        canManageSubscriptions: adminLevel >= 3,
+        canProcessRefunds: adminLevel >= 3,
+        canMergeAccounts: adminLevel >= 4,
+        canExportUserData: adminLevel >= 2,
+        canViewUserAnalytics: adminLevel >= 2
+      },
+      contentModeration: {
+        canReviewContent: adminLevel >= 2,
+        canApproveContent: adminLevel >= 2,
+        canRejectContent: adminLevel >= 2,
+        canFlagContent: adminLevel >= 1,
+        canHandleAppeals: adminLevel >= 3,
+        canConfigureFilters: adminLevel >= 3,
+        canViewModerationQueue: adminLevel >= 2,
+        canAssignModerators: adminLevel >= 4,
+        canExportModerationData: adminLevel >= 3
+      },
+      systemAdministration: {
+        canViewSystemHealth: adminLevel >= 3,
+        canManageServices: adminLevel >= 4,
+        canConfigureFeatures: adminLevel >= 4,
+        canViewLogs: adminLevel >= 3,
+        canManageIntegrations: adminLevel >= 4,
+        canDeployUpdates: adminLevel >= 5,
+        canManageBackups: adminLevel >= 4,
+        canConfigureSecurity: adminLevel >= 4
+      },
+      billing: {
+        canViewBilling: adminLevel >= 3,
+        canProcessPayments: adminLevel >= 3,
+        canProcessRefunds: adminLevel >= 3,
+        canManageSubscriptions: adminLevel >= 3,
+        canViewFinancialReports: adminLevel >= 3,
+        canConfigurePricing: adminLevel >= 4,
+        canManageDisputes: adminLevel >= 3,
+        canExportBillingData: adminLevel >= 3
+      },
+      analytics: {
+        canViewBasicAnalytics: adminLevel >= 2,
+        canViewAdvancedAnalytics: adminLevel >= 3,
+        canExportAnalytics: adminLevel >= 3,
+        canConfigureAnalytics: adminLevel >= 4,
+        canViewCustomReports: adminLevel >= 3,
+        canCreateCustomReports: adminLevel >= 3,
+        canScheduleReports: adminLevel >= 3,
+        canViewRealTimeData: adminLevel >= 3
+      },
+      security: {
+        canViewSecurityEvents: adminLevel >= 3,
+        canManageSecurityPolicies: adminLevel >= 4,
+        canViewAuditLogs: adminLevel >= 3,
+        canExportAuditData: adminLevel >= 3,
+        canManageAccessControl: adminLevel >= 4,
+        canConfigureCompliance: adminLevel >= 4,
+        canInvestigateIncidents: adminLevel >= 3,
+        canManageSecurityAlerts: adminLevel >= 3
+      }
     };
 
     // Log permission calculation for audit
@@ -341,7 +528,7 @@ export class AdminAccessService {
         action,
         adminUserId: userId,
         adminEmail: adminInfo.email,
-        adminLevel: adminInfo.adminLevel,
+        adminLevel: 1, // Default admin level since not available in adminInfo
         targetId,
         metadata,
         timestamp: admin.firestore.FieldValue.serverTimestamp(),

@@ -1,1 +1,0 @@
-{"version":3,"file":"BusinessMetricsCard.d.ts","sourceRoot":"","sources":["../../../src/frontend/components/BusinessMetricsCard.tsx"],"names":[],"mappings":"AAAA,OAAO,KAA8B,MAAM,OAAO,CAAC;AAmEnD,UAAU,wBAAwB;IAChC,cAAc,EAAE,MAAM,CAAC;CACxB;AAED,eAAO,MAAM,mBAAmB,EAAE,KAAK,CAAC,EAAE,CAAC,wBAAwB,CA2QlE,CAAC;AAEF,eAAe,mBAAmB,CAAC"}

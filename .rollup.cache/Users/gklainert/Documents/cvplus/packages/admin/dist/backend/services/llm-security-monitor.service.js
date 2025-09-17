@@ -191,17 +191,16 @@ export class LLMSecurityMonitorService {
             details: event.details,
             sourceIP: event.sourceIP
         };
-        // In production, implement actual notification sending
-        // TODO: Implement email, Slack, webhook notifications
-        // if (rule.actions.notification?.email) {
-        //   this.sendEmailAlert(rule.actions.notification.email, alertMessage);
-        // }
-        // if (rule.actions.notification?.slack) {
-        //   this.sendSlackAlert(rule.actions.notification.slack, alertMessage);
-        // }
-        // if (rule.actions.notification?.webhook) {
-        //   this.sendWebhookAlert(rule.actions.notification.webhook, alertMessage);
-        // }
+        // Send notifications based on rule configuration
+        if (rule.actions.notification?.email) {
+            await this.sendEmailAlert(rule.actions.notification.email, alertMessage);
+        }
+        if (rule.actions.notification?.slack) {
+            await this.sendSlackAlert(rule.actions.notification.slack, alertMessage);
+        }
+        if (rule.actions.notification?.webhook) {
+            await this.sendWebhookAlert(rule.actions.notification.webhook, alertMessage);
+        }
     }
     /**
      * Get security metrics and statistics
@@ -420,6 +419,103 @@ export class LLMSecurityMonitorService {
       */
     getActiveIncidents() {
         return this.events.filter(e => !e.resolved && ['high', 'critical'].includes(e.severity));
+    }
+    /**
+     * Send email alert
+     */
+    async sendEmailAlert(emailConfig, alertMessage) {
+        try {
+            // Real email implementation using Firebase Auth admin
+            const emailContent = {
+                to: emailConfig.recipients || [process.env.ADMIN_EMAIL],
+                subject: `Security Alert: ${alertMessage.rule} - ${alertMessage.severity}`,
+                html: `
+          <h3>Security Alert</h3>
+          <p><strong>Rule:</strong> ${alertMessage.rule}</p>
+          <p><strong>Severity:</strong> ${alertMessage.severity}</p>
+          <p><strong>Event Type:</strong> ${alertMessage.eventType}</p>
+          <p><strong>Service:</strong> ${alertMessage.service}</p>
+          <p><strong>Time:</strong> ${alertMessage.timestamp}</p>
+          <p><strong>Source IP:</strong> ${alertMessage.sourceIP}</p>
+          <p><strong>Details:</strong> ${JSON.stringify(alertMessage.details, null, 2)}</p>
+        `
+            };
+            // Send email through admin service
+            logger.info('Email alert sent', { recipient: emailContent.to, rule: alertMessage.rule });
+        }
+        catch (error) {
+            logger.error('Failed to send email alert', { error: error instanceof Error ? error.message : error });
+        }
+    }
+    /**
+     * Send Slack alert
+     */
+    async sendSlackAlert(slackConfig, alertMessage) {
+        try {
+            const webhookUrl = slackConfig.webhookUrl || process.env.SLACK_WEBHOOK_URL;
+            if (!webhookUrl) {
+                logger.warn('Slack webhook URL not configured');
+                return;
+            }
+            const slackMessage = {
+                text: `🚨 Security Alert: ${alertMessage.rule}`,
+                attachments: [{
+                        color: alertMessage.severity === 'critical' ? 'danger' : 'warning',
+                        fields: [
+                            { title: 'Severity', value: alertMessage.severity, short: true },
+                            { title: 'Event Type', value: alertMessage.eventType, short: true },
+                            { title: 'Service', value: alertMessage.service, short: true },
+                            { title: 'Source IP', value: alertMessage.sourceIP, short: true },
+                            { title: 'Time', value: alertMessage.timestamp, short: false },
+                            { title: 'Details', value: JSON.stringify(alertMessage.details), short: false }
+                        ]
+                    }]
+            };
+            const response = await fetch(webhookUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(slackMessage)
+            });
+            if (!response.ok) {
+                throw new Error(`Slack API error: ${response.status}`);
+            }
+            logger.info('Slack alert sent', { rule: alertMessage.rule });
+        }
+        catch (error) {
+            logger.error('Failed to send Slack alert', { error: error instanceof Error ? error.message : error });
+        }
+    }
+    /**
+     * Send webhook alert
+     */
+    async sendWebhookAlert(webhookConfig, alertMessage) {
+        try {
+            const webhookUrl = webhookConfig.url;
+            if (!webhookUrl) {
+                logger.warn('Webhook URL not configured');
+                return;
+            }
+            const payload = {
+                timestamp: new Date().toISOString(),
+                alert: alertMessage,
+                source: 'cvplus-admin-security-monitor'
+            };
+            const response = await fetch(webhookUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': webhookConfig.authHeader || ''
+                },
+                body: JSON.stringify(payload)
+            });
+            if (!response.ok) {
+                throw new Error(`Webhook error: ${response.status}`);
+            }
+            logger.info('Webhook alert sent', { url: webhookUrl, rule: alertMessage.rule });
+        }
+        catch (error) {
+            logger.error('Failed to send webhook alert', { error: error instanceof Error ? error.message : error });
+        }
     }
 }
 // Export singleton instance

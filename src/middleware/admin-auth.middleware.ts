@@ -213,13 +213,13 @@ export const requireAuth = async (request: CallableRequest): Promise<Authenticat
 };
 
 /**
- * Check if user has administrative privileges (legacy fallback)
+ * Check if user has administrative privileges using Firebase Custom Claims
+ * SECURITY: Removed hardcoded admin emails - using proper Firebase Custom Claims only
   */
 export const isAdmin = (request: AuthenticatedRequest): boolean => {
-  const adminEmailsEnv = process.env.ADMIN_EMAILS || 'gil.klainert@gmail.com,admin@cvplus.ai';
-  const adminEmails = adminEmailsEnv.split(',').map(email => email.trim());
-  
-  return adminEmails.includes(request.auth.token.email || '');
+  // Only rely on Firebase Custom Claims for admin privileges
+  const customClaims = request.auth.token.admin;
+  return !!(customClaims && customClaims.role && customClaims.level >= AdminLevel.L1_SUPPORT);
 };
 
 /**
@@ -233,30 +233,15 @@ export const requireAdmin = async (request: CallableRequest, minLevel: AdminLeve
     const customClaims = token.admin || null;
     
     if (!customClaims) {
-      const isLegacyAdmin = isAdmin(authenticatedRequest);
-      if (isLegacyAdmin) {
-        logger.warn('Using legacy admin email check - custom claims needed', {
-          uid,
-          email: token.email
-        });
-        
-        return {
-          ...authenticatedRequest,
-          admin: {
-            role: AdminRole.SUPER_ADMIN,
-            level: AdminLevel.L4_SUPER_ADMIN,
-            permissions: getDefaultAdminPermissions(AdminLevel.L4_SUPER_ADMIN),
-            profile: null
-          }
-        } as AdminAuthenticatedRequest;
-      }
-      
-      logger.error('Admin access denied: No admin privileges', {
+      // SECURITY: Removed legacy admin email fallback - Firebase Custom Claims required
+      logger.error('Admin access denied: Firebase Custom Claims required', {
         uid,
         email: token.email,
-        hasCustomClaims: !!customClaims
+        hasCustomClaims: false,
+        securityNote: 'Legacy email-based admin access removed for security'
       });
-      throw new HttpsError('permission-denied', 'Admin access required');
+
+      throw new HttpsError('permission-denied', 'Admin access requires Firebase Custom Claims configuration');
     }
 
     const userLevel = customClaims.level || AdminLevel.L1_SUPPORT;

@@ -133,6 +133,18 @@ export declare class LLMSecurityMonitorService {
      * Get active incidents
       */
     getActiveIncidents(): SecurityEvent[];
+    /**
+     * Send email alert
+     */
+    private sendEmailAlert;
+    /**
+     * Send Slack alert
+     */
+    private sendSlackAlert;
+    /**
+     * Send webhook alert
+     */
+    private sendWebhookAlert;
 }
 export declare const llmSecurityMonitor: LLMSecurityMonitorService;
 //# sourceMappingURL=llm-security-monitor.service.d.ts.map

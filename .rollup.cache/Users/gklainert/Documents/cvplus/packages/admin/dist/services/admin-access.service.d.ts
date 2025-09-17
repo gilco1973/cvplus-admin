@@ -15,7 +15,7 @@
  * @version 1.0.0
   */
 import * as functions from 'firebase-functions';
-import { AdminPermissions, AdminRole, AdminLevel } from '../types';
+import { AdminPermissions } from '../types';
 export declare class AdminAccessService {
     /**
      * Admin email addresses for fallback authentication
@@ -72,8 +72,6 @@ export declare class AdminAccessService {
         userId: string;
         email: string | undefined;
         displayName: string | undefined;
-        adminLevel: AdminLevel;
-        roles: AdminRole[];
         permissions: AdminPermissions;
         lastSignIn: string;
         createdAt: string;

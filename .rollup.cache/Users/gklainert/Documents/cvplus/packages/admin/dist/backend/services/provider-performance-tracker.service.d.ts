@@ -70,7 +70,6 @@ export declare class ProviderPerformanceTracker {
     private getDurationInSeconds;
     private extractFeatures;
     private getCutoffDate;
-    private aggregateMetrics;
     private calculatePercentile;
     private calculateErrorBreakdown;
     private getDefaultMetrics;

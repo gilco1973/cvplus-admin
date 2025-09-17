@@ -549,10 +549,11 @@ export enum QuickActionCategory {
 export interface RealtimeConfig {
   enabled: boolean;
   modules: string[];
-  updateInterval: number;
-  maxRetries: number;
+  updateInterval?: number;
+  updateIntervals?: Record<string, number>;
+  maxRetries?: number;
   connectionStatus: RealtimeConnectionStatus;
-  lastUpdate: Date;
+  lastUpdate?: Date;
 }
 
 export enum RealtimeConnectionStatus {

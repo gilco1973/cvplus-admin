@@ -15,14 +15,8 @@ export var AdminRole;
     AdminRole["SUPER_ADMIN"] = "super_admin";
     AdminRole["SYSTEM_ADMIN"] = "system_admin";
 })(AdminRole || (AdminRole = {}));
-export var AdminLevel;
-(function (AdminLevel) {
-    AdminLevel[AdminLevel["L1_SUPPORT"] = 1] = "L1_SUPPORT";
-    AdminLevel[AdminLevel["L2_MODERATOR"] = 2] = "L2_MODERATOR";
-    AdminLevel[AdminLevel["L3_ADMIN"] = 3] = "L3_ADMIN";
-    AdminLevel[AdminLevel["L4_SUPER_ADMIN"] = 4] = "L4_SUPER_ADMIN";
-    AdminLevel[AdminLevel["L5_SYSTEM_ADMIN"] = 5] = "L5_SYSTEM_ADMIN"; // System administration
-})(AdminLevel || (AdminLevel = {}));
+// AdminLevel is exported from middleware/admin-auth.middleware.ts to avoid conflicts
+export { AdminLevel } from '../middleware/admin-auth.middleware';
 export var AdminSpecialization;
 (function (AdminSpecialization) {
     AdminSpecialization["USER_SUPPORT"] = "user_support";

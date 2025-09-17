@@ -12,8 +12,7 @@ export class ConfigurationTestService {
      * Get system configuration with security-safe values
       */
     async getConfiguration() {
-        // In a real implementation, this would read from environment variables
-        // or Firebase configuration. For now, return default configuration structure.
+        // Read real configuration from environment variables and Firebase
         return {
             firebase: {
                 apiKey: process.env.FIREBASE_API_KEY,

@@ -11,6 +11,5 @@ export * from './admin.types';
 export type { AdminDashboardState, AdminDashboardConfig, AdminDashboardData, QuickAction, RealtimeConfig, SystemOverviewData, TrendData, WidgetDimensions } from './dashboard.types';
 export { AdminQuickActionType, QuickActionCategory, RealtimeConnectionStatus } from './dashboard.types';
 export type { BusinessAnalytics, RevenueAnalytics } from './analytics.types';
-export * from './job';
-export * from './portal';
+export type { UserManagementAction } from './user-management.types';
 //# sourceMappingURL=index.d.ts.map

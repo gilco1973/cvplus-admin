@@ -25,7 +25,7 @@ export { JobMonitoringService, type JobProcessingStats, type JobDetails } from '
 
 // Configuration and testing services
 export { ConfigurationTestService, type SystemConfiguration } from './configuration-test.service';
-export { WebSearchService } from './web-search.service'; // PLACEHOLDER - MIGRATED TO @cvplus/core
+export { WebSearchService } from './web-search.service'; // Real Serper API integration for admin monitoring
 
 // Policy enforcement services (migrated from cv-processing)
 export { ComprehensivePolicyEnforcementService } from './comprehensive-policy-enforcement.service';
@@ -38,18 +38,17 @@ export type {
   UsageStats
 } from './comprehensive-policy-enforcement.service';
 
-// Multimedia admin testing services (placeholders - migrated to multimedia submodule)
-export { PodcastGenerationService } from './podcast-generation.service'; // PLACEHOLDER - MIGRATED TO @cvplus/multimedia
-export { VideoGenerationService } from './video-generation.service'; // PLACEHOLDER - MIGRATED TO @cvplus/multimedia
+// Multimedia admin testing services - MIGRATED TO @cvplus/multimedia
+// NOTE: PodcastGenerationService and VideoGenerationService have been moved to @cvplus/multimedia module
+// Import from: '@cvplus/multimedia/src/services/audio/podcast-generation.service'
+// Import from: '@cvplus/multimedia/src/services/video/video-generation.service'
 
-// Security and Validation Services (migrated from core)
+// Security and Validation Services - MIGRATED
+// NOTE: ValidationService has been moved to @cvplus/core module
+// Import from: '@cvplus/core/src/validation/validation-service'
+// NOTE: PIIDetector has been moved to @cvplus/processing module
+// Import from: '@cvplus/processing/src/security/piiDetector'
 export * from './security';
-export * from './validation';
-export { PIIDetector } from './piiDetector';
-export type {
-  PIIDetectionResult,
-  PIIMaskingOptions
-} from './piiDetector';
 // ============================================================================
 // SERVICE REGISTRY
 // ============================================================================
@@ -69,9 +68,8 @@ export const ADMIN_SERVICES = {
   alertManager: 'AlertManagerService',
   jobMonitoring: 'JobMonitoringService',
   configurationTest: 'ConfigurationTestService',
-  webSearch: 'WebSearchService',
-  podcastGeneration: 'PodcastGenerationService',
-  videoGeneration: 'VideoGenerationService'
+  webSearch: 'WebSearchService'
+  // NOTE: podcastGeneration and videoGeneration services moved to @cvplus/multimedia
 } as const;
 
 /**
@@ -81,7 +79,8 @@ export const SERVICE_CATEGORIES = {
   MONITORING: ['PerformanceMonitorService', 'AlertManagerService', 'JobMonitoringService'],
   ANALYTICS: ['AnalyticsEngineService', 'AdminDashboardService'],
   CONFIGURATION: ['ConfigurationTestService'],
-  EXTERNAL: ['WebSearchService', 'PodcastGenerationService', 'VideoGenerationService']
+  EXTERNAL: ['WebSearchService']
+  // NOTE: PodcastGenerationService and VideoGenerationService moved to @cvplus/multimedia
 } as const;
 
 /**

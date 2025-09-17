@@ -4,6 +4,7 @@
  * Core administrative types for the CVPlus admin module.
  * Defines interfaces for admin users, permissions, and general admin functionality.
   */
+import type { AdminPermissions, AdminLevel } from '../middleware/admin-auth.middleware';
 interface User {
     uid: string;
     email: string;
@@ -40,31 +41,7 @@ export interface AdminSession {
     mfaVerified: boolean;
     isActive: boolean;
 }
-export interface AdminPermissions {
-    canManageUsers: boolean;
-    canMonitorSystem: boolean;
-    canViewAnalytics: boolean;
-    canManageAdmins: boolean;
-    canModerateContent: boolean;
-    canAuditSecurity: boolean;
-    canManageBilling: boolean;
-    canAccessSupport: boolean;
-    canViewReports: boolean;
-    canManageContent: boolean;
-    adminLevel: AdminLevel;
-    roles: AdminRole[];
-    canAccessDashboard?: boolean;
-    canManageSupport?: boolean;
-    canConfigureSystem?: boolean;
-    canExportData?: boolean;
-    canManageFeatureFlags?: boolean;
-    userManagement?: UserManagementPermissions;
-    contentModeration?: ContentModerationPermissions;
-    systemAdministration?: SystemAdministrationPermissions;
-    billing?: BillingPermissions;
-    analytics?: AnalyticsPermissions;
-    security?: SecurityPermissions;
-}
+export type { AdminPermissions } from '../middleware/admin-auth.middleware';
 export interface UserManagementPermissions {
     canViewUsers: boolean;
     canEditUsers: boolean;
@@ -135,13 +112,7 @@ export declare enum AdminRole {
     SUPER_ADMIN = "super_admin",
     SYSTEM_ADMIN = "system_admin"
 }
-export declare enum AdminLevel {
-    L1_SUPPORT = 1,// Basic support access
-    L2_MODERATOR = 2,// Content moderation + limited user management
-    L3_ADMIN = 3,// Full admin access (no system config)
-    L4_SUPER_ADMIN = 4,// Full platform management
-    L5_SYSTEM_ADMIN = 5
-}
+export { AdminLevel } from '../middleware/admin-auth.middleware';
 export declare enum AdminSpecialization {
     USER_SUPPORT = "user_support",
     CONTENT_MODERATION = "content_moderation",
@@ -415,5 +386,4 @@ export interface AdminFeature {
     requiredLevel: AdminLevel;
     requiredSpecializations: AdminSpecialization[];
 }
-export {};
 //# sourceMappingURL=admin.types.d.ts.map

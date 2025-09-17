@@ -72,6 +72,7 @@ export class LLMIntegrationWrapperService {
     */
   async callClaude(request: LegacyClaudeCall): Promise<LegacyClaudeResponse> {
     const verifiedRequest: VerifiedMessageOptions = {
+      prompt: request.system ? `${request.system}\n\n${request.prompt}` : request.prompt,
       model: this.config.defaultModel,
       messages: [{
         role: 'user',
@@ -124,6 +125,7 @@ export class LLMIntegrationWrapperService {
     }
 
     const request: VerifiedMessageOptions = {
+      prompt: filteredMessages.length > 0 ? filteredMessages[0].content : '',
       model: this.config.defaultModel,
       messages: filteredMessages,
       maxTokens: options?.maxTokens || this.config.defaultMaxTokens,

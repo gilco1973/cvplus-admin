@@ -47,14 +47,30 @@ export class VerifiedClaudeService {
     const startTime = Date.now();
 
     try {
-      // Placeholder verification logic
-      await new Promise(resolve => setTimeout(resolve, 100));
+      // Real Claude API verification
+      const response = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-api-key': process.env.ANTHROPIC_API_KEY || '',
+          'anthropic-version': '2023-06-01'
+        },
+        body: JSON.stringify({
+          model: 'claude-3-haiku-20240307',
+          max_tokens: 10,
+          messages: [{ role: 'user', content: 'Hello' }]
+        })
+      });
+
+      const isVerified = response.ok;
+      const responseData = isVerified ? await response.json() : null;
 
       return {
-        verified: true,
+        verified: isVerified,
         responseTime: Date.now() - startTime,
-        status: 'active',
-        version: 'claude-3'
+        status: isVerified ? 'active' : 'error',
+        version: responseData?.model || 'unknown',
+        usage: responseData?.usage || null
       };
 
     } catch (error) {
@@ -94,12 +110,30 @@ export class VerifiedClaudeService {
     const startTime = Date.now();
 
     try {
-      // Placeholder test response
-      await new Promise(resolve => setTimeout(resolve, 200));
+      // Real Claude API test
+      const response = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-api-key': this.apiKey,
+          'anthropic-version': '2023-06-01'
+        },
+        body: JSON.stringify({
+          model: 'claude-3-haiku-20240307',
+          max_tokens: 100,
+          messages: [{ role: 'user', content: prompt }]
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error(`API request failed: ${response.status}`);
+      }
+
+      const data = await response.json();
 
       return {
         success: true,
-        response: `Test response for: ${prompt}`,
+        response: data.content?.[0]?.text || 'No response content',
         responseTime: Date.now() - startTime
       };
 
@@ -134,22 +168,43 @@ export class VerifiedClaudeService {
     const startTime = Date.now();
 
     try {
-      // Placeholder verified message creation
-      await new Promise(resolve => setTimeout(resolve, 300));
+      // Real verified message creation with Claude API
+      const response = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-api-key': this.apiKey,
+          'anthropic-version': '2023-06-01'
+        },
+        body: JSON.stringify({
+          model: options.model || 'claude-3-haiku-20240307',
+          max_tokens: options.maxTokens || 500,
+          messages: [{ role: 'user', content: options.prompt }],
+          temperature: options.temperature || 0.7,
+          system: options.systemPrompt
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error(`Claude API request failed: ${response.status}`);
+      }
+
+      const data = await response.json();
+      const responseContent = data.content?.[0]?.text || '';
 
       return {
         success: true,
-        response: `Verified response for: ${options.prompt}`,
+        response: responseContent,
         responseTime: Date.now() - startTime,
-        content: [{ content: `Verified response for: ${options.prompt}` }],
+        content: data.content || [],
         verification: {
           verified: true,
-          confidence: 0.95
+          confidence: 1.0
         },
         usage: {
-          inputTokens: 50,
-          outputTokens: 100,
-          totalTokens: 150
+          inputTokens: data.usage?.input_tokens || 0,
+          outputTokens: data.usage?.output_tokens || 0,
+          totalTokens: (data.usage?.input_tokens || 0) + (data.usage?.output_tokens || 0)
         }
       };
 
