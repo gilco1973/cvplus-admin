@@ -7,7 +7,7 @@
  *
  * @author Gil Klainert
  * @version 1.0.0
- */
+  */
 // ============================================================================
 // TYPE EXPORTS
 // ============================================================================
@@ -54,7 +54,7 @@ export const MODULE_DEPENDENCIES = {
 };
 /**
  * Default module configuration
- */
+  */
 export const DEFAULT_ADMIN_MODULE_OPTIONS = {
     features: {
         realtimeUpdates: true,
@@ -76,7 +76,7 @@ export const DEFAULT_ADMIN_MODULE_OPTIONS = {
 };
 /**
  * Module initialization function
- */
+  */
 export function initializeAdminModule(options = {}) {
     const config = { ...DEFAULT_ADMIN_MODULE_OPTIONS, ...options };
     // Initialize module with configuration
@@ -89,7 +89,7 @@ export function initializeAdminModule(options = {}) {
 }
 /**
  * Validate required dependencies
- */
+  */
 function validateDependencies() {
     const missingDependencies = [];
     MODULE_DEPENDENCIES.required.forEach(dep => {
@@ -106,7 +106,7 @@ function validateDependencies() {
 }
 /**
  * Set up module configuration
- */
+  */
 function setupModuleConfiguration(config) {
     // Configuration setup logic would go here
     // For now, just log the configuration

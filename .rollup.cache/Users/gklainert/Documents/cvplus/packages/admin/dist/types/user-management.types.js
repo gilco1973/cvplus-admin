@@ -2,7 +2,7 @@
  * User Management Types
  *
  * Types for user management functionality in the admin dashboard.
- */
+  */
 export var UserSegment;
 (function (UserSegment) {
     UserSegment["NEW_USERS"] = "new_users";

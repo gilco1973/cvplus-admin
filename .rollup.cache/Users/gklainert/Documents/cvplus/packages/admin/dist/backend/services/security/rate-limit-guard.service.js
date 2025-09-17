@@ -20,7 +20,7 @@ export class SecureRateLimitGuard {
      * @param featureId - Feature being accessed
      * @param config - Rate limiting configuration
      * @returns Rate limit result with secure defaults
-     */
+      */
     async checkRateLimit(userId, featureId, config) {
         const startTime = Date.now();
         try {
@@ -65,7 +65,7 @@ export class SecureRateLimitGuard {
     }
     /**
      * Execute the actual rate limit check
-     */
+      */
     async executeRateLimitCheck(userId, featureId, config) {
         const now = Date.now();
         const windowMs = (config.windowMinutes || 1) * 60 * 1000;
@@ -99,7 +99,7 @@ export class SecureRateLimitGuard {
     }
     /**
      * Track usage event with security logging
-     */
+      */
     async trackUsage(userId, featureId, metadata) {
         try {
             const usageRecord = {
@@ -123,7 +123,7 @@ export class SecureRateLimitGuard {
     }
     /**
      * Get current usage statistics
-     */
+      */
     async getUsageStats(userId, featureId, windowMinutes = 60) {
         try {
             const now = Date.now();
@@ -152,7 +152,7 @@ export class SecureRateLimitGuard {
     }
     /**
      * Security event logging with structured format
-     */
+      */
     logSecurityEvent(eventType, userId, featureId, details) {
         const securityEvent = {
             timestamp: new Date().toISOString(),
@@ -172,7 +172,7 @@ export class SecureRateLimitGuard {
     }
     /**
      * Determine event severity for proper alerting
-     */
+      */
     getEventSeverity(eventType) {
         switch (eventType) {
             case 'RATE_LIMIT_CHECK_FAILED':
@@ -189,7 +189,7 @@ export class SecureRateLimitGuard {
     }
     /**
      * Send security events to external monitoring system
-     */
+      */
     sendToSecurityMonitoring(event) {
         // Implementation would depend on your security monitoring system
         // Examples: DataDog, Splunk, Custom SIEM, etc.
@@ -198,7 +198,7 @@ export class SecureRateLimitGuard {
     }
     /**
      * Health check for the rate limiting service
-     */
+      */
     async healthCheck() {
         try {
             const testStart = Date.now();

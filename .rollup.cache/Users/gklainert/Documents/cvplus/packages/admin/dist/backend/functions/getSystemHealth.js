@@ -4,7 +4,7 @@ import * as admin from 'firebase-admin';
 import { requireAdminPermission } from '../../middleware/admin-auth.middleware';
 /**
  * Admin function to get comprehensive system health metrics
- */
+  */
 export const getSystemHealth = onCall({
     cors: true,
     enforceAppCheck: false,
@@ -71,7 +71,7 @@ export const getSystemHealth = onCall({
 });
 /**
  * Get database health metrics
- */
+  */
 const getDatabaseHealth = async (db) => {
     try {
         const startTime = Date.now();
@@ -101,7 +101,7 @@ const getDatabaseHealth = async (db) => {
 };
 /**
  * Get function execution metrics
- */
+  */
 const getFunctionMetrics = async (db, since) => {
     try {
         // This would typically come from Cloud Monitoring API
@@ -123,7 +123,7 @@ const getFunctionMetrics = async (db, since) => {
 };
 /**
  * Get error metrics and patterns
- */
+  */
 const getErrorMetrics = async (db, since) => {
     try {
         // Query error logs if they exist
@@ -154,7 +154,7 @@ const getErrorMetrics = async (db, since) => {
 };
 /**
  * Get performance metrics
- */
+  */
 const getPerformanceMetrics = async (db, since) => {
     return {
         avgResponseTime: 245, // ms
@@ -167,7 +167,7 @@ const getPerformanceMetrics = async (db, since) => {
 };
 /**
  * Get resource usage metrics
- */
+  */
 const getResourceUsage = async () => {
     return {
         storage: {
@@ -189,7 +189,7 @@ const getResourceUsage = async () => {
 };
 /**
  * Get security metrics
- */
+  */
 const getSecurityMetrics = async (db, since) => {
     try {
         const securityEvents = await db.collection('securityEvents')
@@ -213,7 +213,7 @@ const getSecurityMetrics = async (db, since) => {
 };
 /**
  * Get activity metrics
- */
+  */
 const getActivityMetrics = async (db, since) => {
     try {
         // Sample activity data
@@ -233,7 +233,7 @@ const getActivityMetrics = async (db, since) => {
 };
 /**
  * Calculate overall system status
- */
+  */
 const calculateSystemStatus = (metrics) => {
     const checks = [
         metrics.database.status === 'healthy',
@@ -250,7 +250,7 @@ const calculateSystemStatus = (metrics) => {
 };
 /**
  * Get active system alerts
- */
+  */
 const getActiveAlerts = async (db) => {
     try {
         const alerts = await db.collection('systemAlerts')
@@ -266,7 +266,7 @@ const getActiveAlerts = async (db) => {
 };
 /**
  * Generate system recommendations
- */
+  */
 const generateRecommendations = (metrics) => {
     const recommendations = [];
     if (metrics.database.readLatency > 1000) {
@@ -294,7 +294,7 @@ const generateRecommendations = (metrics) => {
 };
 /**
  * Helper function to log admin activities
- */
+  */
 const logAdminActivity = async (adminUid, action, details) => {
     try {
         const db = admin.firestore();

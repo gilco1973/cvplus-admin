@@ -6,7 +6,7 @@
  *
  * @author Gil Klainert
  * @version 1.0.0
- */
+  */
 // ============================================================================
 // ADMIN FUNCTIONS EXPORTS
 // ============================================================================
@@ -32,7 +32,7 @@ export { getUserUsageStats } from './getUserUsageStats';
 // ============================================================================
 /**
  * Available admin functions and their permissions
- */
+  */
 export const ADMIN_FUNCTIONS = {
     getUserStats: {
         name: 'getUserStats',
@@ -158,7 +158,7 @@ export const ADMIN_FUNCTIONS = {
 };
 /**
  * Function categories
- */
+  */
 export const FUNCTION_CATEGORIES = {
     USER_MANAGEMENT: 'User Management',
     SYSTEM_MONITORING: 'System Monitoring',
@@ -171,7 +171,7 @@ export const FUNCTION_CATEGORIES = {
 };
 /**
  * Required permissions for admin functions
- */
+  */
 export const ADMIN_PERMISSIONS = {
     canManageUsers: 'Can manage user accounts and permissions',
     canMonitorSystem: 'Can monitor system health and performance',
@@ -183,7 +183,7 @@ export const ADMIN_PERMISSIONS = {
 };
 /**
  * Function deployment configuration
- */
+  */
 export const DEPLOYMENT_CONFIG = {
     runtime: 'nodejs18',
     region: 'us-central1',

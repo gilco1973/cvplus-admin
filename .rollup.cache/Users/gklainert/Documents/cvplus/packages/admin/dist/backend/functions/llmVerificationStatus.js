@@ -47,7 +47,7 @@ export const llmVerificationStatus = onRequest({
 });
 /**
  * Handle system health check
- */
+  */
 async function handleHealthCheck(res) {
     try {
         // Get comprehensive health status
@@ -93,7 +93,7 @@ async function handleHealthCheck(res) {
 }
 /**
  * Handle metrics request
- */
+  */
 async function handleMetrics(res, timeRange) {
     try {
         // Collect current metrics
@@ -128,7 +128,7 @@ async function handleMetrics(res, timeRange) {
 }
 /**
  * Handle dashboard data request
- */
+  */
 async function handleDashboard(res, timeRange) {
     try {
         const dashboardData = llmMonitoringService.getDashboardData(timeRange);
@@ -155,7 +155,7 @@ async function handleDashboard(res, timeRange) {
 }
 /**
  * Handle configuration request
- */
+  */
 async function handleConfig(res) {
     try {
         // Sanitize configuration (remove sensitive data)
@@ -197,7 +197,7 @@ async function handleConfig(res) {
 }
 /**
  * Handle alerts request
- */
+  */
 async function handleAlerts(res, limit) {
     try {
         // In a full implementation, this would retrieve alerts from the monitoring service
@@ -226,7 +226,7 @@ async function handleAlerts(res, limit) {
 }
 /**
  * Handle export request
- */
+  */
 async function handleExport(res, format) {
     try {
         const exportedData = llmMonitoringService.exportMetrics(format);
@@ -250,7 +250,7 @@ async function handleExport(res, format) {
 }
 /**
  * Determine overall system health
- */
+  */
 function determineOverallHealth(verificationHealth, claudeHealth) {
     if (!verificationHealth.healthy || claudeHealth.service === 'unhealthy') {
         return 'unhealthy';
@@ -262,7 +262,7 @@ function determineOverallHealth(verificationHealth, claudeHealth) {
 }
 /**
  * Generate operational recommendations
- */
+  */
 function generateRecommendations(dashboardData) {
     const recommendations = [];
     if (dashboardData.summary.successRate < 95) {

@@ -11,7 +11,7 @@ export class LLMSecurityMonitorService {
     }
     /**
      * Log a security event and trigger threat detection
-     */
+      */
     async logSecurityEvent(event) {
         const securityEvent = {
             id: this.generateEventId(),
@@ -33,7 +33,7 @@ export class LLMSecurityMonitorService {
     }
     /**
      * Check if an IP is currently blocked
-     */
+      */
     isIPBlocked(ip) {
         const blockInfo = this.blockedIPs.get(ip);
         if (!blockInfo)
@@ -46,7 +46,7 @@ export class LLMSecurityMonitorService {
     }
     /**
      * Block an IP address temporarily
-     */
+      */
     blockIP(ip, durationMinutes, reason) {
         const until = new Date(Date.now() + durationMinutes * 60000);
         this.blockedIPs.set(ip, { until, reason });
@@ -65,7 +65,7 @@ export class LLMSecurityMonitorService {
     }
     /**
      * Check rate limits for a service/IP combination
-     */
+      */
     checkRateLimit(service, ip, limit = 100, windowMinutes = 60) {
         const key = `${service}:${ip}`;
         const now = Date.now();
@@ -98,7 +98,7 @@ export class LLMSecurityMonitorService {
     }
     /**
      * Detect potential security threats based on patterns
-     */
+      */
     async processThreatDetection(event) {
         const recentEvents = this.getRecentEvents(24 * 60 * 60 * 1000); // Last 24 hours
         for (const rule of this.threatRules) {
@@ -116,7 +116,7 @@ export class LLMSecurityMonitorService {
     }
     /**
      * Evaluate if a threat detection rule is triggered
-     */
+      */
     evaluateThreatRule(rule, event, recentEvents) {
         const { conditions } = rule;
         // Check event type match
@@ -148,7 +148,7 @@ export class LLMSecurityMonitorService {
     }
     /**
      * Handle threat detection trigger
-     */
+      */
     async handleThreatDetection(rule, triggerEvent, context) {
         const response = {
             eventId: triggerEvent.id,
@@ -180,7 +180,7 @@ export class LLMSecurityMonitorService {
     }
     /**
      * Send security alerts
-     */
+      */
     sendAlert(rule, event) {
         const alertMessage = {
             ruleName: rule.name,
@@ -205,7 +205,7 @@ export class LLMSecurityMonitorService {
     }
     /**
      * Get security metrics and statistics
-     */
+      */
     getSecurityMetrics() {
         const now = Date.now();
         const last24h = now - (24 * 60 * 60 * 1000);
@@ -236,7 +236,7 @@ export class LLMSecurityMonitorService {
     }
     /**
      * Initialize default threat detection rules
-     */
+      */
     initializeDefaultThreatRules() {
         this.threatRules = [
             {
@@ -338,7 +338,7 @@ export class LLMSecurityMonitorService {
     }
     /**
      * Utility methods
-     */
+      */
     getRecentEvents(timeWindowMs) {
         const cutoff = Date.now() - timeWindowMs;
         return this.events.filter(event => event.timestamp.getTime() > cutoff);
@@ -392,7 +392,7 @@ export class LLMSecurityMonitorService {
     }
     /**
      * Manual incident resolution
-     */
+      */
     resolveSecurityEvent(eventId, notes) {
         const event = this.events.find(e => e.id === eventId);
         if (!event)
@@ -403,13 +403,13 @@ export class LLMSecurityMonitorService {
     }
     /**
      * Add custom threat detection rule
-     */
+      */
     addThreatRule(rule) {
         this.threatRules.push(rule);
     }
     /**
      * Get recent security events
-     */
+      */
     getRecentSecurityEvents(limit = 100) {
         return this.events
             .sort((a, b) => b.timestamp.getTime() - a.timestamp.getTime())
@@ -417,7 +417,7 @@ export class LLMSecurityMonitorService {
     }
     /**
      * Get active incidents
-     */
+      */
     getActiveIncidents() {
         return this.events.filter(e => !e.resolved && ['high', 'critical'].includes(e.severity));
     }

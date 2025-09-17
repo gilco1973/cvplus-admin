@@ -7,7 +7,7 @@
  * @author Gil Klainert
  * @version 2.0.0
  * @updated 2025-08-28
- */
+  */
 import { onCall, HttpsError } from 'firebase-functions/v2/https';
 import { logger } from 'firebase-functions';
 export const getCacheStats = onCall({
@@ -110,10 +110,10 @@ export const getCacheStats = onCall({
 });
 /**
  * Enhanced cache management endpoints
- */
+  */
 /**
  * Warm cache endpoint for admin users
- */
+  */
 export const warmCaches = onCall({
     cors: true,
     enforceAppCheck: false,
@@ -167,7 +167,7 @@ export const warmCaches = onCall({
 });
 /**
  * Clear cache endpoint for admin users
- */
+  */
 export const clearCaches = onCall({
     cors: true,
     enforceAppCheck: false,

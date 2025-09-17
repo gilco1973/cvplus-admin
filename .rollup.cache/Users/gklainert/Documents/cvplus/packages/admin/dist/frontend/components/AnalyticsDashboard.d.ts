@@ -3,7 +3,7 @@
  *
  * React component for displaying comprehensive analytics dashboard.
  * Placeholder implementation for admin analytics interface.
-  */
+ */
 import React from 'react';
 interface AnalyticsDashboardProps {
     className?: string;

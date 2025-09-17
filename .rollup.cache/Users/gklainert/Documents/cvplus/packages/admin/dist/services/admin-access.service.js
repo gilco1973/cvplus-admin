@@ -13,7 +13,7 @@
  *
  * @author Gil Klainert
  * @version 1.0.0
- */
+  */
 import * as admin from 'firebase-admin';
 import * as functions from 'firebase-functions';
 import { AdminRole, AdminLevel } from '../types';
@@ -23,7 +23,7 @@ export class AdminAccessService {
      *
      * @param userId - Firebase user ID
      * @returns Promise<boolean> - True if user has admin access
-     */
+      */
     static async checkAdminAccess(userId) {
         if (!userId) {
             return false;
@@ -58,7 +58,7 @@ export class AdminAccessService {
      *
      * @param userId - Firebase user ID
      * @throws functions.https.HttpsError if user lacks admin access
-     */
+      */
     static async requireAdminAccess(userId) {
         const hasAccess = await this.checkAdminAccess(userId);
         if (!hasAccess) {
@@ -71,7 +71,7 @@ export class AdminAccessService {
      * @param userId - Firebase user ID
      * @param permission - Specific permission to check
      * @returns Promise<boolean> - True if user has the permission
-     */
+      */
     static async hasPermission(userId, permission) {
         try {
             const permissions = await this.getAdminPermissions(userId);
@@ -88,7 +88,7 @@ export class AdminAccessService {
      * @param userId - Firebase user ID
      * @param permission - Required permission
      * @throws functions.https.HttpsError if user lacks the permission
-     */
+      */
     static async requirePermission(userId, permission) {
         const hasPermission = await this.hasPermission(userId, permission);
         if (!hasPermission) {
@@ -100,7 +100,7 @@ export class AdminAccessService {
      *
      * @param userId - Firebase user ID
      * @returns Promise<AdminPermissions> - Complete permissions object
-     */
+      */
     static async getAdminPermissions(userId) {
         // Check basic admin access first
         const hasAccess = await this.checkAdminAccess(userId);
@@ -131,7 +131,7 @@ export class AdminAccessService {
      *
      * @param userId - Firebase user ID
      * @returns Admin user information
-     */
+      */
     static async getAdminUserInfo(userId) {
         try {
             const user = await admin.auth().getUser(userId);
@@ -158,7 +158,7 @@ export class AdminAccessService {
      * @private
      * @param userId - Firebase user ID
      * @param email - User email address
-     */
+      */
     static async upgradeToCustomClaims(userId, email) {
         try {
             // Determine admin level based on email
@@ -186,7 +186,7 @@ export class AdminAccessService {
      *
      * @private
      * @returns Empty AdminPermissions object
-     */
+      */
     static getEmptyPermissions() {
         return {
             canManageUsers: false,
@@ -208,7 +208,7 @@ export class AdminAccessService {
      *
      * @private
      * @returns Complete AdminPermissions with all permissions enabled
-     */
+      */
     static getSuperAdminPermissions() {
         return {
             canManageUsers: true,
@@ -233,7 +233,7 @@ export class AdminAccessService {
      * @param roles - Array of admin roles
      * @param userId - User ID for logging
      * @returns Calculated AdminPermissions object
-     */
+      */
     static calculatePermissions(adminLevel, roles, userId) {
         const permissions = {
             canManageUsers: adminLevel >= 2 || roles.includes(AdminRole.ADMIN),
@@ -258,7 +258,7 @@ export class AdminAccessService {
      *
      * @param context - Firebase Functions CallableContext
      * @returns User ID if valid, throws error otherwise
-     */
+      */
     static validateAdminContext(context) {
         if (!context.auth) {
             throw new functions.https.HttpsError('unauthenticated', 'Authentication required for admin functions');
@@ -272,7 +272,7 @@ export class AdminAccessService {
      * @param userId - Admin user ID
      * @param targetId - Target of the action (optional)
      * @param metadata - Additional metadata (optional)
-     */
+      */
     static async logAdminAction(action, userId, targetId, metadata) {
         try {
             const adminInfo = await this.getAdminUserInfo(userId);
@@ -299,7 +299,7 @@ export class AdminAccessService {
 }
 /**
  * Admin email addresses for fallback authentication
- */
+  */
 AdminAccessService.ADMIN_EMAILS = [
     'gil.klainert@gmail.com',
     'admin@cvplus.ai',
@@ -307,7 +307,7 @@ AdminAccessService.ADMIN_EMAILS = [
 ];
 /**
  * Super admin emails with highest privileges
- */
+  */
 AdminAccessService.SUPER_ADMIN_EMAILS = [
     'gil.klainert@gmail.com'
 ];

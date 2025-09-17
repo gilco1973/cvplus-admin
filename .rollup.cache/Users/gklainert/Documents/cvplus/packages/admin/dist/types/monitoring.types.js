@@ -2,7 +2,7 @@
  * System Monitoring Types
  *
  * Types for system health monitoring, performance tracking, and alerting.
- */
+  */
 export var HealthStatus;
 (function (HealthStatus) {
     HealthStatus["HEALTHY"] = "healthy";

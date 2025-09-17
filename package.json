@@ -38,7 +38,7 @@
     "@cvplus/analytics": "file:../analytics",
     "@cvplus/auth": "file:../auth",
     "@cvplus/core": "file:../core",
-    "@cvplus/logging": "^1.0.0",
+    "@cvplus/logging": "1.0.0",
     "@cvplus/public-profiles": "file:../public-profiles",
     "@types/chart.js": "^2.9.41",
     "chart.js": "^4.5.0",

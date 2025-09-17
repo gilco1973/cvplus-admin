@@ -5,7 +5,7 @@ import { getFirestore } from 'firebase-admin/firestore';
  *
  * Provides comprehensive security event logging, monitoring, and alerting
  * for the CVPlus platform.
- */
+  */
 export class SecurityMonitorService {
     constructor() {
         this.db = getFirestore();
@@ -56,7 +56,7 @@ export class SecurityMonitorService {
     }
     /**
      * Log a security event with automatic threat detection and alerting
-     */
+      */
     async logSecurityEvent(event) {
         const securityEvent = {
             ...event,
@@ -94,7 +94,7 @@ export class SecurityMonitorService {
     }
     /**
      * Check if security event triggers any alerts
-     */
+      */
     async checkAlertConditions(event) {
         try {
             const alertConfig = this.defaultAlertConfigs.find(config => config.eventType === event.eventType && config.enabled);
@@ -134,7 +134,7 @@ export class SecurityMonitorService {
     }
     /**
      * Trigger security alert with multiple notification channels
-     */
+      */
     async triggerSecurityAlert(alertData) {
         const alert = {
             alertId: `alert_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
@@ -170,7 +170,7 @@ export class SecurityMonitorService {
     }
     /**
      * Send critical security alerts (immediate notification)
-     */
+      */
     async sendCriticalAlert(alert) {
         // In production, this would integrate with:
         // - PagerDuty for immediate alerts
@@ -191,7 +191,7 @@ export class SecurityMonitorService {
     }
     /**
      * Send high priority security alerts
-     */
+      */
     async sendHighPriorityAlert(alert) {
         console.warn('⚠️ HIGH PRIORITY SECURITY ALERT', {
             alertId: alert.alertId,
@@ -202,7 +202,7 @@ export class SecurityMonitorService {
     }
     /**
      * Get security event statistics for monitoring dashboard
-     */
+      */
     async getSecurityStatistics(hours = 24) {
         try {
             const windowStart = new Date(Date.now() - (hours * 60 * 60 * 1000));
@@ -256,7 +256,7 @@ export class SecurityMonitorService {
     }
     /**
      * Mark security event as resolved
-     */
+      */
     async resolveSecurityEvent(eventId, resolvedBy, notes) {
         try {
             await this.db.collection('security_events').doc(eventId).update({
@@ -281,7 +281,7 @@ export class SecurityMonitorService {
     }
     /**
      * Send security events to external monitoring system
-     */
+      */
     async sendToExternalMonitoring(event) {
         // Integration points for external monitoring systems:
         // - DataDog Security Monitoring
@@ -294,7 +294,7 @@ export class SecurityMonitorService {
     }
     /**
      * Health check for security monitoring service
-     */
+      */
     async healthCheck() {
         try {
             const testStart = Date.now();

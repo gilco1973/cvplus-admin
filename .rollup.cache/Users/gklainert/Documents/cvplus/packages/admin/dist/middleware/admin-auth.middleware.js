@@ -6,7 +6,7 @@
  *
  * @author Gil Klainert
  * @version 1.0.0
- */
+  */
 import { HttpsError } from 'firebase-functions/v2/https';
 import { logger } from 'firebase-functions';
 import * as admin from 'firebase-admin';
@@ -34,7 +34,7 @@ export var AdminLevel;
 // ============================================================================
 /**
  * Basic authentication requirement
- */
+  */
 export const requireAuth = async (request) => {
     if (!request.auth) {
         logger.error('Authentication failed: No auth context', {
@@ -100,7 +100,7 @@ export const requireAuth = async (request) => {
 };
 /**
  * Check if user has administrative privileges (legacy fallback)
- */
+  */
 export const isAdmin = (request) => {
     const adminEmailsEnv = process.env.ADMIN_EMAILS || 'gil.klainert@gmail.com,admin@cvplus.ai';
     const adminEmails = adminEmailsEnv.split(',').map(email => email.trim());
@@ -108,7 +108,7 @@ export const isAdmin = (request) => {
 };
 /**
  * Enhanced admin authentication with Firebase Custom Claims
- */
+  */
 export const requireAdmin = async (request, minLevel = AdminLevel.L1_SUPPORT) => {
     const authenticatedRequest = await requireAuth(request);
     const { uid, token } = authenticatedRequest.auth;
@@ -179,7 +179,7 @@ export const requireAdmin = async (request, minLevel = AdminLevel.L1_SUPPORT) =>
 };
 /**
  * Check specific admin permission
- */
+  */
 export const requireAdminPermission = async (request, permission) => {
     const adminRequest = await requireAdmin(request, AdminLevel.L1_SUPPORT);
     if (!adminRequest.admin.permissions[permission]) {
@@ -198,7 +198,7 @@ export const requireAdminPermission = async (request, permission) => {
 // ============================================================================
 /**
  * Get admin profile from Firestore
- */
+  */
 const getAdminProfile = async (uid) => {
     try {
         const adminDoc = await admin.firestore()
@@ -221,7 +221,7 @@ const getAdminProfile = async (uid) => {
 };
 /**
  * Get default permissions based on admin level
- */
+  */
 const getDefaultAdminPermissions = (level) => {
     const basePermissions = {
         canAccessDashboard: true,
@@ -503,7 +503,7 @@ const getDefaultAdminPermissions = (level) => {
 // ============================================================================
 /**
  * Extract user information from authenticated request
- */
+  */
 export const getUserInfo = (request) => {
     return {
         uid: request.auth.uid,
@@ -516,7 +516,7 @@ export const getUserInfo = (request) => {
 };
 /**
  * Rate limiting for admin functions
- */
+  */
 const rateLimitMap = new Map();
 const RATE_LIMIT_WINDOW = 60000; // 1 minute
 const RATE_LIMIT_MAX = 20; // 20 requests per minute per admin

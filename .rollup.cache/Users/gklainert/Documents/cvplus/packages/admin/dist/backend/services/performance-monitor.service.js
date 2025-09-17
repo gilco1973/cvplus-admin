@@ -6,7 +6,7 @@
  *
  * @author Gil Klainert
  * @version 1.0.0
- */
+  */
 import * as admin from 'firebase-admin';
 export class PerformanceMonitorService {
     constructor() {
@@ -14,7 +14,7 @@ export class PerformanceMonitorService {
     }
     /**
      * Calculate current system performance metrics
-     */
+      */
     async calculateSystemMetrics(timeRange) {
         try {
             const hours = this.parseTimeRange(timeRange);
@@ -92,7 +92,7 @@ export class PerformanceMonitorService {
     }
     /**
      * Get performance trends over time
-     */
+      */
     async getPerformanceTrends(hours, granularity) {
         try {
             const startTime = new Date(Date.now() - (hours * 60 * 60 * 1000));
@@ -123,7 +123,7 @@ export class PerformanceMonitorService {
     }
     /**
      * Monitor system health and record metrics
-     */
+      */
     async recordSystemMetrics() {
         try {
             const metrics = await this.calculateSystemMetrics('1h');
@@ -141,7 +141,7 @@ export class PerformanceMonitorService {
     }
     /**
      * Get system uptime percentage
-     */
+      */
     async calculateSystemUptime() {
         try {
             // Query system status over the last 24 hours
@@ -171,7 +171,7 @@ export class PerformanceMonitorService {
     }
     /**
      * Check for performance alerts
-     */
+      */
     async checkPerformanceAlerts(metrics) {
         try {
             const alerts = [];
@@ -224,7 +224,7 @@ export class PerformanceMonitorService {
     }
     /**
      * Helper methods
-     */
+      */
     parseTimeRange(timeRange) {
         const match = timeRange.match(/(\d+)([hd])/);
         if (!match)

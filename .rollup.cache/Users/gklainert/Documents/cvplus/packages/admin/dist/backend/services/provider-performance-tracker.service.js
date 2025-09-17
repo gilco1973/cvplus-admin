@@ -6,11 +6,11 @@
  *
  * @author Gil Klainert
  * @version 1.0.0
- */
+  */
 import * as admin from 'firebase-admin';
 /**
  * Performance Metrics Collector
- */
+  */
 class MetricsCollector {
     constructor() {
         this.metricsBuffer = new Map();
@@ -78,7 +78,7 @@ class MetricsCollector {
 }
 /**
  * Trend Analyzer for performance prediction
- */
+  */
 class TrendAnalyzer {
     constructor() {
         this.db = admin.firestore();
@@ -205,7 +205,7 @@ class TrendAnalyzer {
 }
 /**
  * Predictive Analytics Engine
- */
+  */
 class PredictiveAnalytics {
     constructor() {
         this.db = admin.firestore();
@@ -312,7 +312,7 @@ class PredictiveAnalytics {
 }
 /**
  * Provider Performance Tracker Service
- */
+  */
 export class ProviderPerformanceTracker {
     constructor() {
         this.metricsCollector = new MetricsCollector();
@@ -322,7 +322,7 @@ export class ProviderPerformanceTracker {
     }
     /**
      * Track a video generation operation
-     */
+      */
     async trackVideoGeneration(providerId, options, result, responseTime, success, error) {
         try {
             const snapshot = {
@@ -348,7 +348,7 @@ export class ProviderPerformanceTracker {
     }
     /**
      * Track a status check operation
-     */
+      */
     async trackStatusCheck(providerId, jobId, responseTime, success, error) {
         try {
             const snapshot = {
@@ -372,7 +372,7 @@ export class ProviderPerformanceTracker {
     }
     /**
      * Get aggregated performance metrics
-     */
+      */
     async getPerformanceMetrics(providerId, period = '24h') {
         try {
             const cutoffDate = this.getCutoffDate(period);
@@ -405,7 +405,7 @@ export class ProviderPerformanceTracker {
     }
     /**
      * Get performance trends
-     */
+      */
     async getPerformanceTrends(providerId, timeframe = '24h') {
         try {
             const trends = await Promise.all([
@@ -422,7 +422,7 @@ export class ProviderPerformanceTracker {
     }
     /**
      * Get predictive analytics
-     */
+      */
     async getPredictions(providerId) {
         try {
             return await this.predictiveAnalytics.generatePredictions(providerId);
@@ -433,7 +433,7 @@ export class ProviderPerformanceTracker {
     }
     /**
      * Get comprehensive performance dashboard data
-     */
+      */
     async getDashboardData(providerId) {
         try {
             if (providerId) {
@@ -591,7 +591,7 @@ export class ProviderPerformanceTracker {
     }
     /**
      * Cleanup method for proper service shutdown
-     */
+      */
     cleanup() {
         this.metricsCollector.cleanup();
     }

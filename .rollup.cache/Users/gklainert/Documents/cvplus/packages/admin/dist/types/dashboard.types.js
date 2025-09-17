@@ -2,7 +2,7 @@
  * Dashboard Types
  *
  * Types for the admin dashboard interface, widgets, and data visualization.
- */
+  */
 export var DashboardLayoutType;
 (function (DashboardLayoutType) {
     DashboardLayoutType["GRID"] = "grid";

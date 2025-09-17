@@ -2,8 +2,8 @@
  * CV Validator - Re-export Facade
   */
 
-// TEMPORARILY DISABLED: cv-processing package not built yet
-// export { CVValidator } from "@cvplus/cv-processing";
+// TEMPORARILY DISABLED: processing package not built yet
+// export { CVValidator } from "@cvplus/processing";
 
 // Placeholder implementation for backward compatibility
 export const CVValidator = {

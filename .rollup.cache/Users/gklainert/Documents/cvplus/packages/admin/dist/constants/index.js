@@ -2,7 +2,7 @@
  * Admin Constants - Main Export File
  *
  * Exports all admin constants and configuration values.
- */
+  */
 // ============================================================================
 // CORE CONSTANTS
 // ============================================================================

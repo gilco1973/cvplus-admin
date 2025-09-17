@@ -3,7 +3,7 @@ import { subscriptionCache } from './subscription-cache.service';
 export class CacheMonitorService {
     /**
      * Generate comprehensive cache health report
-     */
+      */
     async generateHealthReport() {
         const stats = await subscriptionCache.getStats();
         // Since the actual service returns different structure, create placeholder stats
@@ -48,7 +48,7 @@ export class CacheMonitorService {
     }
     /**
      * Log cache performance metrics
-     */
+      */
     async logPerformanceMetrics() {
         const report = await this.generateHealthReport();
         logger.info('Subscription Cache Performance Report', {
@@ -64,7 +64,7 @@ export class CacheMonitorService {
     }
     /**
      * Check if cache performance is healthy
-     */
+      */
     async isCacheHealthy() {
         const stats = await subscriptionCache.getStats();
         // Since the actual service returns different structure, create placeholder stats
@@ -80,7 +80,7 @@ export class CacheMonitorService {
     }
     /**
      * Perform cache maintenance operations
-     */
+      */
     async performMaintenance() {
         try {
             logger.info('Starting cache maintenance');

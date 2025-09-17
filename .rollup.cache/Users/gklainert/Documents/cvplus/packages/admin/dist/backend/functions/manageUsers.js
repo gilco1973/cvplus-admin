@@ -4,7 +4,7 @@ import * as admin from 'firebase-admin';
 import { requireAdminPermission } from '../../middleware/admin-auth.middleware';
 /**
  * Admin function for comprehensive user management operations
- */
+  */
 export const manageUsers = onCall({
     cors: true,
     enforceAppCheck: false,
@@ -84,7 +84,7 @@ export const manageUsers = onCall({
 });
 /**
  * Get detailed user information
- */
+  */
 const getUserDetails = async (db, auth, userId) => {
     if (!userId) {
         throw new Error('User ID is required');
@@ -153,7 +153,7 @@ const getUserDetails = async (db, auth, userId) => {
 };
 /**
  * Update user information
- */
+  */
 const updateUser = async (db, auth, userId, updateData, adminRequest) => {
     if (!userId || !updateData) {
         throw new Error('User ID and update data are required');
@@ -197,7 +197,7 @@ const updateUser = async (db, auth, userId, updateData, adminRequest) => {
 };
 /**
  * Suspend user account
- */
+  */
 const suspendUser = async (db, auth, userId, reason, adminRequest) => {
     if (!userId) {
         throw new Error('User ID is required');
@@ -229,7 +229,7 @@ const suspendUser = async (db, auth, userId, reason, adminRequest) => {
 };
 /**
  * Unsuspend user account
- */
+  */
 const unsuspendUser = async (db, auth, userId, adminRequest) => {
     if (!userId) {
         throw new Error('User ID is required');
@@ -263,7 +263,7 @@ const unsuspendUser = async (db, auth, userId, adminRequest) => {
 };
 /**
  * Delete user account (requires high-level admin permission)
- */
+  */
 const deleteUser = async (db, auth, userId, reason, adminRequest) => {
     // Only super admins and system admins can delete users
     if (adminRequest.admin.level < 4) {
@@ -317,7 +317,7 @@ const deleteUser = async (db, auth, userId, reason, adminRequest) => {
 };
 /**
  * Reset user password
- */
+  */
 const resetUserPassword = async (auth, userId, adminRequest) => {
     if (!userId) {
         throw new Error('User ID is required');
@@ -344,7 +344,7 @@ const resetUserPassword = async (auth, userId, adminRequest) => {
 };
 /**
  * Verify user email
- */
+  */
 const verifyUserEmail = async (auth, userId, adminRequest) => {
     if (!userId) {
         throw new Error('User ID is required');
@@ -366,7 +366,7 @@ const verifyUserEmail = async (auth, userId, adminRequest) => {
 };
 /**
  * Manage user subscription
- */
+  */
 const manageUserSubscription = async (db, userId, data, adminRequest) => {
     if (!userId || !data?.action) {
         throw new Error('User ID and subscription action are required');
@@ -401,7 +401,7 @@ const manageUserSubscription = async (db, userId, data, adminRequest) => {
 };
 /**
  * Export user data (GDPR compliance)
- */
+  */
 const exportUserData = async (db, userId, adminRequest) => {
     if (!userId) {
         throw new Error('User ID is required');
@@ -433,7 +433,7 @@ const exportUserData = async (db, userId, adminRequest) => {
 };
 /**
  * Helper functions for subscription management
- */
+  */
 const upgradeUserToPremium = async (db, userId, adminRequest) => {
     await db.collection('users').doc(userId).update({
         isPremium: true,
@@ -483,7 +483,7 @@ const extendSubscription = async (db, userId, days, adminRequest) => {
 };
 /**
  * Helper function to log admin activities
- */
+  */
 const logAdminActivity = async (adminUid, action, details) => {
     try {
         const db = admin.firestore();

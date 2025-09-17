@@ -2,7 +2,7 @@
  * Admin Constants
  *
  * Core constants and configuration values for the admin module.
- */
+  */
 import { AdminRole, AdminLevel, AdminSpecialization } from '../types/admin.types';
 // ============================================================================
 // MODULE INFORMATION
@@ -21,7 +21,7 @@ export const MODULE_INFO = {
 // ============================================================================
 /**
  * Admin role hierarchy (highest to lowest privilege)
- */
+  */
 export const ADMIN_ROLE_HIERARCHY = [
     AdminRole.SYSTEM_ADMIN,
     AdminRole.SUPER_ADMIN,
@@ -31,7 +31,7 @@ export const ADMIN_ROLE_HIERARCHY = [
 ];
 /**
  * Admin level mappings
- */
+  */
 export const ADMIN_LEVEL_MAPPINGS = {
     [AdminRole.SUPPORT]: AdminLevel.L1_SUPPORT,
     [AdminRole.MODERATOR]: AdminLevel.L2_MODERATOR,
@@ -41,7 +41,7 @@ export const ADMIN_LEVEL_MAPPINGS = {
 };
 /**
  * Default specializations by role
- */
+  */
 export const DEFAULT_SPECIALIZATIONS = {
     [AdminRole.SUPPORT]: [
         AdminSpecialization.USER_SUPPORT,
@@ -68,7 +68,7 @@ export const DEFAULT_SPECIALIZATIONS = {
 };
 /**
  * Permission matrices by role
- */
+  */
 export const ROLE_PERMISSIONS = {
     [AdminRole.SUPPORT]: {
         canAccessDashboard: true,
@@ -206,7 +206,7 @@ export const ROLE_PERMISSIONS = {
 // ============================================================================
 /**
  * Default admin configuration
- */
+  */
 export const DEFAULT_ADMIN_CONFIG = {
     maxConcurrentSessions: 3,
     sessionTimeout: 3600000, // 1 hour in milliseconds
@@ -217,7 +217,7 @@ export const DEFAULT_ADMIN_CONFIG = {
 };
 /**
  * Admin features configuration
- */
+  */
 export const ADMIN_FEATURES = [
     {
         id: 'dashboard',
@@ -305,7 +305,7 @@ export const ADMIN_FEATURES = [
 // ============================================================================
 /**
  * Dashboard layout constants
- */
+  */
 export const DASHBOARD_LAYOUTS = {
     GRID: {
         columns: 12,
@@ -326,7 +326,7 @@ export const DASHBOARD_LAYOUTS = {
 };
 /**
  * Widget size presets
- */
+  */
 export const WIDGET_SIZES = {
     SMALL: { w: 3, h: 2 },
     MEDIUM: { w: 6, h: 3 },
@@ -335,7 +335,7 @@ export const WIDGET_SIZES = {
 };
 /**
  * Color schemes for admin UI
- */
+  */
 export const COLOR_SCHEMES = {
     LIGHT: {
         primary: '#2563eb',
@@ -359,7 +359,7 @@ export const COLOR_SCHEMES = {
 // ============================================================================
 /**
  * API endpoints for admin operations
- */
+  */
 export const ADMIN_API_ENDPOINTS = {
     // Dashboard
     DASHBOARD: '/api/admin/dashboard',
@@ -400,7 +400,7 @@ export const ADMIN_API_ENDPOINTS = {
 };
 /**
  * HTTP status codes for admin operations
- */
+  */
 export const ADMIN_HTTP_STATUS = {
     OK: 200,
     CREATED: 201,
@@ -417,7 +417,7 @@ export const ADMIN_HTTP_STATUS = {
 };
 /**
  * Request timeout configurations
- */
+  */
 export const REQUEST_TIMEOUTS = {
     QUICK_OPERATION: 5000, // 5 seconds
     STANDARD_OPERATION: 30000, // 30 seconds
@@ -430,7 +430,7 @@ export const REQUEST_TIMEOUTS = {
 // ============================================================================
 /**
  * Default pagination settings
- */
+  */
 export const PAGINATION_DEFAULTS = {
     PAGE_SIZE: 25,
     MAX_PAGE_SIZE: 100,
@@ -438,7 +438,7 @@ export const PAGINATION_DEFAULTS = {
 };
 /**
  * Rate limiting configuration
- */
+  */
 export const RATE_LIMITS = {
     STANDARD_ADMIN: {
         requests: 1000,
@@ -462,7 +462,7 @@ export const RATE_LIMITS = {
 // ============================================================================
 /**
  * Field validation rules
- */
+  */
 export const VALIDATION_RULES = {
     ADMIN_EMAIL: {
         required: true,
@@ -500,7 +500,7 @@ export const VALIDATION_RULES = {
 // ============================================================================
 /**
  * Admin-specific error codes
- */
+  */
 export const ADMIN_ERROR_CODES = {
     // Authentication & Authorization
     INVALID_ADMIN_CREDENTIALS: 'ADMIN_001',
@@ -532,7 +532,7 @@ export const ADMIN_ERROR_CODES = {
 };
 /**
  * Error messages for admin operations
- */
+  */
 export const ADMIN_ERROR_MESSAGES = {
     [ADMIN_ERROR_CODES.INVALID_ADMIN_CREDENTIALS]: 'Invalid admin credentials provided',
     [ADMIN_ERROR_CODES.INSUFFICIENT_PRIVILEGES]: 'Insufficient privileges for this operation',
@@ -561,7 +561,7 @@ export const ADMIN_ERROR_MESSAGES = {
 // ============================================================================
 /**
  * Default notification templates
- */
+  */
 export const NOTIFICATION_TEMPLATES = {
     SYSTEM_ALERT: {
         email: {
@@ -605,7 +605,7 @@ export const NOTIFICATION_TEMPLATES = {
 // ============================================================================
 /**
  * Audit event types
- */
+  */
 export const AUDIT_EVENT_TYPES = {
     // Admin Authentication
     ADMIN_LOGIN: 'admin.login',
@@ -633,7 +633,7 @@ export const AUDIT_EVENT_TYPES = {
 };
 /**
  * Audit retention policies
- */
+  */
 export const AUDIT_RETENTION_POLICIES = {
     AUTHENTICATION_EVENTS: 1095, // 3 years
     USER_MANAGEMENT_EVENTS: 2555, // 7 years

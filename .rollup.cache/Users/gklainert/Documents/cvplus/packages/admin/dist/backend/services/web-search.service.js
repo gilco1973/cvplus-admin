@@ -3,20 +3,20 @@
  *
  * Placeholder service for web search functionality that has been moved to @cvplus/core.
  * This placeholder maintains compatibility while the core submodule is being integrated.
- */
+  */
 export class WebSearchService {
     constructor() {
         this.apiKey = process.env.SERPER_API_KEY;
     }
     /**
      * Check if web search service is available
-     */
+      */
     isAvailable() {
         return !!this.apiKey;
     }
     /**
      * Test search functionality
-     */
+      */
     async testSearch(query = 'test') {
         if (!this.isAvailable()) {
             return {
@@ -43,7 +43,7 @@ export class WebSearchService {
     }
     /**
      * Get service status information
-     */
+      */
     getServiceStatus() {
         return {
             name: 'Web Search (Serper)',

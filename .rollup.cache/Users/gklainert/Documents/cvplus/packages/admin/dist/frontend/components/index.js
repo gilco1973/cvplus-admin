@@ -5,7 +5,7 @@
  *
  * @author Gil Klainert
  * @version 1.0.0
- */
+  */
 // ============================================================================
 // COMPONENT EXPORTS
 // ============================================================================
@@ -22,7 +22,7 @@ export { AnalyticsDashboard } from './AnalyticsDashboard';
 // ============================================================================
 /**
  * Available admin components
- */
+  */
 export const ADMIN_COMPONENTS = {
     layout: {
         name: 'AdminLayout',
@@ -51,7 +51,7 @@ export const ADMIN_COMPONENTS = {
 };
 /**
  * Component categories
- */
+  */
 export const COMPONENT_CATEGORIES = {
     LAYOUT: 'Layout Components',
     ANALYTICS: 'Analytics Components',
@@ -65,17 +65,17 @@ export const COMPONENT_CATEGORIES = {
 // ============================================================================
 /**
  * Common component utilities and helpers
- */
+  */
 export const componentUtils = {
     /**
      * Generate data-testid for admin components
-     */
+      */
     generateTestId: (component, element) => {
         return element ? `admin-${component}-${element}` : `admin-${component}`;
     },
     /**
      * Common loading states
-     */
+      */
     loadingStates: {
         IDLE: 'idle',
         LOADING: 'loading',
@@ -84,7 +84,7 @@ export const componentUtils = {
     },
     /**
      * Common error handling
-     */
+      */
     handleComponentError: (error, componentName) => {
         console.error(`[Admin Component: ${componentName}]`, error);
         // Additional error handling logic can be added here

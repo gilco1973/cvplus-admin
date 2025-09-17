@@ -3,20 +3,20 @@
  *
  * Placeholder service for video generation functionality that has been moved to @cvplus/multimedia.
  * This placeholder maintains compatibility while the multimedia submodule is being integrated.
- */
+  */
 export class VideoGenerationService {
     constructor() {
         this.didApiKey = process.env.DID_API_KEY;
     }
     /**
      * Check if video generation service is available
-     */
+      */
     isAvailable() {
         return !!this.didApiKey;
     }
     /**
      * Test video generation functionality
-     */
+      */
     async testVideoGeneration() {
         if (!this.isAvailable()) {
             return {
@@ -54,7 +54,7 @@ export class VideoGenerationService {
     }
     /**
      * Get service status information
-     */
+      */
     getServiceStatus() {
         return {
             name: 'Video Generation',
@@ -66,7 +66,7 @@ export class VideoGenerationService {
     }
     /**
      * Get available avatars for testing
-     */
+      */
     getAvailableAvatars() {
         return [
             {

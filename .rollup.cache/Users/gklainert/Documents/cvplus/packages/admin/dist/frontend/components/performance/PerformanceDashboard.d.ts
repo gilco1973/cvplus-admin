@@ -7,7 +7,7 @@
  *
  * @author Gil Klainert
  * @version 1.0.0
-  */
+ */
 import React from 'react';
 declare const PerformanceDashboard: React.FC;
 export default PerformanceDashboard;

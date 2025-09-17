@@ -5,7 +5,7 @@ import { requireAuth, AdminRole, AdminLevel } from '../../middleware/admin-auth.
 /**
  * Admin initialization function
  * Sets up admin custom claims for authorized users
- */
+  */
 export const initializeAdmin = onCall({
     cors: true,
     enforceAppCheck: false,
@@ -57,7 +57,7 @@ export const initializeAdmin = onCall({
 });
 /**
  * Initialize admin user with custom claims and profile
- */
+  */
 async function initializeAdminUser(auth, db, uid, email) {
     try {
         // Set admin custom claims
@@ -119,7 +119,7 @@ async function initializeAdminUser(auth, db, uid, email) {
 }
 /**
  * Initialize admin database collections with default data
- */
+  */
 async function initializeAdminCollections(db) {
     try {
         // Create system metrics collection
@@ -171,7 +171,7 @@ async function initializeAdminCollections(db) {
 }
 /**
  * Get system admin permissions (full access)
- */
+  */
 function getSystemAdminPermissions() {
     return {
         canAccessDashboard: true,

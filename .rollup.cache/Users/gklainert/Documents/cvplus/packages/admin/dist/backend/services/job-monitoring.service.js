@@ -6,12 +6,12 @@
  *
  * @author Gil Klainert
  * @version 1.0.0
- */
+  */
 import * as admin from 'firebase-admin';
 export class JobMonitoringService {
     /**
      * Monitor and recover stuck CV generation jobs
-     */
+      */
     static async monitorStuckJobs() {
         try {
             console.log('Starting stuck job monitoring...');
@@ -31,7 +31,7 @@ export class JobMonitoringService {
     }
     /**
      * Get detailed information about a specific job
-     */
+      */
     static async logJobDetails(jobId) {
         try {
             const jobDoc = await this.db.collection('jobs').doc(jobId).get();
@@ -72,7 +72,7 @@ export class JobMonitoringService {
     }
     /**
      * Get comprehensive job processing statistics
-     */
+      */
     static async getJobProcessingStats() {
         try {
             const last24Hours = new Date(Date.now() - (24 * 60 * 60 * 1000));
@@ -151,7 +151,7 @@ export class JobMonitoringService {
     }
     /**
      * Identify stuck jobs based on various criteria
-     */
+      */
     static async identifyStuckJobs() {
         const stuckThreshold = new Date(Date.now() - (15 * 60 * 1000)); // 15 minutes ago
         const stuckJobs = [];
@@ -205,7 +205,7 @@ export class JobMonitoringService {
     }
     /**
      * Handle a stuck job by attempting recovery or marking as failed
-     */
+      */
     static async handleStuckJob(job) {
         try {
             console.log(`Handling stuck job: ${job.id}`);
@@ -228,7 +228,7 @@ export class JobMonitoringService {
     }
     /**
      * Check if a stuck job can be recovered
-     */
+      */
     static async canJobBeRecovered(job) {
         try {
             // Check if job has been stuck for too long (over 1 hour = unrecoverable)
@@ -259,7 +259,7 @@ export class JobMonitoringService {
     }
     /**
      * Attempt to recover a stuck job
-     */
+      */
     static async recoverStuckJob(job) {
         try {
             const retryCount = (job.metadata.retryCount || 0) + 1;
@@ -285,7 +285,7 @@ export class JobMonitoringService {
     }
     /**
      * Mark a stuck job as failed
-     */
+      */
     static async markJobAsFailed(job) {
         try {
             await this.db.collection('jobs').doc(job.id).update({
@@ -313,7 +313,7 @@ export class JobMonitoringService {
     }
     /**
      * Log related job documents for debugging
-     */
+      */
     static async logRelatedJobDocuments(jobId, userId) {
         try {
             // Check for related CV data
@@ -343,7 +343,7 @@ export class JobMonitoringService {
     }
     /**
      * Update monitoring statistics
-     */
+      */
     static async updateMonitoringStats(stuckJobsFound) {
         try {
             const today = new Date().toISOString().split('T')[0];
@@ -360,7 +360,7 @@ export class JobMonitoringService {
     }
     /**
      * Get default statistics
-     */
+      */
     static getDefaultStats() {
         return {
             totalJobs: 0,

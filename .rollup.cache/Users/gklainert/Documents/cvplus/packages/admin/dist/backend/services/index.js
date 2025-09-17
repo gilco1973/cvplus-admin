@@ -5,7 +5,7 @@
  *
  * @author Gil Klainert
  * @version 1.0.0
- */
+  */
 // ============================================================================
 // SERVICE EXPORTS
 // ============================================================================
@@ -34,7 +34,7 @@ export { PIIDetector } from './piiDetector';
 // ============================================================================
 /**
  * Available admin services
- */
+  */
 export const ADMIN_SERVICES = {
     dashboard: 'AdminDashboardService',
     userManagement: 'UserManagementService',
@@ -53,7 +53,7 @@ export const ADMIN_SERVICES = {
 };
 /**
  * Service categories
- */
+  */
 export const SERVICE_CATEGORIES = {
     MONITORING: ['PerformanceMonitorService', 'AlertManagerService', 'JobMonitoringService'],
     ANALYTICS: ['AnalyticsEngineService', 'AdminDashboardService'],
@@ -62,7 +62,7 @@ export const SERVICE_CATEGORIES = {
 };
 /**
  * Service dependencies
- */
+  */
 export const SERVICE_DEPENDENCIES = {
     firebase: ['firebase-admin', 'firebase'],
     core: ['@cvplus/core'],

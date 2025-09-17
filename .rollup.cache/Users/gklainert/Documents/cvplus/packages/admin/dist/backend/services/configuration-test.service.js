@@ -6,11 +6,11 @@
  *
  * @author Gil Klainert
  * @version 1.0.0
- */
+  */
 export class ConfigurationTestService {
     /**
      * Get system configuration with security-safe values
-     */
+      */
     async getConfiguration() {
         // In a real implementation, this would read from environment variables
         // or Firebase configuration. For now, return default configuration structure.
@@ -66,7 +66,7 @@ export class ConfigurationTestService {
     }
     /**
      * Test configuration validity
-     */
+      */
     async testConfiguration(config) {
         const issues = [];
         const warnings = [];
@@ -103,7 +103,7 @@ export class ConfigurationTestService {
     }
     /**
      * Get configuration health status
-     */
+      */
     async getConfigurationHealth() {
         const config = await this.getConfiguration();
         const testResult = await this.testConfiguration(config);

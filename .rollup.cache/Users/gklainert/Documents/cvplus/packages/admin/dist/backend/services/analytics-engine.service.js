@@ -6,7 +6,7 @@
  *
  * @author Gil Klainert
  * @version 1.0.0
- */
+  */
 import * as admin from 'firebase-admin';
 export class AnalyticsEngineService {
     constructor() {
@@ -14,7 +14,7 @@ export class AnalyticsEngineService {
     }
     /**
      * Get comprehensive analytics summary
-     */
+      */
     async getAnalyticsSummary() {
         try {
             const [performance, quality, business] = await Promise.all([
@@ -39,7 +39,7 @@ export class AnalyticsEngineService {
     }
     /**
      * Generate business metrics for specified period
-     */
+      */
     async generateBusinessMetrics(period) {
         try {
             const startTime = this.getStartTime(period);
@@ -78,7 +78,7 @@ export class AnalyticsEngineService {
     }
     /**
      * Generate quality insights for specified period
-     */
+      */
     async generateQualityInsights(period) {
         try {
             const startTime = this.getStartTime(period);
@@ -137,7 +137,7 @@ export class AnalyticsEngineService {
     }
     /**
      * Generate user behavior insights
-     */
+      */
     async generateUserBehaviorInsights(userId) {
         try {
             const startTime = new Date(Date.now() - (30 * 24 * 60 * 60 * 1000)); // Last 30 days
@@ -170,7 +170,7 @@ export class AnalyticsEngineService {
     }
     /**
      * Analyze trends for specific metric
-     */
+      */
     async analyzeTrends(metric, period) {
         try {
             const startTime = this.getStartTime(period);
@@ -206,7 +206,7 @@ export class AnalyticsEngineService {
     }
     /**
      * Private helper methods
-     */
+      */
     async getPerformanceSummary() {
         // Get basic performance data
         const startTime = new Date(Date.now() - (24 * 60 * 60 * 1000));

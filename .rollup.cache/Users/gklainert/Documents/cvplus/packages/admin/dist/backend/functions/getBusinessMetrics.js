@@ -4,7 +4,7 @@ import * as admin from 'firebase-admin';
 import { requireAdminPermission } from '../../middleware/admin-auth.middleware';
 /**
  * Admin function to get comprehensive business metrics and analytics
- */
+  */
 export const getBusinessMetrics = onCall({
     cors: true,
     enforceAppCheck: false,
@@ -87,7 +87,7 @@ export const getBusinessMetrics = onCall({
 });
 /**
  * Get user-related metrics
- */
+  */
 const getUserMetrics = async (db, startDate, endDate) => {
     try {
         // Total users
@@ -148,7 +148,7 @@ const getUserMetrics = async (db, startDate, endDate) => {
 };
 /**
  * Get revenue metrics
- */
+  */
 const getRevenueMetrics = async (db, startDate, endDate) => {
     try {
         // Get subscription payments in period
@@ -221,7 +221,7 @@ const getRevenueMetrics = async (db, startDate, endDate) => {
 };
 /**
  * Get usage metrics
- */
+  */
 const getUsageMetrics = async (db, startDate, endDate) => {
     try {
         // CV generation metrics
@@ -277,7 +277,7 @@ const getUsageMetrics = async (db, startDate, endDate) => {
 };
 /**
  * Get conversion metrics
- */
+  */
 const getConversionMetrics = async (db, startDate, endDate) => {
     try {
         // Users who signed up in period
@@ -328,7 +328,7 @@ const getConversionMetrics = async (db, startDate, endDate) => {
 };
 /**
  * Get engagement metrics
- */
+  */
 const getEngagementMetrics = async (db, startDate, endDate) => {
     try {
         // Page views and sessions would come from analytics service
@@ -358,7 +358,7 @@ const getEngagementMetrics = async (db, startDate, endDate) => {
 };
 /**
  * Get performance metrics
- */
+  */
 const getPerformanceMetrics = async (db, startDate, endDate) => {
     try {
         // Performance metrics would come from monitoring service
@@ -385,7 +385,7 @@ const getPerformanceMetrics = async (db, startDate, endDate) => {
 };
 /**
  * Generate business summary
- */
+  */
 const generateSummary = (metrics) => {
     return {
         totalUsers: metrics.users.total,
@@ -399,7 +399,7 @@ const generateSummary = (metrics) => {
 };
 /**
  * Generate business insights
- */
+  */
 const generateInsights = (metrics) => {
     const insights = [];
     // User growth insight
@@ -441,7 +441,7 @@ const generateInsights = (metrics) => {
 };
 /**
  * Helper function to calculate start date based on time range
- */
+  */
 const getStartDate = (timeRange, endDate) => {
     const start = new Date(endDate);
     switch (timeRange) {
@@ -464,7 +464,7 @@ const getStartDate = (timeRange, endDate) => {
 };
 /**
  * Helper function to log admin activities
- */
+  */
 const logAdminActivity = async (adminUid, action, details) => {
     try {
         const db = admin.firestore();

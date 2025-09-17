@@ -7,7 +7,7 @@
  *
  * @author Gil Klainert
  * @version 1.0.0
- */
+  */
 import * as admin from 'firebase-admin';
 class RealTimeMonitorService {
     constructor() {
@@ -26,7 +26,7 @@ class RealTimeMonitorService {
     }
     /**
      * Start real-time monitoring with sub-second updates
-     */
+      */
     startMonitoring(updateIntervalMs = 500) {
         if (this.isMonitoring)
             return;
@@ -40,7 +40,7 @@ class RealTimeMonitorService {
     }
     /**
      * Stop monitoring
-     */
+      */
     stopMonitoring() {
         if (this.monitoringInterval) {
             clearInterval(this.monitoringInterval);
@@ -50,7 +50,7 @@ class RealTimeMonitorService {
     }
     /**
      * Collect metrics from all Firebase Functions
-     */
+      */
     async collectMetrics() {
         try {
             const functions = await this.getActiveFunctions();
@@ -70,7 +70,7 @@ class RealTimeMonitorService {
     }
     /**
      * Collect metrics for a specific function
-     */
+      */
     async collectFunctionMetrics(functionName) {
         try {
             const timestamp = Date.now();
@@ -96,7 +96,7 @@ class RealTimeMonitorService {
     }
     /**
      * Get function statistics from monitoring APIs
-     */
+      */
     async getFunctionStats(functionName) {
         // This would integrate with Firebase Functions monitoring APIs
         // For now, return sample data structure
@@ -113,7 +113,7 @@ class RealTimeMonitorService {
     }
     /**
      * Buffer metrics for analysis
-     */
+      */
     bufferMetrics(metrics) {
         const key = metrics.functionName;
         if (!this.metricsBuffer.has(key)) {
@@ -128,7 +128,7 @@ class RealTimeMonitorService {
     }
     /**
      * Detect performance anomalies
-     */
+      */
     async detectAnomalies() {
         const anomalies = [];
         for (const [functionName, metricsBuffer] of this.metricsBuffer.entries()) {
@@ -143,7 +143,7 @@ class RealTimeMonitorService {
     }
     /**
      * Handle detected anomalies
-     */
+      */
     async handleAnomalies(anomalies) {
         for (const anomaly of anomalies) {
             // Store anomaly
@@ -160,7 +160,7 @@ class RealTimeMonitorService {
     }
     /**
      * Generate scaling recommendations
-     */
+      */
     async generateScalingRecommendations() {
         const recommendations = [];
         for (const [functionName, metricsBuffer] of this.metricsBuffer.entries()) {
@@ -178,7 +178,7 @@ class RealTimeMonitorService {
     }
     /**
      * Update performance trends
-     */
+      */
     async updateTrends() {
         const trends = [];
         for (const [functionName, metricsBuffer] of this.metricsBuffer.entries()) {
@@ -191,7 +191,7 @@ class RealTimeMonitorService {
     }
     /**
      * Get list of active Firebase Functions
-     */
+      */
     async getActiveFunctions() {
         // This would query Firebase Functions API for active functions
         // For now, return a representative list
@@ -210,7 +210,7 @@ class RealTimeMonitorService {
     }
     /**
      * Store aggregated metrics
-     */
+      */
     async storeAggregatedMetrics(metrics) {
         const db = admin.firestore();
         const batch = db.batch();
@@ -225,7 +225,7 @@ class RealTimeMonitorService {
     }
     /**
      * Store performance anomaly
-     */
+      */
     async storeAnomaly(anomaly) {
         const db = admin.firestore();
         await db.collection('performance_anomalies').add({
@@ -236,7 +236,7 @@ class RealTimeMonitorService {
     }
     /**
      * Trigger anomaly alert
-     */
+      */
     async triggerAnomalyAlert(anomaly) {
         const alertData = {
             type: 'performance_anomaly',
@@ -257,14 +257,14 @@ class RealTimeMonitorService {
     }
     /**
      * Execute auto-remediation
-     */
+      */
     async executeAutoRemediation(anomaly) {
         // Implementation would depend on the specific remediation action
         // e.g., restart function, scale resources, clear cache, etc.
     }
     /**
      * Store scaling recommendations
-     */
+      */
     async storeScalingRecommendations(recommendations) {
         const db = admin.firestore();
         const batch = db.batch();
@@ -280,7 +280,7 @@ class RealTimeMonitorService {
     }
     /**
      * Evaluate auto-scaling opportunities
-     */
+      */
     async evaluateAutoScaling(recommendations) {
         for (const recommendation of recommendations) {
             // Only auto-scale if confidence is high and cost impact is reasonable
@@ -292,13 +292,13 @@ class RealTimeMonitorService {
     }
     /**
      * Apply scaling recommendation
-     */
+      */
     async applyScaling(recommendation) {
         // Implementation would call Firebase Functions scaling APIs
     }
     /**
      * Store performance trends
-     */
+      */
     async storeTrends(trends) {
         const db = admin.firestore();
         const batch = db.batch();
@@ -313,7 +313,7 @@ class RealTimeMonitorService {
     }
     /**
      * Get real-time dashboard data
-     */
+      */
     getDashboardData() {
         const currentMetrics = new Map();
         const anomalySummary = new Map();

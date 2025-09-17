@@ -6,7 +6,7 @@
  *
  * @author Gil Klainert
  * @version 1.0.0
- */
+  */
 // ============================================================================
 // MIDDLEWARE EXPORTS
 // ============================================================================
@@ -16,7 +16,7 @@ export * from './admin-auth.middleware';
 // ============================================================================
 /**
  * Available admin middleware functions
- */
+  */
 export const ADMIN_MIDDLEWARE = {
     authentication: {
         requireAuth: 'Basic authentication requirement',
@@ -33,7 +33,7 @@ export const ADMIN_MIDDLEWARE = {
 };
 /**
  * Middleware categories
- */
+  */
 export const MIDDLEWARE_CATEGORIES = {
     AUTHENTICATION: 'Authentication Middleware',
     AUTHORIZATION: 'Authorization Middleware',

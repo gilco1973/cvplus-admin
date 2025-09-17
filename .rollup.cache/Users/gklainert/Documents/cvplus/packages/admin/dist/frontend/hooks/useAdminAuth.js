@@ -111,7 +111,7 @@ export const useAdminAuth = () => {
     }, [user]);
     /**
      * Initialize admin system for current user
-     */
+      */
     const initializeAdminSystem = async () => {
         if (!user) {
             throw new Error('No user authenticated');
@@ -161,7 +161,7 @@ export const useAdminAuth = () => {
     };
     /**
      * Check if user has specific admin permission
-     */
+      */
     const hasPermission = (permission) => {
         if (!state.isAdmin || !state.adminProfile) {
             return false;
@@ -176,7 +176,7 @@ export const useAdminAuth = () => {
     };
     /**
      * Check if user has minimum admin level
-     */
+      */
     const hasMinLevel = (minLevel) => {
         if (!state.isAdmin || !state.adminProfile) {
             return false;

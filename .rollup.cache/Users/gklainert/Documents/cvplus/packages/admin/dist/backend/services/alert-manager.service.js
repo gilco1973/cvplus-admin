@@ -7,7 +7,7 @@
  *
  * @author Gil Klainert
  * @version 1.0.0
- */
+  */
 import * as admin from 'firebase-admin';
 export class AlertManagerService {
     constructor() {
@@ -113,7 +113,7 @@ export class AlertManagerService {
     }
     /**
      * Initialize default alert rules if they don't exist
-     */
+      */
     async initializeDefaultRules() {
         try {
             const rulesSnapshot = await this.firestore
@@ -133,7 +133,7 @@ export class AlertManagerService {
     }
     /**
      * Check metrics against alert rules and trigger alerts if necessary
-     */
+      */
     async checkAlerts(metrics) {
         try {
             const triggeredAlerts = [];
@@ -168,7 +168,7 @@ export class AlertManagerService {
     }
     /**
      * Process escalation for active alerts
-     */
+      */
     async processEscalations() {
         try {
             const activeAlertsSnapshot = await this.firestore
@@ -189,7 +189,7 @@ export class AlertManagerService {
     }
     /**
      * Acknowledge an alert
-     */
+      */
     async acknowledgeAlert(alertId, acknowledgedBy) {
         try {
             await this.firestore
@@ -207,7 +207,7 @@ export class AlertManagerService {
     }
     /**
      * Resolve an alert
-     */
+      */
     async resolveAlert(alertId, resolvedBy, resolution) {
         try {
             const updateData = {
@@ -229,7 +229,7 @@ export class AlertManagerService {
     }
     /**
      * Suppress an alert for a specified duration
-     */
+      */
     async suppressAlert(alertId, suppressedBy, durationMinutes) {
         try {
             const suppressedUntil = new Date(Date.now() + (durationMinutes * 60 * 1000));
@@ -249,7 +249,7 @@ export class AlertManagerService {
     }
     /**
      * Get alert dashboard data
-     */
+      */
     async getAlertDashboard() {
         try {
             // Get active alerts
@@ -292,7 +292,7 @@ export class AlertManagerService {
     }
     /**
      * Private helper methods
-     */
+      */
     extractMetricValue(metrics, metricName, type) {
         try {
             switch (type) {

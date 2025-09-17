@@ -5,7 +5,7 @@
  *
  * @author Gil Klainert
  * @version 1.0.0
- */
+  */
 // ============================================================================
 // FUNCTIONS EXPORTS
 // ============================================================================
@@ -25,7 +25,7 @@ export const ADMIN_BACKEND_MODULE = {
 };
 /**
  * Backend module capabilities
- */
+  */
 export const BACKEND_CAPABILITIES = {
     userManagement: 'Complete user lifecycle management',
     systemMonitoring: 'Real-time system health monitoring',
